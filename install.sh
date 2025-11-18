@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Agentic Substrate v4.1 - Robust Cross-Platform Installation
-# Works on: macOS, Linux, WSL, minimal containers, with/without Python
+# Works on: macOS, Linux, WSL, Windows (Git Bash/MSYS2), minimal containers, with/without Python
 
 VERSION="4.1.0"
 
@@ -20,6 +20,7 @@ BACKUP_LOCATION=""
 LOCK_FILE="$HOME/.claude-install.lock"
 SUPPORTS_EMOJI=true
 OS_TYPE="unknown"
+PYTHON_CMD=""
 
 # ============================================================================
 # UTILITY FUNCTIONS - Cross-Platform Compatibility
@@ -31,7 +32,7 @@ detect_os() {
         OS_TYPE="macos"
     elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
         OS_TYPE="linux"
-    elif [[ "$OSTYPE" == "msys" ]] || [[ "$OSTYPE" == "cygwin" ]]; then
+    elif [[ "$OSTYPE" == "msys" ]] || [[ "$OSTYPE" == "cygwin" ]] || [[ "$OSTYPE" == "win32" ]]; then
         OS_TYPE="windows"
     elif [ -f /proc/version ] && grep -qi microsoft /proc/version; then
         OS_TYPE="wsl"
@@ -52,6 +53,27 @@ detect_terminal() {
     # Check if running in CI/automated environment
     if [ -n "$CI" ] || [ -n "$GITHUB_ACTIONS" ]; then
         SUPPORTS_EMOJI=false
+    fi
+}
+
+# Detect Python command (python3 vs python for Windows compatibility)
+detect_python() {
+    if command -v python3 >/dev/null 2>&1 && python3 -c "import sys" 2>/dev/null; then
+        PYTHON_CMD="python3"
+    elif command -v python >/dev/null 2>&1 && python -c "import sys" 2>/dev/null; then
+        PYTHON_CMD="python"
+    else
+        PYTHON_CMD=""
+    fi
+}
+
+# Convert Unix path to Windows path for Python (Windows/MSYS2 compatibility)
+to_windows_path() {
+    if [[ "$OS_TYPE" == "windows" ]]; then
+        # Convert /c/ to C:/ for Windows Python
+        echo "$1" | sed 's|^/\([a-zA-Z]\)/|\1:/|'
+    else
+        echo "$1"
     fi
 }
 
@@ -116,19 +138,18 @@ safe_date() {
 parse_json_value() {
     local json_file="$1"
     local key="$2"
+    local json_path
 
     if [ ! -f "$json_file" ]; then
         return 1
     fi
 
-    # Try python3
-    if command -v python3 >/dev/null 2>&1; then
-        python3 -c "import json,sys; print(json.load(open('$json_file'))['$key'])" 2>/dev/null && return 0
-    fi
+    # Convert path for Windows if needed
+    json_path=$(to_windows_path "$json_file")
 
-    # Try python
-    if command -v python >/dev/null 2>&1; then
-        python -c "import json,sys; print json.load(open('$json_file'))['$key']" 2>/dev/null && return 0
+    # Try python3
+    if [ -n "$PYTHON_CMD" ]; then
+        $PYTHON_CMD -c "import json,sys; print(json.load(open('$json_path'))['$key'])" 2>/dev/null && return 0
     fi
 
     # Fallback: bash grep/sed
@@ -139,19 +160,18 @@ parse_json_value() {
 parse_json_array() {
     local json_file="$1"
     local array_name="$2"
+    local json_path
 
     if [ ! -f "$json_file" ]; then
         return 1
     fi
 
-    # Try python3
-    if command -v python3 >/dev/null 2>&1; then
-        python3 -c "import json; print('\n'.join(json.load(open('$json_file'))['$array_name']))" 2>/dev/null && return 0
-    fi
+    # Convert path for Windows if needed
+    json_path=$(to_windows_path "$json_file")
 
     # Try python
-    if command -v python >/dev/null 2>&1; then
-        python -c "import json; print '\n'.join(json.load(open('$json_file'))['$array_name'])" 2>/dev/null && return 0
+    if [ -n "$PYTHON_CMD" ]; then
+        $PYTHON_CMD -c "import json; print('\n'.join(json.load(open('$json_path'))['$array_name']))" 2>/dev/null && return 0
     fi
 
     # Fallback: bash parsing
@@ -366,10 +386,11 @@ preflight_checks() {
 
     # Validate JSON (try multiple methods)
     local json_valid=false
-    if command -v python3 >/dev/null 2>&1; then
-        python3 -m json.tool "$MANIFEST_TEMPLATE" >/dev/null 2>&1 && json_valid=true
-    elif command -v python >/dev/null 2>&1; then
-        python -m json.tool "$MANIFEST_TEMPLATE" >/dev/null 2>&1 && json_valid=true
+    local manifest_path
+    manifest_path=$(to_windows_path "$MANIFEST_TEMPLATE")
+
+    if [ -n "$PYTHON_CMD" ]; then
+        $PYTHON_CMD -m json.tool "$manifest_path" >/dev/null 2>&1 && json_valid=true
     elif command -v jq >/dev/null 2>&1; then
         jq empty "$MANIFEST_TEMPLATE" >/dev/null 2>&1 && json_valid=true
     else
@@ -646,15 +667,21 @@ generate_manifest() {
     local timestamp
     timestamp=$(safe_date)
 
+    # Convert paths for Windows if needed
+    local manifest_src_path
+    local manifest_dst_path
+    manifest_src_path=$(to_windows_path "$MANIFEST_TEMPLATE")
+    manifest_dst_path=$(to_windows_path "$manifest")
+
     # Try to generate with Python
-    if command -v python3 >/dev/null 2>&1; then
-        python3 << EOF 2>/dev/null
+    if [ -n "$PYTHON_CMD" ]; then
+        $PYTHON_CMD << EOF 2>/dev/null
 import json
-with open('$MANIFEST_TEMPLATE', 'r') as f:
+with open('$manifest_src_path', 'r') as f:
     data = json.load(f)
 data['installed_at'] = '$timestamp'
 data['installed_by'] = 'install.sh'
-with open('$manifest', 'w') as f:
+with open('$manifest_dst_path', 'w') as f:
     json.dump(data, f, indent=2)
 EOF
         if [ $? -eq 0 ]; then
@@ -802,6 +829,7 @@ display_summary() {
     echo "Installation Summary:"
     echo "  Location: $CLAUDE_TARGET"
     echo "  Version: $VERSION"
+    echo "  Platform: $OS_TYPE"
     echo "  Agents: 9 | Skills: 5 | Commands: 5"
     echo ""
 
@@ -831,11 +859,12 @@ main() {
     # Initialize
     detect_os
     detect_terminal
+    detect_python
     parse_flags "$@"
 
     echo "Agentic Substrate v$VERSION - Robust Cross-Platform Installation"
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-    echo "OS: $OS_TYPE | Bash: $BASH_VERSION"
+    echo "OS: $OS_TYPE | Bash: $BASH_VERSION | Python: ${PYTHON_CMD:-none}"
     echo ""
 
     if [ "$DRY_RUN" = true ]; then
