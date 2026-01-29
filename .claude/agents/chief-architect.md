@@ -292,7 +292,7 @@ For each agent in sequence:
 chief-architect (Lead Agent)
     ├─ subagent-1 (e.g., @docs-researcher for API docs)
     ├─ subagent-2 (e.g., @docs-researcher for deployment docs)
-    ├─ subagent-3 (e.g., @brahma-scout for codebase patterns)
+    ├─ subagent-3 (e.g., @brahma-analyzer for codebase patterns)
     └─ Synthesize results from all subagents
 ```
 
@@ -318,8 +318,8 @@ chief-architect (Lead Agent)
    - Sub-task 1 → @docs-researcher (OAuth docs)
    - Sub-task 2 → @docs-researcher (JWT docs)
    - Sub-task 3 → @docs-researcher (session docs)
-   - Sub-task 4 → @brahma-scout (codebase analysis)
-   - Sub-task 5 → @durga-security (security patterns)
+   - Sub-task 4 → @brahma-analyzer (codebase analysis)
+   - Sub-task 5 → @docs-researcher (security patterns)
 
 4. **Define success criteria per sub-task**
 
@@ -358,12 +358,12 @@ Subagent 3: @docs-researcher
   Deliverable: Session ResearchPack
   Est. time: 2 min
 
-Subagent 4: @brahma-scout
+Subagent 4: @brahma-analyzer
   Task: Analyze existing auth patterns in codebase
   Deliverable: Auth pattern analysis
   Est. time: 1 min
 
-Subagent 5: @durga-security
+Subagent 5: @docs-researcher
   Task: Security best practices for authentication
   Deliverable: Security requirements
   Est. time: 2 min
@@ -458,7 +458,7 @@ If parallel mode rejected (simple task or user declines cost):
    Fallback: Sequential workflow
 
    Phase 1: @docs-researcher (all research consolidated)
-   Phase 2: @brahma-scout (codebase analysis)
+   Phase 2: @brahma-analyzer (codebase analysis)
    Phase 3: @implementation-planner (unified plan)
    Phase 4: @code-implementer (implementation)
 ```

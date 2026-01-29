@@ -1,6 +1,6 @@
 {
   "manifest_version": "1.0.0",
-  "substrate_version": "3.1.0",
+  "substrate_version": "4.1.0",
   "managed_files": [
     "agents/brahma-analyzer.md",
     "agents/brahma-deployer.md",
@@ -16,6 +16,7 @@
     "skills/planning-methodology/skill.md",
     "skills/quality-validation/skill.md",
     "skills/research-methodology/skill.md",
+    "commands/circuit-breaker.md",
     "commands/context.md",
     "commands/implement.md",
     "commands/plan.md",
@@ -85,10 +86,10 @@
     }
   },
   "metadata": {
-    "total_files": 36,
+    "total_files": 37,
     "agents": 9,
     "skills": 5,
-    "commands": 5,
+    "commands": 6,
     "hooks": 7,
     "validators": 2,
     "metrics": 1,
