@@ -38,6 +38,10 @@ cd claude-user-memory
 ### Use
 
 ```bash
+# Universal command - just say what you want
+/do add authentication to my API
+
+# Or use specific workflows
 /workflow Add Redis caching to ProductService
 ```
 
@@ -47,13 +51,20 @@ cd claude-user-memory
 
 - **9 Agents** - Orchestration, research, planning, implementation, debugging, deployment
 - **5 Skills** - Auto-invoked capabilities for research, planning, validation, patterns, context
-- **5 Commands** - `/workflow`, `/research`, `/plan`, `/implement`, `/context`
+- **7 Commands** - `/do`, `/workflow`, `/research`, `/plan`, `/implement`, `/context`, `/circuit-breaker`
 - **Quality Gates** - Research >= 80, Plans >= 85, Tests passing, 3-retry circuit breaker
 - **Memory** - Knowledge graph persists across sessions
 
 ---
 
 ## Usage
+
+**Universal command (recommended):**
+```bash
+/do add authentication to my API
+/do why is this function slow?
+/do deploy to production
+```
 
 **Full automation:**
 ```bash
@@ -72,6 +83,12 @@ cd claude-user-memory
 @chief-architect Build payment system
 @docs-researcher Research Stripe API
 @brahma-deployer Deploy v2.5.0
+```
+
+**Circuit breaker management:**
+```bash
+/circuit-breaker status    # Check if blocked
+/circuit-breaker reset     # Reset after fixing issues
 ```
 
 ---
@@ -230,6 +247,10 @@ cd claude-user-memory
 ### Uso
 
 ```bash
+# Comando universal - solo di lo que quieres
+/do agregar autenticacion a mi API
+
+# O usa workflows especificos
 /workflow Agregar cache Redis a ProductService
 ```
 
@@ -239,13 +260,20 @@ cd claude-user-memory
 
 - **9 Agentes** - Orquestacion, investigacion, planificacion, implementacion, depuracion, despliegue
 - **5 Habilidades** - Capacidades auto-invocadas para investigacion, planificacion, validacion, patrones, contexto
-- **5 Comandos** - `/workflow`, `/research`, `/plan`, `/implement`, `/context`
+- **7 Comandos** - `/do`, `/workflow`, `/research`, `/plan`, `/implement`, `/context`, `/circuit-breaker`
 - **Puertas de Calidad** - Investigacion >= 80, Planes >= 85, Tests pasando, circuit breaker de 3 reintentos
 - **Memoria** - Grafo de conocimiento persistente entre sesiones
 
 ---
 
 ## Uso
+
+**Comando universal (recomendado):**
+```bash
+/do agregar autenticacion a mi API
+/do por que esta funcion es lenta?
+/do desplegar a produccion
+```
 
 **Automatizacion completa:**
 ```bash
@@ -264,6 +292,12 @@ cd claude-user-memory
 @chief-architect Construir sistema de pagos
 @docs-researcher Investigar API de Stripe
 @brahma-deployer Desplegar v2.5.0
+```
+
+**Gestion del circuit breaker:**
+```bash
+/circuit-breaker status    # Ver si esta bloqueado
+/circuit-breaker reset     # Resetear despues de corregir problemas
 ```
 
 ---
@@ -335,7 +369,7 @@ Este fork por [mariogonzalezsolas-maatimpact](https://github.com/mariogonzalezso
 ---
 
 **Version:** 4.1.0
-**Lanzamiento:** Noviembre 22, 2025
+**Lanzamiento:** Enero 30, 2026
 **Estado:** Listo para Produccion
 
 *Investigar -> Planificar -> Implementar -> Aprender*

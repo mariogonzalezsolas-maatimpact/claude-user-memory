@@ -66,18 +66,27 @@ This repository contains the **Agentic Substrate** - the foundational layer for 
 When you use Claude Code in this project:
 
 ```bash
+# Universal command - just say what you want (RECOMMENDED)
+/do add Redis caching to the application
+/do why is the API slow?
+/do deploy to production
+
 # Automatic workflow
 > Add Redis caching to the application
 # Claude will sequence: research → plan → implement
 
 # Manual control
 > Use docs-researcher to find Redis documentation
-> Use implementation-planner to design caching strategy  
+> Use implementation-planner to design caching strategy
 > Use code-implementer to add Redis caching
 
 # Skip phases when you have artifacts
 > I have the research ready, create a plan
 > I have both research and plan, implement it
+
+# Circuit breaker management
+/circuit-breaker status    # Check if blocked
+/circuit-breaker reset     # Reset after fixing issues
 ```
 
 ## 🧠 Extended Thinking Modes

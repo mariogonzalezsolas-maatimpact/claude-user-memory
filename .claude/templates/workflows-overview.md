@@ -2,6 +2,36 @@
 
 The Agentic Substrate provides structured workflows for common development patterns:
 
+## Universal Command: `/do`
+
+**The simplest way to use the Agentic Substrate** - just say what you want:
+
+```bash
+/do add authentication to my API
+/do why is this function slow?
+/do deploy to production
+/do research WebSockets
+```
+
+The `/do` command:
+1. **Analyzes your intent** - Detects if you need research, planning, implementation, debugging, etc.
+2. **Routes automatically** - Selects the best command or agent for the task
+3. **Gathers context** - On first use, discovers project structure, CLAUDE.md, existing artifacts
+4. **Handles complexity** - Simple tasks get direct answers, complex tasks trigger full workflows
+
+| Your Intent | `/do` Routes To |
+|-------------|-----------------|
+| Build/Add/Create | `/workflow` |
+| Research/Learn | `/research` |
+| Plan/Design | `/plan` |
+| Implement (with plan) | `/implement` |
+| Debug/Investigate | `@brahma-investigator` |
+| Deploy | `@brahma-deployer` |
+| Optimize | `@brahma-optimizer` |
+| Complex multi-domain | `@chief-architect` |
+
+---
+
 ## Research → Plan → Implement Workflow
 
 The core workflow enforced by the Agentic Substrate:
@@ -25,7 +55,12 @@ The core workflow enforced by the Agentic Substrate:
 
 ### Usage
 
-**Automated** (recommended):
+**Universal command** (RECOMMENDED):
+```
+/do Add Redis caching to ProductService
+```
+
+**Automated workflow**:
 ```
 /workflow Add Redis caching to ProductService with 5-minute TTL
 ```
@@ -171,6 +206,8 @@ Automatic quality enforcement between phases:
 3. **Attempt 3**: Minimal working version
 
 **Circuit Breaker**: Opens after 3 failed attempts
+- Check status: `/circuit-breaker status`
+- Reset: `/circuit-breaker reset`
 
 **Categories**:
 - Syntax Error → Direct correction
@@ -215,7 +252,9 @@ After every successful implementation:
 
 ## Best Practices
 
-**Always start with /workflow**: Automated orchestration is faster and safer
+**Start with /do**: Let Claude figure out the best approach for your task
+
+**Use /workflow for features**: Automated orchestration is faster and safer
 
 **Trust the quality gates**: If research scores < 80, fix it before planning
 
@@ -226,3 +265,5 @@ After every successful implementation:
 **Review knowledge-core.md**: Periodically to see accumulated patterns
 
 **Git commits locally only**: Review with `git show HEAD` before pushing
+
+**Check circuit breaker**: If blocked, run `/circuit-breaker status` and reset after fixing issues
