@@ -1,8 +1,8 @@
-# Agentic Substrate v4.1
+# Agentic Substrate v5.0
 
-**Research-first development system for Claude Code CLI**
+**Research-first development system for Claude Code CLI - Optimized for Claude Opus 4.6**
 
-> No API hallucinations. No coding from stale training data. Research -> Plan -> Implement.
+> 15 agents across 4 tiers. No API hallucinations. No coding from stale training data. Research -> Plan -> Implement -> Grow.
 
 [English](#english) | [Espanol](#espanol)
 
@@ -49,11 +49,15 @@ cd claude-user-memory
 
 ## What You Get
 
-- **9 Agents** - Orchestration, research, planning, implementation, debugging, deployment
+- **15 Agents** across 4 tiers:
+  - **BUILD+FIX** - Research, planning, analysis, implementation, debugging
+  - **SERVE** - Deployment, monitoring, optimization
+  - **GROW** - SEO, business analysis, content marketing, product strategy, security, UX/accessibility
 - **5 Skills** - Auto-invoked capabilities for research, planning, validation, patterns, context
 - **7 Commands** - `/do`, `/workflow`, `/research`, `/plan`, `/implement`, `/context`, `/circuit-breaker`
 - **Quality Gates** - Research >= 80, Plans >= 85, Tests passing, 3-retry circuit breaker
 - **Memory** - Knowledge graph persists across sessions
+- **Opus 4.6** - All agents optimized for Claude's latest model
 
 ---
 
@@ -83,6 +87,14 @@ cd claude-user-memory
 @chief-architect Build payment system
 @docs-researcher Research Stripe API
 @brahma-deployer Deploy v2.5.0
+
+# Growth & Strategy agents (new in v5.0)
+@seo-strategist Audit SEO and create optimization roadmap
+@business-analyst Analyze customer onboarding process
+@content-strategist Create content strategy for launch
+@product-strategist Evaluate market opportunity
+@security-auditor OWASP Top 10 security audit
+@ux-accessibility-reviewer WCAG 2.2 compliance audit
 ```
 
 **Circuit breaker management:**
@@ -172,11 +184,12 @@ Your data and customizations are automatically preserved.
 
 ## Documentation
 
-- [Agents Overview](.claude/templates/agents-overview.md) - All 9 agents
+- [Agents Overview](.claude/templates/agents-overview.md) - All 15 agents across 4 tiers
 - [Skills Overview](.claude/templates/skills-overview.md) - Auto-invoked capabilities
-- [Workflows Overview](.claude/templates/workflows-overview.md) - Development patterns
+- [Workflows Overview](.claude/templates/workflows-overview.md) - Development + Growth patterns
 - [Installation Behavior](INSTALLATION-BEHAVIOR.md) - Data preservation details
 - [Release Notes](RELEASE-NOTES-V4.md) - v4.0/4.1 features
+- [Changelog](CHANGELOG.md) - Complete version history
 
 ---
 
@@ -210,11 +223,11 @@ MIT License - See [LICENSE](LICENSE)
 ---
 
 <a name="espanol"></a>
-# Agentic Substrate v4.1 (Espanol)
+# Agentic Substrate v5.0 (Espanol)
 
-**Sistema de desarrollo basado en investigacion para Claude Code CLI**
+**Sistema de desarrollo basado en investigacion para Claude Code CLI - Optimizado para Claude Opus 4.6**
 
-> Sin alucinaciones de APIs. Sin codigo basado en datos de entrenamiento obsoletos. Investigar -> Planificar -> Implementar.
+> 15 agentes en 4 niveles. Sin alucinaciones de APIs. Sin codigo basado en datos de entrenamiento obsoletos. Investigar -> Planificar -> Implementar -> Crecer.
 
 ---
 
@@ -258,11 +271,15 @@ cd claude-user-memory
 
 ## Que Incluye
 
-- **9 Agentes** - Orquestacion, investigacion, planificacion, implementacion, depuracion, despliegue
+- **15 Agentes** en 4 niveles:
+  - **BUILD+FIX** - Investigacion, planificacion, analisis, implementacion, depuracion
+  - **SERVE** - Despliegue, monitorizacion, optimizacion
+  - **GROW** - SEO, analisis de negocio, marketing de contenidos, estrategia de producto, seguridad, UX/accesibilidad
 - **5 Habilidades** - Capacidades auto-invocadas para investigacion, planificacion, validacion, patrones, contexto
 - **7 Comandos** - `/do`, `/workflow`, `/research`, `/plan`, `/implement`, `/context`, `/circuit-breaker`
 - **Puertas de Calidad** - Investigacion >= 80, Planes >= 85, Tests pasando, circuit breaker de 3 reintentos
 - **Memoria** - Grafo de conocimiento persistente entre sesiones
+- **Opus 4.6** - Todos los agentes optimizados para el ultimo modelo de Claude
 
 ---
 
@@ -292,6 +309,14 @@ cd claude-user-memory
 @chief-architect Construir sistema de pagos
 @docs-researcher Investigar API de Stripe
 @brahma-deployer Desplegar v2.5.0
+
+# Agentes de Crecimiento y Estrategia (nuevo en v5.0)
+@seo-strategist Auditar SEO y crear plan de optimizacion
+@business-analyst Analizar proceso de onboarding de clientes
+@content-strategist Crear estrategia de contenidos para lanzamiento
+@product-strategist Evaluar oportunidad de mercado
+@security-auditor Auditoria de seguridad OWASP Top 10
+@ux-accessibility-reviewer Auditoria de accesibilidad WCAG 2.2
 ```
 
 **Gestion del circuit breaker:**

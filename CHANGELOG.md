@@ -5,6 +5,60 @@ All notable changes to Agentic Substrate will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.0.0] - 2026-02-17
+
+### Added
+
+#### Tier 4: Growth & Strategy Agents (6 new agents)
+- **@seo-strategist** - Technical SEO audit, Core Web Vitals, schema markup, keyword strategy
+- **@business-analyst** - Business logic analysis, requirements engineering, process optimization, SWOT/ROI
+- **@content-strategist** - Content marketing, brand voice, SEO content, social media strategy
+- **@product-strategist** - Product strategy, market analysis (TAM/SAM/SOM), competitive intelligence, roadmaps
+- **@security-auditor** - OWASP Top 10 assessment, code security review, compliance (SOC2/GDPR/HIPAA/PCI DSS)
+- **@ux-accessibility-reviewer** - WCAG 2.2 compliance, Nielsen's 10 heuristics, inclusive design
+
+#### Enhanced `/do` Command Routing
+- 6 new intent categories: SEO, Business Analysis, Content/Marketing, Product Strategy, Security, UX/Accessibility
+- Keyword classification for automatic routing to Tier 4 agents
+- 7 new routing examples in command documentation
+
+#### New Workflow Patterns
+- SEO & Content Strategy workflow (`@seo-strategist` + `@content-strategist`)
+- Product Launch workflow (`@product-strategist` + `@content-strategist` + `@brahma-deployer`)
+- Security-First Development workflow (`@security-auditor` + `@code-implementer`)
+- UX-Driven Development workflow (`@ux-accessibility-reviewer` + `@code-implementer`)
+- Business Process Optimization workflow (`@business-analyst` + `@implementation-planner`)
+- Full Growth Audit workflow (all Tier 4 agents in parallel)
+
+### Changed
+- **Version**: 4.1.0 → 5.0.0
+- **Agent count**: 9 → 15 across 4 tiers (was 3 tiers)
+- **Model optimization**: All agents optimized for Claude Opus 4.6
+- **Agent versioning**: docs-researcher, implementation-planner, code-implementer updated to v3.0 (Opus 4.6)
+- **README.md**: Updated to v5.0 in both English and Spanish sections
+- **agents-overview.md**: Added complete Tier 4 documentation, updated model references
+- **workflows-overview.md**: Added Growth & Strategy routing table and 6 new workflow patterns
+- **skills-overview.md**: Added Tier 4 integration example
+- **CLAUDE.md**: Updated to v5.0 with Growth & Strategy tier documentation
+- **manifest-template.json**: Updated to v5.0.0, added 6 new agent files (38 → 44 total files)
+- **manifest.json**: Updated to v5.0.0, agent count 4 → 15
+- **install.sh**: Updated version to 5.0.0
+
+### Architecture
+- **4-Tier Agent System**:
+  - Tier 1: Orchestration (1 agent) - chief-architect
+  - Tier 2: Core Workflow / BUILD+FIX (5 agents) - research, planning, analysis, implementation, debugging
+  - Tier 3: Production / SERVE (3 agents) - deployment, monitoring, optimization
+  - Tier 4: Growth & Strategy / GROW (6 agents) - SEO, business, content, product, security, UX
+
+### Performance
+- All Tier 4 agents include Think Protocol integration
+- DeepWiki MCP mandatory for all new agents
+- Quality scoring systems: SEO Score (0-100), Security Score (0-100), UX+A11y Score (0-100)
+- Anti-stagnation measures with time limits and progress reporting
+
+---
+
 ## [3.1.0] - 2025-10-25
 
 ### Added

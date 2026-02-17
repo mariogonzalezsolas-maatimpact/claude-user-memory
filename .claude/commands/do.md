@@ -90,6 +90,12 @@ I analyze your request and automatically route to the best approach:
 | Optimize/Performance | `@brahma-optimizer` |
 | Monitor/Observe | `@brahma-monitor` |
 | Analyze code/patterns | `@brahma-analyzer` |
+| SEO/Search/Rankings | `@seo-strategist` |
+| Business analysis/Requirements | `@business-analyst` |
+| Content/Marketing/Blog/Social | `@content-strategist` |
+| Product strategy/Roadmap/Market | `@product-strategist` |
+| Security audit/Vulnerabilities | `@security-auditor` |
+| UX review/Accessibility/WCAG | `@ux-accessibility-reviewer` |
 | Context/Memory issues | `/context analyze` |
 | Complex multi-domain | `@chief-architect` |
 | Simple question | Direct answer |
@@ -150,6 +156,43 @@ Analyze the user's request using this decision tree:
 - "analyze", "review", "check", "validate"
 - "consistency", "patterns in code"
 - Example: "analyze the authentication patterns in codebase"
+
+**Keywords indicating SEO**:
+- "seo", "search engine", "rankings", "keywords", "meta tags"
+- "organic traffic", "schema markup", "structured data"
+- "core web vitals", "google", "search visibility"
+- Example: "improve SEO for our landing page"
+
+**Keywords indicating BUSINESS ANALYSIS**:
+- "business", "requirements", "stakeholders", "process"
+- "roi", "cost-benefit", "kpi", "business logic"
+- "swot", "value proposition", "business case"
+- Example: "analyze our customer onboarding process"
+
+**Keywords indicating CONTENT/MARKETING**:
+- "content", "blog", "social media", "marketing"
+- "brand", "messaging", "copywriting", "newsletter"
+- "content calendar", "brand voice", "engagement"
+- Example: "create content strategy for our product launch"
+
+**Keywords indicating PRODUCT STRATEGY**:
+- "product", "roadmap", "market", "competitive"
+- "feature prioritization", "go-to-market", "gtm"
+- "market analysis", "positioning", "pricing"
+- Example: "evaluate market opportunity for new feature"
+
+**Keywords indicating SECURITY**:
+- "security", "vulnerability", "audit", "owasp"
+- "compliance", "penetration", "breach", "secure"
+- "gdpr", "soc2", "hipaa", "encryption"
+- Example: "security audit before production deployment"
+
+**Keywords indicating UX/ACCESSIBILITY**:
+- "ux", "usability", "accessibility", "wcag"
+- "user experience", "a11y", "inclusive design"
+- "screen reader", "keyboard navigation", "contrast"
+- "heuristic", "user journey", "personas"
+- Example: "audit accessibility compliance for our app"
 
 **Keywords indicating CONTEXT issues**:
 - "context", "memory", "tokens", "too long"
@@ -234,6 +277,48 @@ If intent is unclear:
 🎯 Intent: DEPLOYMENT
 📋 Executing: @brahma-deployer
 💡 Reason: "deploy" = production deployment workflow
+```
+
+**User**: `/do improve our SEO rankings`
+```
+🎯 Intent: SEO
+📋 Executing: @seo-strategist
+💡 Reason: "SEO" + "rankings" = search engine optimization audit needed
+```
+
+**User**: `/do analyze our customer journey`
+```
+🎯 Intent: BUSINESS ANALYSIS
+📋 Executing: @business-analyst
+💡 Reason: "analyze" + "customer journey" = business process analysis
+```
+
+**User**: `/do create blog content for launch`
+```
+🎯 Intent: CONTENT/MARKETING
+📋 Executing: @content-strategist
+💡 Reason: "blog content" + "launch" = content marketing strategy
+```
+
+**User**: `/do evaluate market opportunity`
+```
+🎯 Intent: PRODUCT STRATEGY
+📋 Executing: @product-strategist
+💡 Reason: "market opportunity" = market analysis and product strategy
+```
+
+**User**: `/do security check before deploy`
+```
+🎯 Intent: SECURITY
+📋 Executing: @security-auditor
+💡 Reason: "security check" + "deploy" = pre-deployment security audit
+```
+
+**User**: `/do check accessibility compliance`
+```
+🎯 Intent: UX/ACCESSIBILITY
+📋 Executing: @ux-accessibility-reviewer
+💡 Reason: "accessibility compliance" = WCAG audit and UX review
 ```
 
 ## Context Awareness Throughout Session

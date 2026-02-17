@@ -100,6 +100,25 @@ All skills work together automatically:
 
 Result: High-quality, reproducible outcomes with continuous learning
 
+## Integration with Tier 4 Agents
+
+Skills also enhance Growth & Strategy agents:
+
+```
+1. User: "Improve our SEO and launch content strategy"
+
+2. @seo-strategist → Technical SEO audit + keyword research
+   research-methodology → Fetches latest SEO best practices
+
+3. @content-strategist → Content plan aligned with SEO keywords
+   quality-validation → Validates content strategy completeness
+
+4. @code-implementer → Implements schema markup + meta tags
+   pattern-recognition → Captures SEO patterns for future use
+
+5. context-engineering → Archives SEO/content work, loads next task
+```
+
 ## Best Practices
 
 **Research**: Always use context7 when available for latest docs

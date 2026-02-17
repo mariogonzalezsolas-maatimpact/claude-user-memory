@@ -442,7 +442,7 @@ functionName(param1: Type, param2: Type): ReturnType
 - **Completed**: [timestamp]
 - **Duration**: [X] seconds
 - **Sources Consulted**: [N]
-- **Agent**: docs-researcher v2.0
+- **Agent**: docs-researcher v3.0 (Opus 4.6)
 
 ---
 

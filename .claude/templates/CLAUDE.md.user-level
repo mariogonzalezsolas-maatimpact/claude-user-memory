@@ -1,6 +1,6 @@
-# Agentic Substrate v4.1 - System-Wide Enhancement
+# Agentic Substrate v5.0 - System-Wide Enhancement
 
-**The Love of Wisdom (Philia Sophia) - Research-Driven Development**
+**The Love of Wisdom (Philia Sophia) - Research-Driven Development - Optimized for Claude Opus 4.6**
 
 This file documents the Agentic Substrate capabilities installed system-wide in `~/.claude/`. These enhancements work across **all projects** and integrate seamlessly with project-specific configurations.
 
@@ -24,13 +24,21 @@ This file documents the Agentic Substrate capabilities installed system-wide in 
 
 # Direct agent invocation
 @chief-architect Build complete authentication system
+
+# Growth & Strategy agents (new in v5.0)
+@seo-strategist Audit SEO and create optimization roadmap
+@business-analyst Analyze customer onboarding process
+@content-strategist Create content strategy for launch
+@product-strategist Evaluate market opportunity
+@security-auditor OWASP Top 10 security audit
+@ux-accessibility-reviewer WCAG 2.2 compliance audit
 ```
 
 ---
 
 ## 📦 What's Installed
 
-### 9 Agents (Complete BUILD-FIX-SERVE Coverage)
+### 15 Agents across 4 Tiers (Optimized for Claude Opus 4.6)
 
 **Tier 1: Orchestrator (1 agent)**
 - **@chief-architect** - Master orchestrator for complex multi-agent workflows
@@ -46,6 +54,14 @@ This file documents the Agentic Substrate capabilities installed system-wide in 
 - **@brahma-deployer** - Canary deployments (5%→25%→50%→100%) with auto-rollback
 - **@brahma-monitor** - Observability: Metrics, Logs, Traces (three pillars)
 - **@brahma-optimizer** - Performance profiling, optimization, auto-scaling
+
+**Tier 4: Growth & Strategy (6 agents)** - GROW phase
+- **@seo-strategist** - Technical SEO audit, Core Web Vitals, schema markup, keyword strategy
+- **@business-analyst** - Business logic analysis, requirements engineering, process optimization
+- **@content-strategist** - Content marketing, brand voice, SEO content, editorial calendars
+- **@product-strategist** - Market analysis (TAM/SAM/SOM), competitive intelligence, roadmaps
+- **@security-auditor** - OWASP Top 10, code security review, compliance (SOC2/GDPR/HIPAA)
+- **@ux-accessibility-reviewer** - WCAG 2.2 compliance, Nielsen's heuristics, inclusive design
 
 ### 5 Skills (Auto-invoked capabilities)
 - **research-methodology** - Truth over speed (but achieve both)
@@ -213,10 +229,11 @@ Run every 50 messages or when switching tasks:
 
 If you have the Unified Brahma Orchestration System V2.0 installed:
 
-**Agentic Substrate** (4 agents - Research → Plan → Implement):
+**Agentic Substrate** (15 agents - Research → Plan → Implement → Grow):
 - System-wide workflow automation
 - Works in ANY directory
 - Quality gates and TDD enforcement
+- Growth & Strategy analysis
 
 **Project Brahma** (18 agents - BUILD → FIX → SERVE):
 - Multi-project orchestration
@@ -228,11 +245,13 @@ If you have the Unified Brahma Orchestration System V2.0 installed:
 # Agentic Substrate handles feature development
 /workflow Add payment processing with Stripe
 
+# Growth & Strategy analysis
+@seo-strategist Audit SEO for launch readiness
+@security-auditor OWASP Top 10 audit before deployment
+
 # Project Brahma handles deployment
 @brahma-deployer v2.5.0 to production with canary
 ```
-
-See `/Users/amba/CLAUDE.md` for complete Brahma documentation.
 
 ---
 
@@ -301,16 +320,18 @@ Claude Code loads context in this order:
 
 ## 📦 Installation Info
 
-- **Version**: 4.1.0
+- **Version**: 5.0.0
+- **Model**: Claude Opus 4.6
 - **Installed**: ~/.claude/
 - **Repository**: https://github.com/VAMFI/claude-user-memory
-- **Documentation**: https://vamfi.org/blog-demo8-philia-sophia
 
-### v4.1 Enhancements
-- **`/do` command** - Universal intent-based router (just say what you want)
-- **`/circuit-breaker` command** - Direct circuit breaker management
+### v5.0 Enhancements
+- **6 new Growth & Strategy agents** - SEO, business analysis, content, product, security, UX/accessibility
+- **Opus 4.6 optimization** - All 15 agents optimized for Claude's latest model
+- **Enhanced `/do` routing** - 6 new intent categories for Tier 4 agents
+- **6 new workflow patterns** - SEO+Content, Product Launch, Security-First, UX-Driven, and more
 - **DeepWiki MCP** - Mandatory for all agents (reduces API hallucination to <2%)
-- **Agent optimization** - 20-30% token reduction in prompts
+- **Quality scoring** - SEO Score, Security Score, UX+A11y Score (all 0-100)
 
 ### Update
 ```bash
@@ -321,7 +342,7 @@ git pull origin main
 
 ### Uninstall
 ```bash
-rm -rf ~/.claude/agents/{chief-architect,docs-researcher,implementation-planner,code-implementer,brahma-*}.md
+rm -rf ~/.claude/agents/{chief-architect,docs-researcher,implementation-planner,code-implementer,brahma-*,seo-strategist,business-analyst,content-strategist,product-strategist,security-auditor,ux-accessibility-reviewer}.md
 rm -rf ~/.claude/skills/{research-methodology,planning-methodology,quality-validation,pattern-recognition,context-engineering}
 rm -rf ~/.claude/commands/{do,research,plan,implement,workflow,context,circuit-breaker}.md
 # Review and manually remove hooks if needed

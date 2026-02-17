@@ -2,8 +2,8 @@
   "dxt_version": "1.0.0",
   "name": "agentic-substrate",
   "displayName": "Agentic Substrate - Claude Code Enhancement",
-  "version": "3.1.0",
-  "description": "The foundational layer for Claude Code superintelligence. Adds Research→Plan→Implement workflow, multi-agent coordination, context engineering, and think protocols based on Anthropic's engineering philosophy.",
+  "version": "5.0.0",
+  "description": "The foundational layer for Claude Code superintelligence. 15 specialized agents across 4 tiers (BUILD+FIX+SERVE+GROW), optimized for Opus 4.6. Adds Research→Plan→Implement workflow, Growth & Strategy agents (SEO, Business, Content, Product, Security, UX), multi-agent coordination, context engineering, and think protocols.",
   "server": {
     "type": "static",
     "enabled": false
@@ -65,9 +65,14 @@
   ],
   "features": {
     "agents": {
-      "count": 4,
-      "names": ["chief-architect", "docs-researcher", "implementation-planner", "code-implementer"],
-      "description": "Specialized agents for Research→Plan→Implement workflow"
+      "count": 15,
+      "names": [
+        "chief-architect",
+        "docs-researcher", "implementation-planner", "brahma-analyzer", "code-implementer", "brahma-investigator",
+        "brahma-deployer", "brahma-monitor", "brahma-optimizer",
+        "seo-strategist", "business-analyst", "content-strategist", "product-strategist", "security-auditor", "ux-accessibility-reviewer"
+      ],
+      "description": "15 specialized agents across 4 tiers: Orchestration, Core Workflow, Production, Growth & Strategy"
     },
     "skills": {
       "count": 5,
@@ -76,7 +81,7 @@
     },
     "commands": {
       "count": 5,
-      "names": ["/research", "/plan", "/implement", "/workflow", "/context"],
+      "names": ["/research", "/plan", "/implement", "/workflow", "/context", "/do", "/circuit-breaker"],
       "description": "Quick commands for workflow automation"
     },
     "hooks": {

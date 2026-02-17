@@ -28,6 +28,12 @@ The `/do` command:
 | Debug/Investigate | `@brahma-investigator` |
 | Deploy | `@brahma-deployer` |
 | Optimize | `@brahma-optimizer` |
+| SEO/Search rankings | `@seo-strategist` |
+| Business analysis/Requirements | `@business-analyst` |
+| Content/Marketing/Social | `@content-strategist` |
+| Product strategy/Roadmap | `@product-strategist` |
+| Security audit/Compliance | `@security-auditor` |
+| UX review/Accessibility | `@ux-accessibility-reviewer` |
 | Complex multi-domain | `@chief-architect` |
 
 ---
@@ -267,3 +273,103 @@ After every successful implementation:
 **Git commits locally only**: Review with `git show HEAD` before pushing
 
 **Check circuit breaker**: If blocked, run `/circuit-breaker status` and reset after fixing issues
+
+## Growth & Strategy Workflows (Tier 4)
+
+### SEO & Content Growth Workflow
+```
+/do improve our search visibility and content strategy
+
+Sequence:
+@seo-strategist → Technical audit + keyword opportunities
+    ↓
+@content-strategist → Content plan aligned with keywords
+    ↓
+@code-implementer → Implement schema markup, meta tags
+    ↓
+@seo-strategist → Validate improvements
+
+Duration: 15-25 min
+```
+
+### Product Launch Workflow
+```
+/do launch our new product
+
+Sequence:
+@product-strategist → Market analysis + positioning + GTM plan
+    ↓
+@business-analyst → Requirements + ROI validation
+    ↓
+@content-strategist → Launch content + messaging
+    ↓
+@seo-strategist → SEO for launch pages
+    ↓
+@ux-accessibility-reviewer → Landing page UX review
+
+Duration: 20-30 min
+```
+
+### Security-First Deployment Workflow
+```
+/do deploy securely to production
+
+Sequence:
+@security-auditor → OWASP Top 10 audit
+    ↓
+@code-implementer → Fix critical vulnerabilities
+    ↓
+@brahma-deployer → Canary deployment
+    ↓
+@brahma-monitor → Security monitoring
+
+Duration: 30-45 min
+```
+
+### UX-Driven Development Workflow
+```
+/do improve accessibility and user experience
+
+Sequence:
+@ux-accessibility-reviewer → WCAG audit + UX heuristics
+    ↓
+@implementation-planner → Plan accessibility fixes
+    ↓
+@code-implementer → Implement ARIA, keyboard nav, contrast
+    ↓
+@seo-strategist → Validate SEO impact
+
+Duration: 20-30 min
+```
+
+### Business Intelligence Workflow
+```
+/do analyze our business processes
+
+Sequence:
+@business-analyst → Process mapping + requirements
+    ↓
+@product-strategist → Market validation + prioritization
+    ↓
+@content-strategist → Stakeholder communication plan
+    ↓
+@chief-architect → Technical feasibility assessment
+
+Duration: 15-25 min
+```
+
+### Complete Growth Audit
+```
+/do full growth audit
+
+Sequence (parallel where possible):
+@seo-strategist → SEO health audit
+@ux-accessibility-reviewer → UX + accessibility audit
+@security-auditor → Security posture audit
+@business-analyst → Process efficiency audit
+    ↓ (synthesize)
+@product-strategist → Prioritized improvement roadmap
+@content-strategist → Communication plan for changes
+
+Duration: 25-40 min (with parallel execution)
+```

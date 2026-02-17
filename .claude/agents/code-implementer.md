@@ -889,7 +889,7 @@ Example: See files [list] for reference implementation
 
 ## 📊 Metadata
 
-- **Agent**: code-implementer v2.0
+- **Agent**: code-implementer v3.0 (Opus 4.6)
 - **Plan adherence**: [100]%
 - **Test coverage**: [N]%
 - **Complexity**: [Low/Medium/High]

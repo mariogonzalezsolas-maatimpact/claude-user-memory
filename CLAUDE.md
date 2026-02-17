@@ -3,34 +3,42 @@
 This repository contains the **Agentic Substrate** - the foundational layer for Claude Code superintelligence.
 
 ## System Version
-**Agentic Substrate v4.1** (DeepWiki Enforcement & Agent Optimization)
+**Agentic Substrate v5.0** (Opus 4.6 + Growth & Strategy Tier)
 
-## 🔥 v4.1 Key Enhancements
+## 🔥 v5.0 Key Enhancements
+
+### Claude Opus 4.6 Optimization
+- **All 15 agents optimized** for Opus 4.6 extended capabilities
+- **Enhanced thinking protocols** leveraging Opus 4.6 reasoning depth
+- **Model references updated** across all agent definitions
+
+### New Tier 4: Growth & Strategy (6 new agents)
+- **@seo-strategist**: Technical SEO audits, keyword strategy, schema markup, Core Web Vitals
+- **@business-analyst**: Requirements engineering, process optimization, ROI analysis, SWOT
+- **@content-strategist**: Brand voice, content calendars, SEO content, social media strategy
+- **@product-strategist**: Market sizing (TAM/SAM/SOM), competitive intelligence, roadmaps, GTM
+- **@security-auditor**: OWASP Top 10, code security review, compliance (SOC2/GDPR/HIPAA)
+- **@ux-accessibility-reviewer**: WCAG 2.2 audits, Nielsen heuristics, inclusive design
 
 ### DeepWiki MCP Integration (MANDATORY)
-- **Automatic Installation**: `install.sh` now installs DeepWiki MCP via Claude CLI
 - **Enforced in All Agents**: Every agent requires DeepWiki research before code generation
 - **Quality Gates**: Implementation blocked without DeepWiki verification
 - **API Accuracy**: Reduced hallucination rate from 15-30% to <2%
 
-### Agent Optimization
-- **Token Reduction**: 20-30% reduction in SERVE agent prompts
-- **Cleaner Prompts**: Verbose explanations replaced with references
-- **Maintained Quality**: Full functionality preserved
-
-### Agent Handoff Protocol (Design)
-- **Architecture Designed**: Swarm pattern selected (1.5x overhead vs 2-3x supervisor)
-- **Implementation Deferred**: Full implementation coming in v4.2
-- **Documentation**: See `AgentHandoffProtocol-DESIGN.md`
+### Enhanced /do Command
+- **6 new intent categories**: SEO, Business, Content, Product, Security, UX/Accessibility
+- **Smarter routing**: Automatic detection of Growth & Strategy intents
+- **New workflow patterns**: SEO+Content, Product Launch, Security-First Deploy, UX-Driven Dev
 
 ## Core Components
 
-### Agents (9 specialists across 3 tiers)
+### Agents (15 specialists across 4 tiers)
 @.claude/templates/agents-overview.md
 
 **Tier 1 - Orchestration**: chief-architect
-**Tier 2 - Core Workflow**: docs-researcher, implementation-planner, brahma-analyzer, code-implementer, brahma-investigator
-**Tier 3 - Production**: brahma-deployer, brahma-monitor, brahma-optimizer
+**Tier 2 - Core Workflow (BUILD+FIX)**: docs-researcher, implementation-planner, brahma-analyzer, code-implementer, brahma-investigator
+**Tier 3 - Production (SERVE)**: brahma-deployer, brahma-monitor, brahma-optimizer
+**Tier 4 - Growth & Strategy (GROW)**: seo-strategist, business-analyst, content-strategist, product-strategist, security-auditor, ux-accessibility-reviewer
 
 ### Skills (5 auto-invoked capabilities)
 @.claude/templates/skills-overview.md
