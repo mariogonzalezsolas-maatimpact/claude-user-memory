@@ -148,9 +148,9 @@ parse_json_value() {
     # Convert path for Windows if needed
     json_path=$(to_windows_path "$json_file")
 
-    # Try python3
+    # Try python3 (tr -d '\r' strips Windows carriage returns)
     if [ -n "$PYTHON_CMD" ]; then
-        $PYTHON_CMD -c "import json,sys; print(json.load(open('$json_path'))['$key'])" 2>/dev/null && return 0
+        $PYTHON_CMD -c "import json,sys; print(json.load(open('$json_path'))['$key'])" 2>/dev/null | tr -d '\r' && return 0
     fi
 
     # Fallback: bash grep/sed
@@ -170,9 +170,9 @@ parse_json_array() {
     # Convert path for Windows if needed
     json_path=$(to_windows_path "$json_file")
 
-    # Try python
+    # Try python (tr -d '\r' strips Windows carriage returns)
     if [ -n "$PYTHON_CMD" ]; then
-        $PYTHON_CMD -c "import json; print('\n'.join(json.load(open('$json_path'))['$array_name']))" 2>/dev/null && return 0
+        $PYTHON_CMD -c "import json; print('\n'.join(json.load(open('$json_path'))['$array_name']))" 2>/dev/null | tr -d '\r' && return 0
     fi
 
     # Fallback: bash parsing
