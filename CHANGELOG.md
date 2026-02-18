@@ -5,6 +5,23 @@ All notable changes to Agentic Substrate will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.3.0] - 2026-02-18
+
+### Added
+- **`/review` command**: Multi-perspective code review using parallel subagents (security + performance + architecture + UX). Inspired by Compound Engineering's 12-perspective review pattern.
+- **`/review` routing in `/do`**: "review", "code review", "PR review" keywords auto-route to `/review`
+
+### Changed
+- **agents-overview.md**: Slimmed from 570 → ~110 lines (-81% context reduction) using compact table format
+- **workflows-overview.md**: Slimmed from 407 → ~65 lines (-84% context reduction)
+- **skills-overview.md**: Slimmed from 133 → ~30 lines (-77% context reduction)
+- **Total @import savings**: ~900 lines / ~4,500 tokens saved per session
+- **Commands**: 10 → 11 (added `/review`)
+- **Manifest**: Updated to v5.3.0 with 56 managed files, 11 commands
+- **Version**: Bumped across CLAUDE.md, user-level template, install.sh, install.ps1
+
+---
+
 ## [5.2.0] - 2026-02-18
 
 ### Added

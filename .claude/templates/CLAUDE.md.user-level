@@ -1,4 +1,4 @@
-# Agentic Substrate v5.1
+# Agentic Substrate v5.3
 # --- AGENTIC SUBSTRATE START ---
 
 ## System Rules
@@ -14,6 +14,7 @@
 - `/research [topic]` -- Fetch version-accurate docs (<2 min)
 - `/plan [feature]` -- Create minimal-change blueprint
 - `/implement` -- Execute plan with TDD + self-correction (3 retries)
+- `/review [scope]` -- Multi-perspective code review (security + perf + architecture)
 - `/context [analyze|optimize|reset]` -- Context health (run every 50 messages)
 - `/circuit-breaker [status|reset]` -- Manage implementation circuit breaker
 - `/security-audit [scope]` -- OWASP Top 10 + code security review

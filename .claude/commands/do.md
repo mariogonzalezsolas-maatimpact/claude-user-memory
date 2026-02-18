@@ -89,6 +89,7 @@ I analyze your request and automatically route to the best approach:
 | Deploy/Release | `@brahma-deployer` |
 | Optimize/Performance | `@brahma-optimizer` |
 | Monitor/Observe | `@brahma-monitor` |
+| Review code/PR/quality | `/review` (multi-perspective) |
 | Analyze code/patterns | `@brahma-analyzer` |
 | SEO/Search/Rankings | `@seo-strategist` |
 | Business analysis/Requirements | `@business-analyst` |
@@ -153,8 +154,13 @@ Analyze the user's request using this decision tree:
 - "alert", "dashboard", "health"
 - Example: "set up monitoring for the API"
 
+**Keywords indicating CODE REVIEW**:
+- "review", "code review", "PR review", "pull request"
+- "review code", "check code quality", "audit code"
+- Example: "review the changes in src/auth/"
+
 **Keywords indicating ANALYZE**:
-- "analyze", "review", "check", "validate"
+- "analyze", "check", "validate"
 - "consistency", "patterns in code"
 - Example: "analyze the authentication patterns in codebase"
 

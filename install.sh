@@ -3,7 +3,7 @@
 # Works on: macOS, Linux, WSL, Windows (Git Bash/MSYS2), minimal containers, with/without Python
 # Optimized for Claude Opus 4.6 with 15 agents across 4 tiers
 
-VERSION="5.2.0"
+VERSION="5.3.0"
 
 # ============================================================================
 # GLOBAL VARIABLES
