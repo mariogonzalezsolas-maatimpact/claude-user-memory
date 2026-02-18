@@ -59,7 +59,9 @@
     "templates/CLAUDE.md.user-level",
     "templates/skills-overview.md",
     "templates/workflows-overview.md",
-    "data/mcp-config-template.json"
+    "data/mcp-config-template.json",
+    "integrations/README.md",
+    "integrations/langgraph/brahma_state.py.template"
   ],
   "executable_files": [
     "hooks/auto-format.sh",
@@ -112,7 +114,7 @@
     }
   },
   "metadata": {
-    "total_files": 58,
+    "total_files": 60,
     "agents": 15,
     "skills": 5,
     "commands": 12,

@@ -1,4 +1,4 @@
-# Agentic Substrate v5.1
+# Agentic Substrate v5.4
 
 **Research-first development system for Claude Code CLI - Optimized for Claude Opus 4.6**
 
@@ -231,7 +231,7 @@ MIT License - See [LICENSE](LICENSE)
 ---
 
 <a name="espanol"></a>
-# Agentic Substrate v5.1 (Espanol)
+# Agentic Substrate v5.4 (Espanol)
 
 **Sistema de desarrollo basado en investigacion para Claude Code CLI - Optimizado para Claude Opus 4.6**
 
