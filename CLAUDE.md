@@ -1,329 +1,71 @@
-# Agentic Substrate - Advanced Claude Code Enhancement
+# Agentic Substrate v5.1
 
-This repository contains the **Agentic Substrate** - the foundational layer for Claude Code superintelligence.
+Source repository for the Claude Code CLI enhancement system. Users install to `~/.claude/` via `install.sh` or `install.ps1`.
 
-## System Version
-**Agentic Substrate v5.1** (Opus 4.6 + Growth & Strategy Tier)
+## System Rules
+- Never code from memory -- use @docs-researcher or /research first
+- Every change: minimal, surgical, reversible
+- TDD mandatory: RED -> GREEN -> REFACTOR
+- Quality gates: Research 80+, Plan 85+, Tests pass
+- Circuit breaker opens after 3 failures: /circuit-breaker reset
 
-## 🔥 v5.0/5.1 Key Enhancements
+## Commands (10)
+- `/do [anything]` -- Universal router (RECOMMENDED)
+- `/workflow [feature]` -- Full automation: research -> plan -> implement
+- `/research [topic]` -- Fetch version-accurate docs (<2 min)
+- `/plan [feature]` -- Create minimal-change blueprint
+- `/implement` -- Execute plan with TDD + self-correction (3 retries)
+- `/context [analyze|optimize|reset]` -- Context health
+- `/circuit-breaker [status|reset]` -- Manage circuit breaker
+- `/security-audit [scope]` -- OWASP Top 10 + code security review
+- `/seo-audit [scope]` -- Technical SEO + Core Web Vitals audit
+- `/ux-review [scope]` -- WCAG 2.2 + usability heuristics audit
 
-### Claude Opus 4.6 Optimization
-- **All 15 agents optimized** for Opus 4.6 extended capabilities
-- **Enhanced thinking protocols** leveraging Opus 4.6 reasoning depth
-- **Model references updated** across all agent definitions
+## 15 Agents (4 Tiers)
+- **Orchestrator**: chief-architect
+- **Core (BUILD+FIX)**: docs-researcher, implementation-planner, brahma-analyzer, code-implementer, brahma-investigator
+- **Production (SERVE)**: brahma-deployer, brahma-monitor, brahma-optimizer
+- **Growth (GROW)**: seo-strategist, business-analyst, content-strategist, product-strategist, security-auditor, ux-accessibility-reviewer
 
-### New Tier 4: Growth & Strategy (6 new agents)
-- **@seo-strategist**: Technical SEO audits, keyword strategy, schema markup, Core Web Vitals
-- **@business-analyst**: Requirements engineering, process optimization, ROI analysis, SWOT
-- **@content-strategist**: Brand voice, content calendars, SEO content, social media strategy
-- **@product-strategist**: Market sizing (TAM/SAM/SOM), competitive intelligence, roadmaps, GTM
-- **@security-auditor**: OWASP Top 10, code security review, compliance (SOC2/GDPR/HIPAA)
-- **@ux-accessibility-reviewer**: WCAG 2.2 audits, Nielsen heuristics, inclusive design
+## Thinking Modes
+Add keyword: **think** (30-60s) | **think hard** (1-2min) | **think harder** (2-4min) | **ultrathink** (5-10min)
 
-### DeepWiki MCP Integration (MANDATORY)
-- **Enforced in All Agents**: Every agent requires DeepWiki research before code generation
-- **Quality Gates**: Implementation blocked without DeepWiki verification
-- **API Accuracy**: Reduced hallucination rate from 15-30% to <2%
-
-### Enhanced /do Command
-- **6 new intent categories**: SEO, Business, Content, Product, Security, UX/Accessibility
-- **Smarter routing**: Automatic detection of Growth & Strategy intents
-- **New workflow patterns**: SEO+Content, Product Launch, Security-First Deploy, UX-Driven Dev
-
-## Core Components
-
-### Agents (15 specialists across 4 tiers)
+## Detailed Documentation
 @.claude/templates/agents-overview.md
-
-**Tier 1 - Orchestration**: chief-architect
-**Tier 2 - Core Workflow (BUILD+FIX)**: docs-researcher, implementation-planner, brahma-analyzer, code-implementer, brahma-investigator
-**Tier 3 - Production (SERVE)**: brahma-deployer, brahma-monitor, brahma-optimizer
-**Tier 4 - Growth & Strategy (GROW)**: seo-strategist, business-analyst, content-strategist, product-strategist, security-auditor, ux-accessibility-reviewer
-
-### Skills (5 auto-invoked capabilities)
 @.claude/templates/skills-overview.md
-
-### Workflows (Research → Plan → Implement + Advanced Patterns)
 @.claude/templates/workflows-overview.md
-
-## Memory Management
-
-### Quick Commands
-- `#` - Add memory quickly (prompts for location)
-- `/memory` - Edit memory files in system editor
-- `/init` - Bootstrap CLAUDE.md for new projects
-- `/context` - Analyze and optimize context configuration
-
-### Memory Hierarchy (4 levels)
-1. **Enterprise** (`/Library/Application Support/ClaudeCode/CLAUDE.md`) - Organization-wide
-2. **Project** (this file) - Team-shared instructions
-3. **User** (`~/.claude/CLAUDE.md`) - Personal preferences (all projects)
-4. **Imports** - Modular organization via `@path/to/file.md` (max 5 hops)
-
-### Import Syntax
-```markdown
-@.claude/templates/agents-overview.md     # Relative path
-@~/.claude/my-preferences.md              # User home directory
-@/absolute/path/to/file.md                # Absolute path
-```
-
-**Not evaluated in code spans/blocks** (avoids collisions)
-
-## 💡 Usage in Claude Code
-
-When you use Claude Code in this project:
-
-```bash
-# Universal command - just say what you want (RECOMMENDED)
-/do add Redis caching to the application
-/do why is the API slow?
-/do deploy to production
-
-# Automatic workflow
-> Add Redis caching to the application
-# Claude will sequence: research → plan → implement
-
-# Manual control
-> Use docs-researcher to find Redis documentation
-> Use implementation-planner to design caching strategy
-> Use code-implementer to add Redis caching
-
-# Skip phases when you have artifacts
-> I have the research ready, create a plan
-> I have both research and plan, implement it
-
-# Circuit breaker management
-/circuit-breaker status    # Check if blocked
-/circuit-breaker reset     # Reset after fixing issues
-```
-
-## 🧠 Extended Thinking Modes
-
-Claude Code supports extended thinking for complex problems. Trigger by including keywords in your request:
-
-### Thinking Levels
-
-**"think"** - Standard extended reasoning (30-60 seconds):
-```bash
-> Think about the best way to structure this API
-```
-- **Use for**: Routine planning, standard decisions
-- **Time**: 30-60 seconds additional computation
-- **Best for**: Clear problems with known patterns
-
-**"think hard"** - Deep reasoning (1-2 minutes):
-```bash
-> Think hard about the architecture for multi-tenant auth
-```
-- **Use for**: Multiple valid approaches, unclear tradeoffs
-- **Time**: 1-2 minutes additional computation
-- **Best for**: Complex design decisions
-
-**"think harder"** - Very deep reasoning (2-4 minutes):
-```bash
-> Think harder about scaling this to 1M users
-```
-- **Use for**: Novel problems, high-stakes decisions
-- **Time**: 2-4 minutes additional computation
-- **Best for**: Performance optimization, security-critical design
-
-**"ultrathink"** - Maximum reasoning (5-10 minutes):
-```bash
-> Ultrathink the entire system architecture before planning
-```
-- **Use for**: Multi-agent coordination, critical architecture, ResearchPack analysis
-- **Time**: 5-10 minutes additional computation
-- **Best for**: Highest-stakes decisions, complex multi-domain problems
-
-### Performance Impact
-
-From Anthropic research:
-- **54% improvement** on complex tasks
-- **1.6% SWE-bench improvement** just from think tool
-- **TAU-bench retail**: 62.6% → 69.2%
-- **TAU-bench airline**: 36.0% → 46.0%
-
-### When Agents Auto-Trigger Thinking
-
-All agents automatically use extended thinking for:
-- Complex tool operations (irreversible effects)
-- Long chains of tool outputs
-- Sequential decisions where mistakes are costly
-- Multiple valid approaches with unclear tradeoffs
-
-### Combine with Workflows
-
-```bash
-> /workflow add payment processing - ultrathink the architecture first
-```
-
-Agents will apply maximum reasoning before decomposing into research/plan/implement phases.
-
-## 🧠 Integration with Global Settings
-
-This project configuration integrates with your global `~/.claude/CLAUDE.md`:
-
-### Global Settings Respected
-- **context7 directive**: Uses context7 for latest documentation when available
-- **Never code from memory**: All implementations require research first
-- **Minimal changes**: Every change is surgical and reversible
-- **Test everything**: All implementations include verification
-
-### How Settings Work Together
-1. **Global CLAUDE.md** (`~/.claude/CLAUDE.md`): Defines system-wide preferences
-2. **Project CLAUDE.md** (this file): Adds project-specific workflow requirements
-3. **Agent files** (`agents/*.md`): Implement the workflow phases
-
-The three-agent workflow in this project enforces stricter requirements than typical Claude Code usage, ensuring enterprise-grade quality.
-
-## 📚 Project Context
-
-When working in this repository:
-1. All development follows the three-phase workflow
-2. Documentation must come from authoritative sources
-3. Plans must include rollback strategies
-4. Implementations must be minimal and tested
-
-### Common Workflows
-
-#### Adding a Feature
-```bash
-> Add user authentication to the API
-# Automatically triggers:
-# 1. Research auth best practices
-# 2. Plan implementation approach
-# 3. Implement with tests
-```
-
-#### Updating Dependencies
-```bash
-> Update all dependencies to latest versions
-# Triggers:
-# 1. Research breaking changes
-# 2. Plan phased update
-# 3. Implement with verification
-```
-
-#### Fixing Bugs
-```bash
-> Fix the database connection timeout issue
-# Triggers:
-# 1. Research correct patterns
-# 2. Plan minimal fix
-# 3. Implement with tests
-```
-
-## 🔍 Troubleshooting
-
-### Agents Not Triggering
-- Use keywords from trigger list above
-- Be explicit: "Use docs-researcher to..."
-- Check agents are installed: `/agents`
-
-### Workflow Seems Slow
-The workflow trades initial speed for:
-- Fewer bugs and rework
-- Better documentation
-- Safer deployments
-- Knowledge preservation
-
-### Integration Issues
-If global and project settings conflict:
-1. Project settings take precedence
-2. Workflow requirements cannot be bypassed
-3. Global shortcuts are disabled in this project
-
-## 🚀 Contributing
-
-When contributing to this project:
-1. Enhance agent prompts while maintaining the workflow
-2. Add examples that demonstrate the three-phase approach
-3. Ensure all changes support the research-first philosophy
-4. Test the complete workflow before submitting
-
-### Testing Your Changes
-```bash
-# Test research phase
-> Use docs-researcher to research [your topic]
-
-# Test planning phase  
-> Use implementation-planner with the research
-
-# Test implementation
-> Use code-implementer with the plan
-
-# Verify workflow enforcement
-> Try to implement without research (should fail)
-```
-
-## 📖 Additional Resources
-
-- [Getting Started Tutorial](examples/getting-started.md)
-- [Workflow Guide](docs/workflow-guide.md)
-- [Quick Reference](docs/quick-reference.md)
-- [Real-World Examples](examples/real-world-scenarios.md)
-- [FAQ](docs/faq.md)
-
----
-
-## 🔌 OSS Framework Integration (V4.0 Enhancement)
-
-The Agentic Substrate v4.0 includes integration architecture for leading OSS agentic AI frameworks:
-
-### Supported Frameworks
-
-**LangGraph** (Multi-agent orchestration):
-- State machine workflows with quality gates
-- PostgreSQL checkpointing (pause/resume)
-- Best-in-class performance (lowest latency, lowest tokens)
-- See `.claude/integrations/langgraph/` for templates
-
-**Deep Agents** (Long-running tasks):
-- Enhanced code-implementer with file system
-- Subagent spawning (test-runner, linter, security)
-- Built for 10-60 minute implementations
-- See `.claude/integrations/deepagents/` for templates
-
-**DSPy** (Prompt optimization):
-- Systematic optimization for top 5 agents
-- 20-40% accuracy improvement
-- Model portability (Claude ↔ GPT-4 ↔ Gemini)
-- See `.claude/integrations/dspy/` for optimizers
-
-**CrewAI** (Rapid prototyping):
-- 3-5x faster development for new agents
-- 40+ pre-built tools
-- Built-in memory (short/long-term + entity)
-- See `.claude/integrations/crewai/` for templates
-
-**Integration Guide**: See `OSS-INTEGRATION-GUIDE.md` for setup instructions
-**Framework Comparison**: See `FRAMEWORK-COMPARISON.md` for detailed analysis
-**Complete Blueprint**: See `SELF-ENHANCEMENT-BLUEPRINT.md` for full v4.0 roadmap
-
-### Research Foundations (Anthropic 2024-2025)
-
-**Multi-Agent Orchestration**:
-- 90.2% performance improvement on complex tasks
-- Lead orchestrator + parallel specialized workers
-- Swarm pattern > Supervisor pattern (lower token overhead)
-
-**Extended Thinking**:
-- 54% improvement on complex tasks
-- Progressive budgets: 4K (think) → 10K (think hard) → 32K (think harder) → 64K+ (ultrathink)
-- Auto-triggered for irreversible operations, complex chains
-
-**State Management**:
-- Explicit state definition (TypedDict/Pydantic)
-- Checkpointing for fault tolerance
-- Human-in-the-loop interrupts
-
-**Tool Use Optimization**:
-- Reflection, Planning, ReAct patterns
-- Multi-tool coordination
-- Reinforcement from successful executions
-
----
-
-*Research → Plan → Implement: The foundation of quality software development*
-
-**Note**: This is the source repository for Claude Code CLI user memory. Users copy these files to `~/.claude/` for system-wide enhancement.
+@.claude/agent-teams.md
+
+## Quick Fixes
+- Research <80 -> specify library version explicitly
+- Plan <85 -> add rollback procedure + complete file list
+- Circuit breaker open -> `/circuit-breaker reset`
+- Context too large -> `/context optimize`
+
+## Project Context
+
+This repository is the **source** for the Agentic Substrate. Key directories:
+
+| Directory | Contents |
+|-----------|----------|
+| `.claude/agents/` | 15 agent definitions |
+| `.claude/skills/` | 5 auto-invoked skills |
+| `.claude/commands/` | 10 slash commands |
+| `.claude/hooks/` | 9 quality gate hooks |
+| `.claude/templates/` | Shared templates + overview docs |
+| `.claude/validators/` | API matcher + circuit breaker |
+| `.claude/metrics/` | Workflow metrics tracker |
+| `.claude/data/` | MCP config template |
+
+## Contributing
+
+1. Follow the research-first philosophy (research -> plan -> implement)
+2. Test workflow changes end-to-end before committing
+3. Keep agent files focused -- extract shared content to templates
+4. Run `install.sh --force` or `install.ps1 -Force` to test installation
+
+## Memory Hierarchy
+1. **Enterprise** (`/Library/Application Support/ClaudeCode/CLAUDE.md`)
+2. **Project** (this file)
+3. **User** (`~/.claude/CLAUDE.md`)
+4. **Imports** via `@path/to/file.md` (max 5 hops)

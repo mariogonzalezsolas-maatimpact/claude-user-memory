@@ -5,6 +5,25 @@ All notable changes to Agentic Substrate will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.1] - 2026-02-18
+
+### Fixed
+- **validate-implementation-plan.sh**: Quality gate now blocks implementation (exit 1) when plan score < 85 (was exit 0)
+- **install.ps1**: Version updated from 4.1.0 to 5.1.0, agent count 9 → 15, commands 5 → 10
+
+### Added
+- **implementation-report.md**: Shared report template extracted from code-implementer.md (~160 lines saved)
+- **Context7 MCP**: Added to mcp-config-template.json (user must install separately)
+- **Tier 4 agent mappings**: All 6 Growth agents added to mcp-config-template.json
+
+### Changed
+- **CLAUDE.md**: Slimmed from 329 → ~65 lines (relies on @imports for detail, removed redundant content)
+- **code-implementer.md**: Refactored from 1,018 → ~600 lines (extracted report template, trimmed verbose examples)
+- **mcp-config-template.json**: Updated to v2.0.0, added 6 Tier 4 agent mappings
+- **manifest-template.json**: Updated to 52 managed files, 8 templates
+
+---
+
 ## [5.1.0] - 2026-02-18
 
 ### Fixed

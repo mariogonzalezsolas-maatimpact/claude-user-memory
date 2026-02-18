@@ -183,5 +183,5 @@ else
     echo "   Recommendation: Re-run @implementation-planner focusing on missing elements"
     echo "   Required score: 85/100 (current: $SCORE/100)"
     echo ""
-    exit 0  # Changed to warn instead of block - set to exit 1 to block
+    exit 1  # Block planning when implementation plan quality is below threshold
 fi
