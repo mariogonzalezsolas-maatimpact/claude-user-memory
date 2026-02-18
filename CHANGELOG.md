@@ -5,6 +5,23 @@ All notable changes to Agentic Substrate will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.4.0] - 2026-02-18
+
+### Added
+- **SessionStart hook** (`session-start.sh`): Auto-loads project context at session start (git branch, last commit, uncommitted count, circuit breaker state, existing artifacts, recent file activity)
+- **`/mode` command**: Behavioral mode switching (token-efficiency for compact outputs, introspection for meta-cognitive analysis, default to restore)
+- **Skill extraction hook** (`skill-extraction-reminder.sh`): Claudeception-style UserPromptSubmit hook that injects skill extraction reminders every 5th prompt, evaluating whether recent work produced reusable knowledge
+- **Semantic quality gates**: Prompt-type hooks on SubagentStop with matchers for `docs-researcher` (ResearchPack scoring) and `implementation-planner` (Plan scoring) using LLM evaluation instead of regex
+
+### Changed
+- **Commands**: 11 → 12 (added `/mode`)
+- **Hooks**: 10 → 12 (added session-start.sh, skill-extraction-reminder.sh)
+- **Managed files**: 56 → 59 (3 new files)
+- **settings.json**: Added SessionStart, UserPromptSubmit, and prompt-type SubagentStop hooks
+- **Version**: Bumped across CLAUDE.md, user-level template, install.sh, install.ps1, manifest
+
+---
+
 ## [5.3.0] - 2026-02-18
 
 ### Added

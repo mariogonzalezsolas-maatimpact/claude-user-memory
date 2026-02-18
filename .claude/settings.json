@@ -32,6 +32,24 @@
             "timeout": 10
           }
         ]
+      },
+      {
+        "matcher": "docs-researcher",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Evaluate the docs-researcher output as a ResearchPack quality gate. Check: (1) Was a specific library version identified? (2) Were at least 3 API endpoints or functions documented? (3) Are code examples present? (4) Are sources from official documentation? Score 0-100. If score < 80, output BLOCK with specific deficiencies. If >= 80, output PASS."
+          }
+        ]
+      },
+      {
+        "matcher": "implementation-planner",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Evaluate the implementation-planner output as a Plan quality gate. Check: (1) Is a rollback procedure present? (2) Are all files to be modified listed? (3) Are steps sequenced with clear order? (4) Does the plan match the ResearchPack APIs (no hallucinated APIs)? (5) Is a risk assessment included? Score 0-100. If score < 85, output BLOCK with specific deficiencies. If >= 85, output PASS."
+          }
+        ]
       }
     ],
     "Stop": [
@@ -74,6 +92,28 @@
             "type": "command",
             "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/pre-compact-backup.sh\"",
             "timeout": 30
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/skill-extraction-reminder.sh\"",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/session-start.sh\"",
+            "timeout": 15
           }
         ]
       }

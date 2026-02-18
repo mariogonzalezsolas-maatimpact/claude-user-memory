@@ -1,6 +1,6 @@
 {
   "manifest_version": "1.1.0",
-  "substrate_version": "5.3.0",
+  "substrate_version": "5.4.0",
   "managed_files": [
     "agents/brahma-analyzer.md",
     "agents/brahma-deployer.md",
@@ -32,6 +32,7 @@
     "commands/seo-audit.md",
     "commands/ux-review.md",
     "commands/review.md",
+    "commands/mode.md",
     "commands/workflow.md",
     "hooks/auto-format.sh",
     "hooks/check-agent-economics.sh",
@@ -43,6 +44,8 @@
     "hooks/teammate-idle.sh",
     "hooks/task-completed.sh",
     "hooks/pre-compact-backup.sh",
+    "hooks/session-start.sh",
+    "hooks/skill-extraction-reminder.sh",
     "settings.json",
     "agent-teams.md",
     "validators/api-matcher.sh",
@@ -69,6 +72,8 @@
     "hooks/teammate-idle.sh",
     "hooks/task-completed.sh",
     "hooks/pre-compact-backup.sh",
+    "hooks/session-start.sh",
+    "hooks/skill-extraction-reminder.sh",
     "validators/api-matcher.sh",
     "validators/circuit-breaker.sh",
     "metrics/tracker.sh"
@@ -107,11 +112,11 @@
     }
   },
   "metadata": {
-    "total_files": 56,
+    "total_files": 58,
     "agents": 15,
     "skills": 5,
-    "commands": 11,
-    "hooks": 10,
+    "commands": 12,
+    "hooks": 12,
     "validators": 2,
     "metrics": 1,
     "templates": 8,

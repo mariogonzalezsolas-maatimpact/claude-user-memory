@@ -1,7 +1,7 @@
 #Requires -Version 5.1
 <#
 .SYNOPSIS
-    Agentic Substrate v5.2.0 - PowerShell Installer for Windows
+    Agentic Substrate v5.4.0 - PowerShell Installer for Windows
 
 .DESCRIPTION
     Native Windows installer for the Agentic Substrate system.
@@ -34,7 +34,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$VERSION = "5.3.0"
+$VERSION = "5.4.0"
 $CLAUDE_TARGET = Join-Path $env:USERPROFILE ".claude"
 $SCRIPT_DIR = Split-Path -Parent $MyInvocation.MyCommand.Path
 $CLAUDE_SOURCE = Join-Path $SCRIPT_DIR ".claude"

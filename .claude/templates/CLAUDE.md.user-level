@@ -1,4 +1,4 @@
-# Agentic Substrate v5.3
+# Agentic Substrate v5.4
 # --- AGENTIC SUBSTRATE START ---
 
 ## System Rules
@@ -15,6 +15,7 @@
 - `/plan [feature]` -- Create minimal-change blueprint
 - `/implement` -- Execute plan with TDD + self-correction (3 retries)
 - `/review [scope]` -- Multi-perspective code review (security + perf + architecture)
+- `/mode [token-efficiency|introspection|default]` -- Switch behavioral modes
 - `/context [analyze|optimize|reset]` -- Context health (run every 50 messages)
 - `/circuit-breaker [status|reset]` -- Manage implementation circuit breaker
 - `/security-audit [scope]` -- OWASP Top 10 + code security review

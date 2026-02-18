@@ -1,4 +1,4 @@
-# Agentic Substrate v5.3
+# Agentic Substrate v5.4
 
 Source repository for the Claude Code CLI enhancement system. Users install to `~/.claude/` via `install.sh` or `install.ps1`.
 
@@ -9,13 +9,14 @@ Source repository for the Claude Code CLI enhancement system. Users install to `
 - Quality gates: Research 80+, Plan 85+, Tests pass
 - Circuit breaker opens after 3 failures: /circuit-breaker reset
 
-## Commands (11)
+## Commands (12)
 - `/do [anything]` -- Universal router (RECOMMENDED)
 - `/workflow [feature]` -- Full automation: research -> plan -> implement
 - `/research [topic]` -- Fetch version-accurate docs (<2 min)
 - `/plan [feature]` -- Create minimal-change blueprint
 - `/implement` -- Execute plan with TDD + self-correction (3 retries)
 - `/review [scope]` -- Multi-perspective code review (security + perf + architecture)
+- `/mode [token-efficiency|introspection|default]` -- Switch behavioral modes
 - `/context [analyze|optimize|reset]` -- Context health
 - `/circuit-breaker [status|reset]` -- Manage circuit breaker
 - `/security-audit [scope]` -- OWASP Top 10 + code security review
@@ -51,8 +52,8 @@ This repository is the **source** for the Agentic Substrate. Key directories:
 |-----------|----------|
 | `.claude/agents/` | 15 agent definitions |
 | `.claude/skills/` | 5 auto-invoked skills |
-| `.claude/commands/` | 11 slash commands |
-| `.claude/hooks/` | 10 lifecycle hooks |
+| `.claude/commands/` | 12 slash commands |
+| `.claude/hooks/` | 12 lifecycle hooks |
 | `.claude/templates/` | Shared templates + overview docs |
 | `.claude/validators/` | API matcher + circuit breaker |
 | `.claude/metrics/` | Workflow metrics tracker |
