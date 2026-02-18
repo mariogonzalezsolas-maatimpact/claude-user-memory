@@ -1,4 +1,4 @@
-# Agentic Substrate v5.0
+# Agentic Substrate v5.1
 
 **Research-first development system for Claude Code CLI - Optimized for Claude Opus 4.6**
 
@@ -54,7 +54,7 @@ cd claude-user-memory
   - **SERVE** - Deployment, monitoring, optimization
   - **GROW** - SEO, business analysis, content marketing, product strategy, security, UX/accessibility
 - **5 Skills** - Auto-invoked capabilities for research, planning, validation, patterns, context
-- **7 Commands** - `/do`, `/workflow`, `/research`, `/plan`, `/implement`, `/context`, `/circuit-breaker`
+- **10 Commands** - `/do`, `/workflow`, `/research`, `/plan`, `/implement`, `/context`, `/circuit-breaker`, `/security-audit`, `/seo-audit`, `/ux-review`
 - **Quality Gates** - Research >= 80, Plans >= 85, Tests passing, 3-retry circuit breaker
 - **Memory** - Knowledge graph persists across sessions
 - **Opus 4.6** - All agents optimized for Claude's latest model
@@ -196,7 +196,7 @@ Your data and customizations are automatically preserved.
 - [Skills Overview](.claude/templates/skills-overview.md) - Auto-invoked capabilities
 - [Workflows Overview](.claude/templates/workflows-overview.md) - Development + Growth patterns
 - [Installation Behavior](INSTALLATION-BEHAVIOR.md) - Data preservation details
-- [Release Notes](RELEASE-NOTES-V4.md) - v4.0/4.1 features
+- [Release Notes](archive/v4-artifacts/RELEASE-NOTES-V4.md) - v4.0/4.1 features
 - [Changelog](CHANGELOG.md) - Complete version history
 
 ---
@@ -231,7 +231,7 @@ MIT License - See [LICENSE](LICENSE)
 ---
 
 <a name="espanol"></a>
-# Agentic Substrate v5.0 (Espanol)
+# Agentic Substrate v5.1 (Espanol)
 
 **Sistema de desarrollo basado en investigacion para Claude Code CLI - Optimizado para Claude Opus 4.6**
 
@@ -284,7 +284,7 @@ cd claude-user-memory
   - **SERVE** - Despliegue, monitorizacion, optimizacion
   - **GROW** - SEO, analisis de negocio, marketing de contenidos, estrategia de producto, seguridad, UX/accesibilidad
 - **5 Habilidades** - Capacidades auto-invocadas para investigacion, planificacion, validacion, patrones, contexto
-- **7 Comandos** - `/do`, `/workflow`, `/research`, `/plan`, `/implement`, `/context`, `/circuit-breaker`
+- **10 Comandos** - `/do`, `/workflow`, `/research`, `/plan`, `/implement`, `/context`, `/circuit-breaker`, `/security-audit`, `/seo-audit`, `/ux-review`
 - **Puertas de Calidad** - Investigacion >= 80, Planes >= 85, Tests pasando, circuit breaker de 3 reintentos
 - **Memoria** - Grafo de conocimiento persistente entre sesiones
 - **Opus 4.6** - Todos los agentes optimizados para el ultimo modelo de Claude
@@ -409,8 +409,8 @@ Este fork por [mariogonzalezsolas-maatimpact](https://github.com/mariogonzalezso
 
 ---
 
-**Version:** 4.1.0
-**Lanzamiento:** Enero 30, 2026
+**Version:** 5.1.0
+**Lanzamiento:** Febrero 18, 2026
 **Estado:** Listo para Produccion
 
 *Investigar -> Planificar -> Implementar -> Aprender*

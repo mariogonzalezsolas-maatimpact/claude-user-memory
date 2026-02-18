@@ -27,7 +27,7 @@ echo "   Found $RECENT_CHANGES recent code change(s)"
 # Check if knowledge-core.md exists
 if [ ! -f "$KNOWLEDGE_FILE" ]; then
     echo "   Creating knowledge-core.md..."
-    cat > "$KNOWLEDGE_FILE" << 'EOF'
+    cat > "$KNOWLEDGE_FILE" << EOF
 # Knowledge Core
 
 Last Updated: $(date -u +"%Y-%m-%dT%H:%M:%SZ")

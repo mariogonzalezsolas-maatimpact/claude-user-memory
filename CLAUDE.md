@@ -3,9 +3,9 @@
 This repository contains the **Agentic Substrate** - the foundational layer for Claude Code superintelligence.
 
 ## System Version
-**Agentic Substrate v5.0** (Opus 4.6 + Growth & Strategy Tier)
+**Agentic Substrate v5.1** (Opus 4.6 + Growth & Strategy Tier)
 
-## 🔥 v5.0 Key Enhancements
+## 🔥 v5.0/5.1 Key Enhancements
 
 ### Claude Opus 4.6 Optimization
 - **All 15 agents optimized** for Opus 4.6 extended capabilities

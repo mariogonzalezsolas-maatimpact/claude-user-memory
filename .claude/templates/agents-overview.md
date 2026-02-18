@@ -1,6 +1,6 @@
 # Agents Overview
 
-The Agentic Substrate v5.0 provides **15 specialized agents** optimized for Claude Opus 4.6 across the complete software development and business lifecycle:
+The Agentic Substrate v5.1 provides **15 specialized agents** optimized for Claude Opus 4.6 across the complete software development and business lifecycle:
 
 ---
 
@@ -564,7 +564,7 @@ See `SELF-ENHANCEMENT-BLUEPRINT.md` for complete roadmap.
 
 ---
 
-**Updated**: 2026-02-17 (V4.1 → V5.0 - Opus 4.6 + Growth & Strategy tier)
+**Updated**: 2026-02-18 (V5.0 → V5.1 - Think Protocol dedup, memory frontmatter, 10 commands)
 **Agent Count**: 15 (was 9, added 6 Growth & Strategy agents)
 **Model**: Claude Opus 4.6 (all agents optimized)
 **Documentation Integrity**: 98/100

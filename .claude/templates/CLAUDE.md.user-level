@@ -1,4 +1,4 @@
-# Agentic Substrate v5.0
+# Agentic Substrate v5.1
 # --- AGENTIC SUBSTRATE START ---
 
 ## System Rules
@@ -16,6 +16,9 @@
 - `/implement` -- Execute plan with TDD + self-correction (3 retries)
 - `/context [analyze|optimize|reset]` -- Context health (run every 50 messages)
 - `/circuit-breaker [status|reset]` -- Manage implementation circuit breaker
+- `/security-audit [scope]` -- OWASP Top 10 + code security review
+- `/seo-audit [scope]` -- Technical SEO + Core Web Vitals audit
+- `/ux-review [scope]` -- WCAG 2.2 + usability heuristics audit
 
 ## 15 Agents (4 Tiers)
 - **Orchestrator**: chief-architect

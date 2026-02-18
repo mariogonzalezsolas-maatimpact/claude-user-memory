@@ -5,6 +5,35 @@ All notable changes to Agentic Substrate will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.0] - 2026-02-18
+
+### Fixed
+- **validate-research-pack.sh**: Quality gate now blocks planning (exit 1) when research score < 80 (was exit 0)
+- **update-knowledge-core.sh**: Heredoc now evaluates `$(date)` properly (removed single-quoted EOF)
+- **task-completed.sh**: Windows compatibility for `-newer` flag with fallback to `-mmin`
+
+### Added
+- **think-protocol.md**: Shared Think Protocol template (extracted from 15 agents, ~1,500 lines saved)
+- **memory: project**: Persistent project-scoped memory frontmatter added to all 15 agents
+- **/security-audit**: New command routing to `@security-auditor` for OWASP Top 10 audits
+- **/seo-audit**: New command routing to `@seo-strategist` for technical SEO audits
+- **/ux-review**: New command routing to `@ux-accessibility-reviewer` for WCAG 2.2 audits
+
+### Changed
+- **Version**: 5.0.0 → 5.1.0
+- **Commands**: 7 → 10 (added security-audit, seo-audit, ux-review)
+- **manifest-template.json**: Updated to v5.1.0, 47 → 51 managed files, 7 → 10 commands, 6 → 7 templates
+- **All 15 agents**: Think Protocol replaced with shared `@import` reference
+- **README.md**: Version bumped to v5.1 (English + Spanish), fixed broken archive link, updated command counts
+- **CLAUDE.md**: Version bumped to v5.1
+- **CLAUDE.md.user-level**: Version bumped to v5.1, added 3 new commands to listing
+- **agents-overview.md**: Version bumped to v5.1, updated timestamp
+
+### Archived
+- 25 stale root .md files moved to `archive/v4-artifacts/` via git mv
+
+---
+
 ## [5.0.0] - 2026-02-17
 
 ### Added
