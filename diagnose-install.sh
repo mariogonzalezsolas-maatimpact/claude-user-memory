@@ -38,16 +38,37 @@ else
 fi
 echo ""
 
+# CLAUDE.md health check
+echo "📄 CLAUDE.md Health:"
+if [ -f "$HOME/.claude/CLAUDE.md" ]; then
+    MD_LINES=$(wc -l < "$HOME/.claude/CLAUDE.md" | tr -d ' ')
+    MD_BYTES=$(wc -c < "$HOME/.claude/CLAUDE.md" | tr -d ' ')
+    MD_COPIES=$(grep -c "^# Agentic Substrate v" "$HOME/.claude/CLAUDE.md" 2>/dev/null || echo "0")
+    echo "  Lines: $MD_LINES (target: <120)"
+    echo "  Size: $MD_BYTES bytes (target: <5000)"
+    echo "  Template copies: $MD_COPIES (should be 1)"
+    if [ "$MD_COPIES" -gt 1 ]; then
+        echo "  ❌ BLOATED: $MD_COPIES copies detected. Run: ./install.sh --force"
+    elif [ "$MD_BYTES" -gt 10000 ]; then
+        echo "  ⚠️  Large file ($MD_BYTES bytes). Run: ./install.sh --force"
+    else
+        echo "  ✅ Healthy"
+    fi
+else
+    echo "  ❌ Not found"
+fi
+echo ""
+
 # Count each component
 echo "📊 Component Counts:"
 echo ""
 
 AGENT_COUNT=$(find "$HOME/.claude/agents" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
-echo "  Agents: $AGENT_COUNT/9"
-if [ "$AGENT_COUNT" -eq 9 ]; then
+echo "  Agents: $AGENT_COUNT/15"
+if [ "$AGENT_COUNT" -eq 15 ]; then
     echo "    ✅ All agents present"
 else
-    echo "    ❌ Missing $((9 - AGENT_COUNT)) agents"
+    echo "    ❌ Missing $((15 - AGENT_COUNT)) agents"
     echo "    Found:"
     find "$HOME/.claude/agents" -name "*.md" 2>/dev/null | xargs -n1 basename | sed 's/^/      - /'
 fi
@@ -65,20 +86,20 @@ fi
 echo ""
 
 COMMAND_COUNT=$(find "$HOME/.claude/commands" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
-echo "  Commands: $COMMAND_COUNT/5"
-if [ "$COMMAND_COUNT" -eq 5 ]; then
+echo "  Commands: $COMMAND_COUNT/7"
+if [ "$COMMAND_COUNT" -eq 7 ]; then
     echo "    ✅ All commands present"
 else
-    echo "    ❌ Missing $((5 - COMMAND_COUNT)) commands"
+    echo "    ❌ Missing $((7 - COMMAND_COUNT)) commands"
     echo "    Found:"
     find "$HOME/.claude/commands" -name "*.md" 2>/dev/null | xargs -n1 basename | sed 's/\.md$//' | sed 's/^/      \/ /'
 fi
 echo ""
 
 HOOK_COUNT=$(find "$HOME/.claude/hooks" -name "*.sh" 2>/dev/null | wc -l | tr -d ' ')
-echo "  Hooks: $HOOK_COUNT/7"
-if [ "$HOOK_COUNT" -lt 7 ]; then
-    echo "    ⚠️  Missing $((7 - HOOK_COUNT)) hooks"
+echo "  Hooks: $HOOK_COUNT/9"
+if [ "$HOOK_COUNT" -lt 9 ]; then
+    echo "    ⚠️  Missing $((9 - HOOK_COUNT)) hooks"
 fi
 echo ""
 
@@ -116,14 +137,14 @@ echo ""
 # Summary
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 TOTAL=$((AGENT_COUNT + SKILL_COUNT + COMMAND_COUNT + HOOK_COUNT + VALIDATOR_COUNT + METRIC_COUNT + TEMPLATE_COUNT))
-echo "📊 Total files: $TOTAL/35"
+echo "📊 Total files: $TOTAL/46"
 echo ""
 
-if [ "$TOTAL" -eq 35 ] && [ "$COMMAND_COUNT" -eq 5 ] && [ "$SKILL_COUNT" -eq 5 ]; then
+if [ "$TOTAL" -eq 46 ] && [ "$COMMAND_COUNT" -eq 7 ] && [ "$SKILL_COUNT" -eq 5 ]; then
     echo "✅ INSTALLATION COMPLETE"
     echo ""
     echo "All components installed correctly!"
-elif [ "$COMMAND_COUNT" -lt 5 ] || [ "$SKILL_COUNT" -lt 5 ]; then
+elif [ "$COMMAND_COUNT" -lt 7 ] || [ "$SKILL_COUNT" -lt 5 ]; then
     echo "❌ INSTALLATION INCOMPLETE"
     echo ""
     echo "Problem: Commands and/or Skills are missing"

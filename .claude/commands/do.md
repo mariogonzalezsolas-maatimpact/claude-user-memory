@@ -98,6 +98,7 @@ I analyze your request and automatically route to the best approach:
 | UX review/Accessibility/WCAG | `@ux-accessibility-reviewer` |
 | Context/Memory issues | `/context analyze` |
 | Complex multi-domain | `@chief-architect` |
+| Complex parallel work (3+ layers) | Agent Team (with confirmation) |
 | Simple question | Direct answer |
 
 ## Decision Logic
@@ -204,6 +205,58 @@ Analyze the user's request using this decision tree:
 - Multiple domains mentioned (frontend + backend + database)
 - "everything needed for"
 - Example: "build complete e-commerce checkout system"
+
+### Step 1.5: Agent Teams Escalation Check
+
+**BEFORE executing**, evaluate whether the task would benefit from parallel Agent Teams teammates instead of sequential sub-agents.
+
+#### Escalate to Agent Team if ANY of these are true:
+
+**Multi-layer signals** (task touches 3+ distinct layers):
+- Frontend + Backend + Database mentioned
+- API + UI + Tests mentioned
+- "full-stack", "end-to-end", "cross-layer", "complete system"
+- Example: "add Stripe payment integration" → DB + backend + frontend + tests
+
+**Explicit parallel request**:
+- "en paralelo", "in parallel", "simultaneously", "agent team", "team", "teammates"
+- Example: "review this PR with a team"
+
+**Multi-angle audit/review**:
+- "full audit", "complete review", "comprehensive audit"
+- Security + performance + coverage angles
+- Example: "full security audit of the codebase"
+
+**Large refactor signals**:
+- "refactor", "migrate", "rewrite" + mentions 5+ files or multiple directories
+- "across all modules", "every service", "entire codebase"
+- Example: "refactor auth across all microservices"
+
+#### Keep sub-agents (default) if ANY of these are true:
+- Task is single-domain (only backend, only frontend, only research)
+- User says "quick", "rapido", "simple", "fast"
+- Task is research-only, plan-only, or single-file fix
+- Task matches a specific agent category (SEO, security, etc.) without multi-layer scope
+
+#### When escalating, propose (never auto-spawn):
+
+Show the user:
+```
+🚀 Agent Teams Recommendation
+   This task touches [X layers]: [list layers detected]
+   Recommended team: [N] teammates
+
+   1. [Role 1]: [scope]
+   2. [Role 2]: [scope]
+   3. [Role 3]: [scope]
+
+   Template: [Code Review Team / Feature Build Team / Debug Team]
+
+   Proceed with Agent Team? Or prefer sequential sub-agents?
+```
+
+**If user confirms** → Use the matching template from agent-teams.md to brief teammates
+**If user declines** → Continue with normal sub-agent routing (Step 2)
 
 ### Step 2: Execute Decision
 
@@ -319,6 +372,38 @@ If intent is unclear:
 🎯 Intent: UX/ACCESSIBILITY
 📋 Executing: @ux-accessibility-reviewer
 💡 Reason: "accessibility compliance" = WCAG audit and UX review
+```
+
+**User**: `/do add Stripe payment integration`
+```
+🎯 Intent: BUILD FEATURE (multi-layer)
+🚀 Agent Teams Recommendation:
+   This task touches 4 layers: DB + backend + frontend + tests
+   Recommended: Feature Build Team (3 teammates)
+   Proceed with Agent Team? Or prefer sequential sub-agents?
+```
+
+**User**: `/do full security audit of the codebase`
+```
+🎯 Intent: SECURITY AUDIT (multi-angle)
+🚀 Agent Teams Recommendation:
+   Multi-angle audit detected: security + performance + test coverage
+   Recommended: Code Review Team (3 teammates)
+   Proceed with Agent Team? Or prefer sequential sub-agents?
+```
+
+**User**: `/do fix the bug in auth middleware`
+```
+🎯 Intent: DEBUG/INVESTIGATE
+📋 Executing: @brahma-investigator
+💡 Reason: Focused single-module task → sub-agents (no escalation)
+```
+
+**User**: `/do research Redis caching best practices`
+```
+🎯 Intent: RESEARCH
+📋 Executing: /research Redis caching
+💡 Reason: Research-only → sub-agents (no escalation)
 ```
 
 ## Context Awareness Throughout Session

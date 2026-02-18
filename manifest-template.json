@@ -36,6 +36,9 @@
     "hooks/update-knowledge-core.sh",
     "hooks/validate-implementation-plan.sh",
     "hooks/validate-research-pack.sh",
+    "hooks/teammate-idle.sh",
+    "hooks/task-completed.sh",
+    "agent-teams.md",
     "validators/api-matcher.sh",
     "validators/circuit-breaker.sh",
     "metrics/tracker.sh",
@@ -55,6 +58,8 @@
     "hooks/update-knowledge-core.sh",
     "hooks/validate-implementation-plan.sh",
     "hooks/validate-research-pack.sh",
+    "hooks/teammate-idle.sh",
+    "hooks/task-completed.sh",
     "validators/api-matcher.sh",
     "validators/circuit-breaker.sh",
     "metrics/tracker.sh"
@@ -93,11 +98,11 @@
     }
   },
   "metadata": {
-    "total_files": 44,
+    "total_files": 47,
     "agents": 15,
     "skills": 5,
     "commands": 7,
-    "hooks": 7,
+    "hooks": 9,
     "validators": 2,
     "metrics": 1,
     "templates": 6,

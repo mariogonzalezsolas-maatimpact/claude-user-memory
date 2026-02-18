@@ -97,6 +97,14 @@ cd claude-user-memory
 @ux-accessibility-reviewer WCAG 2.2 compliance audit
 ```
 
+**Agent Teams (experimental):**
+```bash
+# /do automatically detects when parallel teammates would help
+# Just use /do normally -- it will propose a team when beneficial
+/do add Stripe payment integration   # proposes Agent Team (multi-layer)
+/do fix auth bug                     # uses sub-agents (focused task)
+```
+
 **Circuit breaker management:**
 ```bash
 /circuit-breaker status    # Check if blocked
@@ -317,6 +325,14 @@ cd claude-user-memory
 @product-strategist Evaluar oportunidad de mercado
 @security-auditor Auditoria de seguridad OWASP Top 10
 @ux-accessibility-reviewer Auditoria de accesibilidad WCAG 2.2
+```
+
+**Agent Teams (experimental):**
+```bash
+# /do detecta automaticamente cuando companeros paralelos serian utiles
+# Solo usa /do normalmente -- propondra un equipo cuando sea beneficioso
+/do agregar integracion de pagos Stripe   # propone Agent Team (multi-capa)
+/do arreglar bug de autenticacion         # usa sub-agents (tarea focalizada)
 ```
 
 **Gestion del circuit breaker:**

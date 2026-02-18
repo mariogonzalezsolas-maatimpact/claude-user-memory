@@ -1,367 +1,41 @@
-# Agentic Substrate v5.0 - System-Wide Enhancement
-
-**The Love of Wisdom (Philia Sophia) - Research-Driven Development - Optimized for Claude Opus 4.6**
-
-This file documents the Agentic Substrate capabilities installed system-wide in `~/.claude/`. These enhancements work across **all projects** and integrate seamlessly with project-specific configurations.
-
----
-
-## 🚀 Quick Start
-
-```bash
-# Universal command - just say what you want (RECOMMENDED)
-/do add authentication to my API
-/do why is this function slow?
-/do deploy to production
-
-# Complete automation
-/workflow Add Redis caching to ProductService with 5-minute TTL
-
-# Step-by-step control
-/research Redis for Node.js v5.0
-/plan Redis caching implementation
-/implement
-
-# Direct agent invocation
-@chief-architect Build complete authentication system
-
-# Growth & Strategy agents (new in v5.0)
-@seo-strategist Audit SEO and create optimization roadmap
-@business-analyst Analyze customer onboarding process
-@content-strategist Create content strategy for launch
-@product-strategist Evaluate market opportunity
-@security-auditor OWASP Top 10 security audit
-@ux-accessibility-reviewer WCAG 2.2 compliance audit
-```
-
----
-
-## 📦 What's Installed
-
-### 15 Agents across 4 Tiers (Optimized for Claude Opus 4.6)
-
-**Tier 1: Orchestrator (1 agent)**
-- **@chief-architect** - Master orchestrator for complex multi-agent workflows
-
-**Tier 2: Core Workflow (5 agents)** - BUILD + FIX phases
-- **@docs-researcher** - Fetches version-accurate docs (< 2 min, 49-67% better accuracy)
-- **@implementation-planner** - Creates minimal-change blueprints with rollback plans
-- **@brahma-analyzer** - Cross-artifact consistency validation (quality gate: 80+ score)
-- **@code-implementer** - Executes with TDD, self-corrects 3x, auto-commits to git
-- **@brahma-investigator** - Systematic root-cause debugging (3-retry think protocol)
-
-**Tier 3: Production (3 agents)** - SERVE phase
-- **@brahma-deployer** - Canary deployments (5%→25%→50%→100%) with auto-rollback
-- **@brahma-monitor** - Observability: Metrics, Logs, Traces (three pillars)
-- **@brahma-optimizer** - Performance profiling, optimization, auto-scaling
-
-**Tier 4: Growth & Strategy (6 agents)** - GROW phase
-- **@seo-strategist** - Technical SEO audit, Core Web Vitals, schema markup, keyword strategy
-- **@business-analyst** - Business logic analysis, requirements engineering, process optimization
-- **@content-strategist** - Content marketing, brand voice, SEO content, editorial calendars
-- **@product-strategist** - Market analysis (TAM/SAM/SOM), competitive intelligence, roadmaps
-- **@security-auditor** - OWASP Top 10, code security review, compliance (SOC2/GDPR/HIPAA)
-- **@ux-accessibility-reviewer** - WCAG 2.2 compliance, Nielsen's heuristics, inclusive design
-
-### 5 Skills (Auto-invoked capabilities)
-- **research-methodology** - Truth over speed (but achieve both)
-- **planning-methodology** - Surgical changes, not rewrites
-- **quality-validation** - Objective scoring (blocks bad inputs)
-- **pattern-recognition** - Automatic learning from implementations
-- **context-engineering** - Fights context rot (39% improvement, 84% token reduction)
-
-### 7 Commands (Slash commands)
-- **/do [anything]** - Universal command router (RECOMMENDED) - analyzes intent and routes to best approach
-- **/workflow [feature]** - Complete automation (research → plan → implement)
-- **/research [topic]** - Fast documentation research
-- **/plan [feature]** - Create implementation plan
-- **/implement** - Execute plan with TDD
-- **/context [analyze|optimize|reset]** - Manage context health
-- **/circuit-breaker [status|reset]** - View/manage implementation circuit breaker
-
-### 8 Hooks (Quality gates)
-- **Pre-agent-spawn** - Economic viability check (15x cost warning)
-- **Post-tool-use** - Context curation suggestions
-- **Pre-commit** - Safety checks (no secrets, binaries)
-- **Post-test** - Coverage analysis
-- **4 others** - Additional quality enforcement
-
----
-
-## 🧠 Extended Thinking Modes
-
-Include keywords in your request to trigger extended reasoning:
-
-| Keyword | Time | Use For | Performance |
-|---------|------|---------|-------------|
-| **think** | 30-60s | Routine planning, standard decisions | Baseline |
-| **think hard** | 1-2min | Multiple valid approaches, unclear tradeoffs | +30% |
-| **think harder** | 2-4min | Novel problems, high-stakes decisions | +54% |
-| **ultrathink** | 5-10min | Critical architecture, multi-agent coordination | +54% |
-
-**Research finding**: 54% improvement on complex tasks (Anthropic)
-
-**Example**: `ultrathink the architecture for multi-tenant auth before planning`
-
----
-
-## ⚙️ Core Workflow
-
-### Research → Plan → Implement (10-25 minutes total)
-
-**Phase 1: Research** (< 2 min)
-- Fetches official, version-accurate documentation
-- Prevents coding from stale memory
-- Creates ResearchPack (must score 80+)
-
-**Phase 2: Planning** (< 3 min)
-- Transforms research into minimal-change blueprint
-- Identifies surgical edits only (no rewrites)
-- Includes rollback procedure (must score 85+)
-
-**Phase 3: Implementation** (< 5 min)
-- Test-first mandatory (RED-GREEN-REFACTOR)
-- Self-corrects on error (max 3 attempts)
-- Auto-commits with co-author attribution
-
-### Quality Gates (Automatic)
-
-**Gate 1: Research → Planning**
-- ✅ ResearchPack score ≥ 80 (API) or ≥ 70 (philosophy)
-- ⛔ Blocks planning if research incomplete
-
-**Gate 2: Planning → Implementation**
-- ✅ Implementation Plan score ≥ 85
-- ✅ APIs match ResearchPack exactly (no hallucination)
-- ⛔ Blocks coding if plan unsafe
-
-**Gate 3: Implementation → Completion**
-- ✅ All tests passing (TDD enforced)
-- ✅ Circuit breaker closed
-- ⛔ Self-corrects 3x, then stops
-
----
-
-## 🎯 When to Use What
-
-### Use `/do` when (RECOMMENDED):
-- ✅ You want Claude to figure out the best approach
-- ✅ You're not sure which command to use
-- ✅ You want intelligent intent detection
-- ✅ Any task - it routes automatically to the right tool
-
-### Use `/workflow` when:
-- ✅ Clear, well-defined feature request
-- ✅ Trust orchestrator to handle details
-- ✅ Want complete automation (research → plan → implement)
-- ✅ Standard feature (not experimental)
-
-### Use manual commands when:
-- Need to review research before planning (`/research` then inspect)
-- Want to modify plan before implementing (`/plan` then edit)
-- Uncertain about approach (step-by-step control)
-- Learning the system
-
-### Use direct agents when:
-- Complex orchestration needed (`@chief-architect`)
-- Just need research (`@docs-researcher`)
-- Have research, need plan (`@implementation-planner`)
-- Have plan, ready to code (`@code-implementer`)
-
----
-
-## 📊 Performance Benchmarks
-
-From Anthropic research and Agentic Substrate testing:
-
-| Metric | Before | After | Improvement |
-|--------|--------|-------|-------------|
-| **Complex task accuracy** | Baseline | +54% | Think tool |
-| **Research accuracy** | Baseline | +49-67% | Contextual retrieval |
-| **Context optimization** | Baseline | +39%, -84% tokens | Active curation |
-| **Multi-agent performance** | Baseline | +90.2%, -90% time | Parallel execution |
-| **Feature implementation** | 55-120 min | 10-25 min | 4.8-5.5x faster |
-| **Test coverage** | Variable | 80%+ | TDD enforced |
-| **API hallucination** | Common | 0% | ResearchPack validation |
-
----
-
-## 🔄 Context Management
-
-Run every 50 messages or when switching tasks:
-
-```bash
-/context analyze    # Show current context configuration
-/context optimize   # Prune stale context automatically
-/context reset      # Fresh start for new project
-```
-
-**Benefits**: 39% improvement, 84% token reduction (Anthropic research)
-
----
-
-## 🛡️ Safety Features
-
-### Circuit Breaker
-- Opens after 3 failed implementation attempts
-- Prevents infinite retry loops
-- Requires manual intervention to reset
-- Check status: `/circuit-breaker status`
-- Reset: `/circuit-breaker reset`
-- Manual: `echo "closed" > ~/.claude/.circuit-breaker-state`
-
-### Economic Viability Check
-- Multi-agent spawning costs 15x more tokens
-- Hook prompts user before spawning multiple agents
-- Blocks simple tasks (use single agent)
-- Allows complex tasks (worth the cost)
-
-### Git Safety
-- Never commits .env, credentials, or binaries
-- Stages only relevant files
-- Creates descriptive commit messages
-- Co-author attribution to Claude
-- Commits locally only (user must push)
-
----
-
-## 🧩 Integration with Project Brahma
-
-If you have the Unified Brahma Orchestration System V2.0 installed:
-
-**Agentic Substrate** (15 agents - Research → Plan → Implement → Grow):
-- System-wide workflow automation
-- Works in ANY directory
-- Quality gates and TDD enforcement
-- Growth & Strategy analysis
-
-**Project Brahma** (18 agents - BUILD → FIX → SERVE):
-- Multi-project orchestration
-- Constitution-driven workflows
-- Production deployment automation
-
-**They work together**:
-```bash
-# Agentic Substrate handles feature development
-/workflow Add payment processing with Stripe
-
-# Growth & Strategy analysis
-@seo-strategist Audit SEO for launch readiness
-@security-auditor OWASP Top 10 audit before deployment
-
-# Project Brahma handles deployment
-@brahma-deployer v2.5.0 to production with canary
-```
-
----
-
-## 📚 Memory Hierarchy
-
-Claude Code loads context in this order:
-
-```
-1. Enterprise: /Library/Application Support/ClaudeCode/CLAUDE.md
-2. User: ~/.claude/CLAUDE.md (THIS FILE)
-3. Project: ./CLAUDE.md or ./.claude/CLAUDE.md
-4. Imports: @path/to/file.md (up to 5 hops)
-```
-
-**They combine** - they don't override. Use this hierarchy:
-
-- **User-level** (this file): System-wide capabilities
-- **Project-level** (./CLAUDE.md): Project-specific goals, constitution, workflows
-- **Imports** (@.claude/templates/*.md): Modular organization
-
----
-
-## 📖 Quick Reference
-
-### Agents
+# Agentic Substrate v5.0
+# --- AGENTIC SUBSTRATE START ---
+
+## System Rules
+- Never code from memory -- use @docs-researcher or /research first
+- Every change: minimal, surgical, reversible
+- TDD mandatory: RED -> GREEN -> REFACTOR
+- Quality gates: Research 80+, Plan 85+, Tests pass
+- Circuit breaker opens after 3 failures: /circuit-breaker reset
+
+## Commands
+- `/do [anything]` -- Universal router (RECOMMENDED)
+- `/workflow [feature]` -- Full automation: research -> plan -> implement
+- `/research [topic]` -- Fetch version-accurate docs (<2 min)
+- `/plan [feature]` -- Create minimal-change blueprint
+- `/implement` -- Execute plan with TDD + self-correction (3 retries)
+- `/context [analyze|optimize|reset]` -- Context health (run every 50 messages)
+- `/circuit-breaker [status|reset]` -- Manage implementation circuit breaker
+
+## 15 Agents (4 Tiers)
+- **Orchestrator**: chief-architect
+- **Core (BUILD+FIX)**: docs-researcher, implementation-planner, brahma-analyzer, code-implementer, brahma-investigator
+- **Production (SERVE)**: brahma-deployer, brahma-monitor, brahma-optimizer
+- **Growth (GROW)**: seo-strategist, business-analyst, content-strategist, product-strategist, security-auditor, ux-accessibility-reviewer
+
+## Thinking Modes
+Add keyword: **think** (30-60s) | **think hard** (1-2min) | **think harder** (2-4min) | **ultrathink** (5-10min)
+
+## Quick Fixes
+- Research <80 -> specify library version explicitly
+- Plan <85 -> add rollback procedure + complete file list
+- Circuit breaker open -> `/circuit-breaker reset`
+- Context too large -> `/context optimize`
+
+## Detailed Documentation
 @.claude/templates/agents-overview.md
-
-### Skills
 @.claude/templates/skills-overview.md
-
-### Workflows
 @.claude/templates/workflows-overview.md
+@.claude/agent-teams.md
 
----
-
-## 🎓 Best Practices
-
-1. **Start with `/do`** - Let Claude figure out the best approach
-2. **Use `/workflow` for features** - Full automation is faster and safer
-3. **Trust the quality gates** - Fix defects before proceeding
-4. **Use think protocols** - Add "ultrathink" for critical decisions
-5. **Run `/context optimize`** - Every 50 messages
-6. **Review knowledge-core.md** - See accumulated patterns
-7. **Test before pushing** - Git commits are local only
-
----
-
-## 🔍 Troubleshooting
-
-**Problem**: Research scores < 80
-- **Solution**: Library version not found - specify version explicitly
-
-**Problem**: Plan scores < 85
-- **Solution**: Missing rollback procedure or file list incomplete
-
-**Problem**: Tests failing after implementation
-- **Solution**: Self-correction runs automatically (max 3 attempts)
-
-**Problem**: Circuit breaker open
-- **Solution**: Run `/circuit-breaker reset` or `echo "closed" > ~/.claude/.circuit-breaker-state`
-
-**Problem**: Too much context
-- **Solution**: Run `/context optimize` to prune stale information
-
----
-
-## 📦 Installation Info
-
-- **Version**: 5.0.0
-- **Model**: Claude Opus 4.6
-- **Installed**: ~/.claude/
-- **Repository**: https://github.com/VAMFI/claude-user-memory
-
-### v5.0 Enhancements
-- **6 new Growth & Strategy agents** - SEO, business analysis, content, product, security, UX/accessibility
-- **Opus 4.6 optimization** - All 15 agents optimized for Claude's latest model
-- **Enhanced `/do` routing** - 6 new intent categories for Tier 4 agents
-- **6 new workflow patterns** - SEO+Content, Product Launch, Security-First, UX-Driven, and more
-- **DeepWiki MCP** - Mandatory for all agents (reduces API hallucination to <2%)
-- **Quality scoring** - SEO Score, Security Score, UX+A11y Score (all 0-100)
-
-### Update
-```bash
-cd ~/path/to/claude-user-memory
-git pull origin main
-./install.sh
-```
-
-### Uninstall
-```bash
-rm -rf ~/.claude/agents/{chief-architect,docs-researcher,implementation-planner,code-implementer,brahma-*,seo-strategist,business-analyst,content-strategist,product-strategist,security-auditor,ux-accessibility-reviewer}.md
-rm -rf ~/.claude/skills/{research-methodology,planning-methodology,quality-validation,pattern-recognition,context-engineering}
-rm -rf ~/.claude/commands/{do,research,plan,implement,workflow,context,circuit-breaker}.md
-# Review and manually remove hooks if needed
-```
-
----
-
-## 🌟 Philosophy: Philia Sophia
-
-**The Love of Wisdom** - Synthesis over imitation.
-
-This system combines:
-- **Anthropic's research** (think tool, contextual retrieval, multi-agent orchestration)
-- **VAMFI's innovations** (quality gates, TDD enforcement, knowledge preservation)
-
-Result: **Research-driven development** that's faster, safer, and continuously learning.
-
----
-
-**For detailed workflows, see templates above. For Project Brahma integration, see /Users/amba/CLAUDE.md**
-
-**Happy coding with superintelligent assistance!**
+# --- AGENTIC SUBSTRATE END ---

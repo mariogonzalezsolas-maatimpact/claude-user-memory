@@ -35,6 +35,7 @@ The `/do` command:
 | Security audit/Compliance | `@security-auditor` |
 | UX review/Accessibility | `@ux-accessibility-reviewer` |
 | Complex multi-domain | `@chief-architect` |
+| Complex parallel work (3+ layers) | Agent Team (with confirmation) |
 
 ---
 
@@ -372,4 +373,34 @@ Sequence (parallel where possible):
 @content-strategist → Communication plan for changes
 
 Duration: 25-40 min (with parallel execution)
+```
+
+---
+
+## Project Brahma Integration
+
+If you have the Unified Brahma Orchestration System V2.0 installed:
+
+**Agentic Substrate** (15 agents - Research -> Plan -> Implement -> Grow):
+- System-wide workflow automation
+- Works in ANY directory
+- Quality gates and TDD enforcement
+- Growth & Strategy analysis
+
+**Project Brahma** (18 agents - BUILD -> FIX -> SERVE):
+- Multi-project orchestration
+- Constitution-driven workflows
+- Production deployment automation
+
+**They work together**:
+```bash
+# Agentic Substrate handles feature development
+/workflow Add payment processing with Stripe
+
+# Growth & Strategy analysis
+@seo-strategist Audit SEO for launch readiness
+@security-auditor OWASP Top 10 audit before deployment
+
+# Project Brahma handles deployment
+@brahma-deployer v2.5.0 to production with canary
 ```

@@ -537,11 +537,14 @@ set_permissions() {
     log_success "Permissions set on executable files"
 }
 
-# Smart-merge user-level CLAUDE.md
+# Smart-merge user-level CLAUDE.md (idempotent, marker-based)
 smart_merge_claude_md() {
     local source="$CLAUDE_SOURCE/templates/CLAUDE.md.user-level"
     local target="$CLAUDE_TARGET/CLAUDE.md"
     local backup="$CLAUDE_TARGET/CLAUDE.md.backup"
+
+    local START_MARKER="# --- AGENTIC SUBSTRATE START ---"
+    local END_MARKER="# --- AGENTIC SUBSTRATE END ---"
 
     if [ ! -f "$source" ]; then
         log_warning "CLAUDE.md.user-level template not found (skipping)"
@@ -549,49 +552,60 @@ smart_merge_claude_md() {
     fi
 
     if [ "$DRY_RUN" = true ]; then
-        if [ -f "$target" ]; then
-            log_info "[DRY RUN] Would smart-merge user-level CLAUDE.md"
-        else
-            log_info "[DRY RUN] Would install user-level CLAUDE.md"
-        fi
+        log_info "[DRY RUN] Would smart-merge user-level CLAUDE.md"
         return 0
     fi
 
-    # If no existing CLAUDE.md, just copy template
+    # Fresh install -- just copy
     if [ ! -f "$target" ]; then
         log_info "Installing user-level CLAUDE.md..."
-        if cp "$source" "$target" 2>/dev/null; then
-            log_success "User-level CLAUDE.md installed"
-        else
-            log_warning "Failed to install CLAUDE.md"
-        fi
+        cp "$source" "$target" 2>/dev/null && log_success "User-level CLAUDE.md installed"
         return 0
     fi
 
-    # Existing CLAUDE.md found - smart merge
+    # Existing file -- backup first
     log_info "Existing CLAUDE.md found - performing smart merge..."
-
-    # Create backup
     cp "$target" "$backup" 2>/dev/null || true
 
-    # Create merged version
-    {
-        cat "$source"
-        echo ""
-        echo "---"
-        echo ""
-        echo "# USER CUSTOMIZATIONS (preserved from previous installation)"
-        echo ""
-        cat "$target"
-    } > "$target.tmp" 2>/dev/null
+    if grep -q "$START_MARKER" "$target" 2>/dev/null; then
+        # CASE 1: Markers present -- replace managed section only
+        log_info "Markers found - replacing managed section..."
+        local tmp="$target.tmp"
+        # Write: content before START marker + new template + content after END marker
+        {
+            sed -n "1,/^${START_MARKER}/{ /^${START_MARKER}/d; p; }" "$target"
+            cat "$source"
+            sed -n "/^${END_MARKER}/,\${ /^${END_MARKER}/d; p; }" "$target"
+        } > "$tmp" 2>/dev/null
+    else
+        # CASE 2: No markers (legacy bloated install) -- replace entirely
+        local header_count
+        header_count=$(grep -c "^# Agentic Substrate v" "$target" 2>/dev/null || echo "0")
+        if [ "$header_count" -gt 1 ]; then
+            log_info "Detected $header_count template copies (bloated) - cleaning up..."
+        else
+            log_info "Legacy format detected - upgrading to marker format..."
+        fi
+        cp "$source" "$target.tmp" 2>/dev/null
+    fi
 
+    # Apply the merge
     if [ -f "$target.tmp" ]; then
         mv "$target.tmp" "$target" 2>/dev/null && {
-            log_success "User-level CLAUDE.md smart-merged"
-            log_info "Original backed up to: CLAUDE.md.backup"
+            log_success "User-level CLAUDE.md updated (idempotent)"
+            log_info "Backup saved to: CLAUDE.md.backup"
         }
     else
         log_warning "Smart merge failed, keeping existing CLAUDE.md"
+    fi
+
+    # Validate size
+    local size
+    size=$(wc -c < "$target" 2>/dev/null | tr -d ' ')
+    if [ -n "$size" ] && [ "$size" -gt 5000 ]; then
+        log_warning "CLAUDE.md is ${size} bytes (target: <5000). Check for bloat."
+    else
+        log_info "CLAUDE.md size: ${size} bytes"
     fi
 }
 
@@ -652,6 +666,63 @@ install_mcp_servers() {
     else
         log_warning "Claude CLI not found, skipping MCP setup"
         log_info "Install Claude CLI then run: claude mcp add -s user -t http deepwiki https://mcp.deepwiki.com/mcp"
+    fi
+}
+
+# Configure Agent Teams experimental feature
+configure_agent_teams() {
+    local settings="$CLAUDE_TARGET/settings.json"
+
+    if [ "$DRY_RUN" = true ]; then
+        log_info "[DRY RUN] Would configure Agent Teams in settings.json"
+        return 0
+    fi
+
+    log_info "Configuring Agent Teams..."
+
+    if [ -f "$settings" ]; then
+        # Existing settings -- merge env var
+        if grep -q "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS" "$settings" 2>/dev/null; then
+            log_info "Agent Teams already configured in settings.json"
+            return 0
+        fi
+
+        local settings_path
+        settings_path=$(to_windows_path "$settings")
+
+        if [ -n "$PYTHON_CMD" ]; then
+            $PYTHON_CMD << 'PYEOF' "$settings_path" 2>/dev/null
+import json, sys
+path = sys.argv[1]
+with open(path, 'r') as f:
+    data = json.load(f)
+if 'env' not in data:
+    data['env'] = {}
+data['env']['CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS'] = '1'
+with open(path, 'w') as f:
+    json.dump(data, f, indent=2)
+    f.write('\n')
+PYEOF
+            if [ $? -eq 0 ]; then
+                log_success "Agent Teams enabled in settings.json (via Python)"
+                return 0
+            fi
+        fi
+
+        # Fallback: warn user
+        log_warning "Could not auto-merge Agent Teams setting"
+        log_info "Add manually to ~/.claude/settings.json:"
+        log_info '  "env": { "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1" }'
+    else
+        # No settings.json -- create minimal one
+        cat > "$settings" << 'EOF'
+{
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  }
+}
+EOF
+        log_success "settings.json created with Agent Teams enabled"
     fi
 }
 
@@ -831,7 +902,7 @@ display_summary() {
     echo "  Location: $CLAUDE_TARGET"
     echo "  Version: $VERSION"
     echo "  Platform: $OS_TYPE"
-    echo "  Agents: 9 | Skills: 5 | Commands: 5"
+    echo "  Agents: 15 | Skills: 5 | Commands: 7"
     echo ""
 
     if [ -n "$BACKUP_LOCATION" ]; then
@@ -897,6 +968,7 @@ main() {
     smart_merge_claude_md
     install_mcp_config
     install_mcp_servers
+    configure_agent_teams
     generate_manifest
     write_version
     generate_rollback
