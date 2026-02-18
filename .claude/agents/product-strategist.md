@@ -2,7 +2,8 @@
 name: product-strategist
 description: Product strategy and roadmap specialist. Performs market analysis, competitive intelligence, feature prioritization, go-to-market planning, and product positioning. Use for product decisions, roadmap planning, and market opportunity assessment.
 tools: Read, Write, WebSearch, WebFetch, Glob, Grep
-model: opus
+model: sonnet
+maxTurns: 25
 memory: project
 ---
 

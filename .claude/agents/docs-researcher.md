@@ -1,6 +1,11 @@
 ---
 name: docs-researcher
 description: High-speed documentation specialist. Fetches version-accurate docs from official sources to prevent coding from stale memory. Use before implementing any feature with external libraries or APIs. Delivers ResearchPack in < 2 minutes.
+model: sonnet
+tools: Read, Grep, Glob, WebFetch, WebSearch
+maxTurns: 15
+skills:
+  - research-methodology
 memory: project
 ---
 

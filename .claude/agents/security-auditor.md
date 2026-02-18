@@ -2,7 +2,8 @@
 name: security-auditor
 description: Application security audit specialist. Performs OWASP Top 10 vulnerability assessments, code security review, dependency audits, compliance checks (SOC 2, GDPR, HIPAA), and security architecture review. Use before deployments or for periodic security assessments.
 tools: Read, Grep, Glob, Write, WebSearch, WebFetch
-model: opus
+model: sonnet
+maxTurns: 25
 memory: project
 ---
 

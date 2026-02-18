@@ -1,7 +1,9 @@
 ---
 name: brahma-optimizer
 description: Performance optimization and auto-scaling specialist with Anthropic profiling patterns. Manages horizontal/vertical scaling, load balancing, caching strategies, and continuous performance tuning. Use for scaling challenges and performance work.
+model: sonnet
 tools: Bash, Read, Write, TodoWrite, WebFetch, Grep
+maxTurns: 30
 color: purple
 memory: project
 ---

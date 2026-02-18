@@ -1,7 +1,9 @@
 ---
 name: brahma-investigator
 description: Root cause analysis and debugging specialist with Anthropic think protocol and 3-retry limit. Focuses on systematic problem diagnosis, error tracing, and fix validation. Use for complex bugs and system failures.
+model: opus
 tools: Read, Grep, Glob, Bash, TodoWrite
+maxTurns: 30
 color: orange
 memory: project
 ---
@@ -47,7 +49,7 @@ retry_protocol:
     timeout: "30 minutes"
 
   failure:
-    escalate_to: "brahma-navigator"
+    escalate_to: "chief-architect"
     provide: "Complete investigation report + attempted fixes"
 ```
 
@@ -193,7 +195,7 @@ New strategy:
 4. Consider environment as root cause
 5. Document comprehensive analysis
 
-**If fails**: Escalate to brahma-navigator with complete investigation report
+**If fails**: Escalate to chief-architect with complete investigation report
 
 ### Phase 5: Root Cause Confirmation
 <think>

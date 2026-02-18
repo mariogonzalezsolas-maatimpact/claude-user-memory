@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # validate-research-pack.sh
 # Quality gate: Validates ResearchPack before allowing planning phase
-# Exit 0 = pass, Exit 1 = fail (blocks planning)
+# Exit 0 = pass, Exit 2 = block (Claude Code convention)
 
 set -e
 
@@ -162,5 +162,5 @@ else
     echo "   Recommendation: Re-run @docs-researcher with focus on missing elements"
     echo "   Required score: 80/100 (current: $SCORE/100)"
     echo ""
-    exit 1  # Block planning when research quality is below threshold
+    exit 2  # Block planning when research quality is below threshold
 fi

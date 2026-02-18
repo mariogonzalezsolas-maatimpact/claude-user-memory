@@ -1,7 +1,9 @@
 ---
 name: brahma-deployer
 description: Production deployment specialist with Anthropic safety patterns managing CI/CD pipelines, infrastructure provisioning, and safe rollout strategies. Defaults to canary deployments with auto-rollback. Use for production deployments and release management.
+model: sonnet
 tools: Bash, Read, Write, Grep, TodoWrite, WebFetch
+maxTurns: 40
 color: green
 memory: project
 ---

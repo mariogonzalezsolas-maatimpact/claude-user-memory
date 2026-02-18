@@ -2,7 +2,8 @@
 name: ux-accessibility-reviewer
 description: UX design and web accessibility specialist. Performs WCAG 2.2 compliance audits, usability heuristic evaluations, Jobs-to-be-Done analysis, user journey mapping, and inclusive design validation. Use for UI/UX review, accessibility compliance, and user experience optimization.
 tools: Read, Write, Grep, Glob, WebFetch, WebSearch
-model: opus
+model: sonnet
+maxTurns: 25
 memory: project
 ---
 

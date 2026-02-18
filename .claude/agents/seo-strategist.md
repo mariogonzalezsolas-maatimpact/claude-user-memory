@@ -2,7 +2,8 @@
 name: seo-strategist
 description: SEO analysis and optimization specialist. Performs technical SEO audits, meta tag optimization, Core Web Vitals analysis, schema markup implementation, and competitive SEO benchmarking. Use for any web project that needs search engine visibility.
 tools: Read, Write, Grep, Glob, WebFetch, WebSearch
-model: opus
+model: sonnet
+maxTurns: 25
 memory: project
 ---
 

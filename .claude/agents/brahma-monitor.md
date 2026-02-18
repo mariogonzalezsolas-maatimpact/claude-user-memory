@@ -1,7 +1,9 @@
 ---
 name: brahma-monitor
 description: Observability and monitoring specialist with Anthropic's three pillars pattern (Metrics, Logs, Traces). Sets up comprehensive monitoring, SLI/SLO tracking, and incident detection. Use for system observability and proactive alerting.
+model: sonnet
 tools: Bash, Read, Write, WebFetch, TodoWrite
+maxTurns: 30
 color: blue
 memory: project
 ---

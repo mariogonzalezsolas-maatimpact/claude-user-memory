@@ -5,6 +5,31 @@ All notable changes to Agentic Substrate will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.2.0] - 2026-02-18
+
+### Added
+- **settings.json**: Hook configuration file for Claude Code (CRITICAL - hooks now properly registered)
+- **pre-compact-backup.sh**: PreCompact hook preserves context before compaction
+- **Agent frontmatter**: Added `model`, `maxTurns`, `skills` to all 15 agents
+  - 3 critical agents use Opus (chief-architect, code-implementer, brahma-investigator)
+  - 12 standard agents use Sonnet 4.6 (~5x cost reduction)
+  - All agents now have turn limits (15-100) preventing runaway execution
+  - docs-researcher, implementation-planner, brahma-analyzer, code-implementer get skill preloading
+
+### Fixed
+- **Hook exit codes**: Changed from exit 1 to exit 2 (Claude Code blocking convention)
+- **Hook stdin protocol**: auto-format.sh, check-agent-economics.sh, suggest-context-edits.sh now read JSON from stdin instead of positional args
+- **Ghost references**: brahma-clarifier replaced with chief-architect in integrations/README.md and knowledge-core.md
+- **docs-researcher**: Now has tools allowlist (Read, Grep, Glob, WebFetch, WebSearch) - no Write/Bash access
+- **implementation-planner**: Now has tools allowlist (Read, Grep, Glob, Write) - no Bash/Edit access
+
+### Changed
+- **Tier 4 agents**: Model changed from opus to sonnet (cost optimization without quality loss)
+- **Manifest**: Updated to v5.2.0 with 55 managed files, 10 hooks
+- **install.sh/install.ps1**: Version bumped to 5.2.0
+
+---
+
 ## [5.1.1] - 2026-02-18
 
 ### Fixed

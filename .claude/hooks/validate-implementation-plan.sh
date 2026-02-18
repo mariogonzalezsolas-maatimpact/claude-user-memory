@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # validate-implementation-plan.sh
 # Quality gate: Validates Implementation Plan before allowing implementation phase
-# Exit 0 = pass, Exit 1 = fail (blocks implementation)
+# Exit 0 = pass, Exit 2 = block (Claude Code convention)
 
 set -e
 
@@ -183,5 +183,5 @@ else
     echo "   Recommendation: Re-run @implementation-planner focusing on missing elements"
     echo "   Required score: 85/100 (current: $SCORE/100)"
     echo ""
-    exit 1  # Block planning when implementation plan quality is below threshold
+    exit 2  # Block implementation when plan quality is below threshold
 fi

@@ -191,7 +191,7 @@ See `crewai/README.md` for complete guide.
 **Expected outcome**: Better handling of complex 10-60 min implementations
 
 ### Phase 3: DSPy Optimization (Weeks 6-8)
-- Optimize top 5 agents (docs-researcher, brahma-clarifier, implementation-planner, brahma-analyzer, brahma-investigator)
+- Optimize top 5 agents (docs-researcher, chief-architect, implementation-planner, brahma-analyzer, brahma-investigator)
 - Collect training data
 - Compile and measure improvement
 

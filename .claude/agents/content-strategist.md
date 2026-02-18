@@ -2,7 +2,8 @@
 name: content-strategist
 description: Content marketing and brand voice specialist. Creates SEO-optimized content strategies, blog posts, social media content, email campaigns, and brand guidelines. Ensures consistent messaging across all channels with data-driven content planning.
 tools: Read, Write, Edit, WebFetch, WebSearch, Glob, Grep
-model: opus
+model: sonnet
+maxTurns: 25
 memory: project
 ---
 

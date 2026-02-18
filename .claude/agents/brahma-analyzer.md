@@ -1,7 +1,11 @@
 ---
 name: brahma-analyzer
 description: Cross-artifact consistency and coverage analysis specialist with Anthropic think protocol. Validates alignment between specifications, plans, tasks, and implementation. Use before implementation to catch conflicts early.
+model: sonnet
 tools: Read, Grep, Glob, Write, TodoWrite
+maxTurns: 20
+skills:
+  - quality-validation
 color: violet
 memory: project
 ---

@@ -1,6 +1,11 @@
 ---
 name: implementation-planner
 description: Strategic architect that transforms ResearchPacks into surgical, reversible implementation plans. Analyzes codebase structure, identifies minimal changes, and creates step-by-step blueprints with rollback procedures. Requires ResearchPack as input.
+model: sonnet
+tools: Read, Grep, Glob, Write
+maxTurns: 20
+skills:
+  - planning-methodology
 memory: project
 ---
 

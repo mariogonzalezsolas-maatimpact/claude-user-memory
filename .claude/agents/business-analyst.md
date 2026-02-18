@@ -2,7 +2,8 @@
 name: business-analyst
 description: Business logic analysis specialist. Analyzes business processes, gathers requirements, identifies improvement opportunities, performs SWOT/cost-benefit analysis, and bridges business needs with technical solutions. Use for requirements elicitation, process optimization, and ROI analysis.
 tools: Read, Write, Edit, Glob, Grep, WebFetch, WebSearch
-model: opus
+model: sonnet
+maxTurns: 25
 memory: project
 ---
 

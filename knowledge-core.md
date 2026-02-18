@@ -1572,7 +1572,7 @@ optimized = optimizer.compile(module, trainset=examples)
 
 **Top 5 Agents to Optimize**:
 1. docs-researcher (question generation, API extraction)
-2. brahma-clarifier (requirement gap identification)
+2. chief-architect (requirement decomposition and orchestration)
 3. implementation-planner (plan quality scoring)
 4. brahma-analyzer (conflict detection)
 5. brahma-investigator (root cause hypothesis)
