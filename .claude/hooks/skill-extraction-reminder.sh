@@ -4,12 +4,17 @@
 # produced extractable, reusable knowledge worth preserving as a skill.
 # Exit 0 = always pass (informational injection)
 
-set -euo pipefail
+set +e
 INPUT=$(cat 2>/dev/null || echo "{}")
 
 # Only inject reminder every ~5 prompts to avoid noise
 # Use a counter file to track
-COUNTER_FILE="${CLAUDE_PROJECT_DIR:-.}/.claude/.skill-extraction-counter"
+PROJECT_DIR="${CLAUDE_PROJECT_DIR:-$(pwd)}"
+COUNTER_FILE="$PROJECT_DIR/.claude/.skill-extraction-counter"
+
+# Ensure directory exists
+mkdir -p "$(dirname "$COUNTER_FILE")" 2>/dev/null || true
+
 COUNT=0
 if [ -f "$COUNTER_FILE" ]; then
     COUNT=$(cat "$COUNTER_FILE" 2>/dev/null || echo "0")
