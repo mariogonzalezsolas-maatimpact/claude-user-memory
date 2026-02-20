@@ -2,11 +2,11 @@
 
 ## LinkedIn Post
 
-**Agentic Substrate v3.0: Applying Anthropic's Research to Production**
+**Agentic Substrate v5.4: Applying Anthropic's Research to Production**
 
 Over the past few weeks, I analyzed 11 Anthropic engineering articles to understand how they build effective AI agents. The goal was simple: take their research and apply it to enhance Claude Code CLI in practical ways.
 
-The result is Agentic Substrate v3.0 - a system-wide enhancement that implements patterns like extended thinking, context engineering, and multi-agent orchestration.
+The result is Agentic Substrate v5.4 - a system-wide enhancement that implements patterns like extended thinking, context engineering, and multi-agent orchestration.
 
 **What it does:**
 - Adds quality gates to prevent AI hallucination
@@ -41,7 +41,7 @@ I spent the last few weeks going through Anthropic's engineering blog to underst
 
 **What I built:**
 
-Agentic Substrate v3.0 is a system-wide enhancement for Claude Code CLI. It implements several patterns from Anthropic's research:
+Agentic Substrate v5.4 is a system-wide enhancement for Claude Code CLI. It implements several patterns from Anthropic's research:
 
 - Extended thinking modes (the "think" tool that improved complex decisions by 54% in their benchmarks)
 - Context engineering to fight "context rot" in long sessions
@@ -97,7 +97,7 @@ https://vamfi.org/blog-demo8-philia-sophia
 
 The approach: Read 11 Anthropic engineering articles, extract patterns, implement them systematically.
 
-Result: Agentic Substrate v3.0
+Result: Agentic Substrate v5.4
 
 Think tool, context engineering, multi-agent orchestration, quality gates.
 

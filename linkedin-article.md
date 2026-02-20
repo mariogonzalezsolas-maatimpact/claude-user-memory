@@ -1,10 +1,10 @@
-# Introducing Agentic Substrate v3.0: The End of AI Code Hallucinations
+# Introducing Agentic Substrate v5.4: The End of AI Code Hallucinations
 
 **Research-Driven Development Has Arrived**
 
 ---
 
-We're excited to announce **Agentic Substrate v3.0** - a fundamental reimagining of how AI assists with software development. This isn't an incremental improvement. It's a philosophical shift from "code and hope" to "research, plan, implement."
+We're excited to announce **Agentic Substrate v5.4** - a fundamental reimagining of how AI assists with software development. This isn't an incremental improvement. It's a philosophical shift from "code and hope" to "research, plan, implement."
 
 ## The Problem Every Developer Knows
 

@@ -1,7 +1,7 @@
-# Project Knowledge Core - Agentic Substrate v4.1
+# Project Knowledge Core - Agentic Substrate v5.4
 
-**Last Updated**: 2024-11-22
-**Version**: 4.1 (DeepWiki Enforcement & Agent Optimization)
+**Last Updated**: 2026-02-20
+**Version**: 5.4.0 (15-Agent System with Growth & Strategy Tier)
 **Project**: Claude User Memory → Agentic Substrate
 
 **Purpose**: This document is the single source of truth for this project's architectural decisions, established patterns, and key learnings. It serves as the persistent memory for all AI agents working on the Agentic Substrate system.
@@ -87,11 +87,11 @@ Leverage Claude Code's native memory system for modular organization:
 
 **Rationale**: Long-term quality compounds; shortcuts create technical debt.
 
-### Principle 6: 9-Agent Architecture for Complete Coverage
-**Established**: 2025-10-18 (Optimized from research on all Claude Code capabilities)
-**Applies to**: All BUILD-FIX-SERVE workflows
+### Principle 6: 15-Agent Architecture for Complete Coverage
+**Established**: 2025-10-18 (Expanded to 15 agents in v5.2)
+**Applies to**: All BUILD-FIX-SERVE-GROW workflows
 
-The complete agent system addresses all 15 LLM bottlenecks with 9 specialized agents organized in 3 tiers:
+The complete agent system addresses all 15 LLM bottlenecks with 15 specialized agents organized in 4 tiers:
 
 **Architecture**:
 ```
@@ -109,6 +109,14 @@ Tier 3: Production (3 agents - SERVE)
   ├─ brahma-deployer: Canary deployment + auto-rollback
   ├─ brahma-monitor: Metrics, Logs, Traces (three pillars)
   └─ brahma-optimizer: Profiling, optimization, scaling
+
+Tier 4: Growth & Strategy (6 agents - GROW)
+  ├─ seo-strategist: Technical SEO, Core Web Vitals, schema markup
+  ├─ business-analyst: Requirements, ROI, process optimization
+  ├─ content-strategist: Brand voice, content marketing, social media
+  ├─ product-strategist: Market analysis, roadmaps, GTM strategy
+  ├─ security-auditor: OWASP Top 10, compliance, vulnerability scanning
+  └─ ux-accessibility-reviewer: WCAG 2.2, usability heuristics, inclusive design
 ```
 
 **15 LLM Bottlenecks Addressed**:
@@ -120,7 +128,7 @@ Tier 3: Production (3 agents - SERVE)
 6. Inconsistency → brahma-analyzer (cross-artifact validation)
 7. Economic unawareness → Pre-agent-spawn hook (15x warning)
 8. Sequential execution → chief-architect (parallel multi-agent)
-9. No specialization → 9 specialized agents (vs jack-of-all-trades)
+9. No specialization → 15 specialized agents (vs jack-of-all-trades)
 10. Amnesia → knowledge-core.md + pattern-recognition skill
 11. Premature implementation → Research → Plan → Implement workflow
 12. Give up after failure → 3-retry strategy (investigator, implementer)
@@ -128,11 +136,12 @@ Tier 3: Production (3 agents - SERVE)
 14. Deployment blindness → brahma-deployer (production awareness)
 15. No observability → brahma-monitor (three pillars)
 
-**Why 9 (Not 4, Not 15)?**:
+**Why 15 Agents in 4 Tiers?**:
 - Research-based: Analyzed ALL 15 Claude Code tools + ALL software workflows
-- Goldilocks zone: Anthropic recommends 5-8 agents (our 9 is 6 core + 3 optional production)
-- Complete coverage: Addresses BUILD + FIX + SERVE lifecycle
-- Economic viability: Production agents (Tier 3) only used when needed
+- v5.2 expanded from 9 to 15 with Growth & Strategy tier (SEO, Business, Content, Product, Security, UX)
+- Complete coverage: Addresses BUILD + FIX + SERVE + GROW lifecycle
+- Economic viability: Growth agents (Tier 4) only used when needed
+- Models: 3 Opus (chief-architect, code-implementer, brahma-investigator) + 12 Sonnet
 
 **Performance Gains** (from Anthropic research):
 - Multi-agent parallel: 90.2% performance improvement, 90% time reduction
@@ -140,7 +149,7 @@ Tier 3: Production (3 agents - SERVE)
 - Quality gates: brahma-analyzer prevents implementation conflicts
 - Self-correction: 3-retry reduces manual intervention
 
-**Rationale**: Based on deep web research and analysis of Claude Code capabilities, 9 agents provide complete coverage of BUILD-FIX-SERVE lifecycle while maintaining cognitive manageable complexity.
+**Rationale**: Based on deep web research and analysis of Claude Code capabilities, 15 agents provide complete coverage of BUILD-FIX-SERVE-GROW lifecycle while maintaining cognitive manageable complexity.
 
 ---
 
@@ -272,10 +281,10 @@ Tier 3: Production (3 agents - SERVE)
 
 **Architecture**:
 ```
-chief-architect (Lead Agent - Opus 4)
-    ├─ subagent-1 (Sonnet 4 - e.g., docs-researcher for API docs)
-    ├─ subagent-2 (Sonnet 4 - e.g., docs-researcher for deployment docs)
-    ├─ subagent-3 (Sonnet 4 - e.g., brahma-scout for codebase patterns)
+chief-architect (Lead Agent - Opus 4.6)
+    ├─ subagent-1 (Sonnet 4.6 - e.g., docs-researcher for API docs)
+    ├─ subagent-2 (Sonnet 4.6 - e.g., docs-researcher for deployment docs)
+    ├─ subagent-3 (Sonnet 4.6 - e.g., brahma-analyzer for codebase patterns)
     └─ Synthesize results from all subagents
 ```
 
@@ -847,7 +856,7 @@ Command(
 
 **Tagline**: "The foundational layer for Claude Code superintelligence"
 
-**Implementation**: See `/Users/amba/Code/claude-user-memory/ImplementationPlan-Agentic-Substrate.md`
+**Implementation**: See `ImplementationPlan-Agentic-Substrate.md` (in project root or docs/)
 
 **Status**: Active - Repository remains `claude-user-memory` for SEO, README title uses "Agentic Substrate"
 
@@ -889,7 +898,7 @@ Command(
 
 **Implementation**: See `ResearchPack-Anthropic-Engineering-Philosophy.md` and `ImplementationPlan-Agentic-Substrate.md`
 
-**Status**: Active - Core philosophy of Agentic Substrate v3.0
+**Status**: Active - Core philosophy of Agentic Substrate v5.4
 
 ---
 
@@ -1243,7 +1252,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 - Higher signal-to-noise ratio in context
 
 **Multi-Agent Performance**:
-- **90.2% performance gain** over single agent (Opus 4 lead + Sonnet 4 subagents vs single Opus 4)
+- **90.2% performance gain** over single agent (Opus 4.6 lead + Sonnet 4.6 subagents vs single Opus 4.6)
 - **Up to 90% time reduction** for complex queries
 - Cost: **4x tokens** (agents vs chat), **15x tokens** (multi-agent vs single agent)
 
@@ -1421,15 +1430,15 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 ### Project Documentation
 
-- **ResearchPack**: `/Users/amba/Code/claude-user-memory/ResearchPack-Anthropic-Engineering-Philosophy.md`
-- **ImplementationPlan**: `/Users/amba/Code/claude-user-memory/ImplementationPlan-Agentic-Substrate.md`
-- **README**: `/Users/amba/Code/claude-user-memory/README.md`
-- **CLAUDE.md**: `/Users/amba/Code/claude-user-memory/CLAUDE.md`
+- **ResearchPack**: `ResearchPack-Anthropic-Engineering-Philosophy.md`
+- **ImplementationPlan**: `ImplementationPlan-Agentic-Substrate.md`
+- **README**: `README.md`
+- **CLAUDE.md**: `CLAUDE.md`
 
 ---
 
-**Last updated**: 2025-10-18 by pattern-recognition skill (Project Brahma Demo8 knowledge capture)
-**Next review**: After Phase 1 implementation complete
+**Last updated**: 2026-02-20 by pattern-recognition skill
+**Next review**: Ongoing (review with each major version)
 **Maintainer**: Jaykumar Jayesh Bhailal Devji Lala Amtha Patel, VAMFI Inc.
 
 ---
@@ -1588,8 +1597,8 @@ optimized = optimizer.compile(module, trainset=examples)
 **Severity**: CRITICAL (32/100 documentation integrity score)
 
 **Problem**:
-- agents-overview.md documented only 4 agents (actual: 9)
-- CLAUDE.md claimed "4 specialists" (actual: 9 across 3 tiers)
+- agents-overview.md documented only 4 agents (actual: 15 as of v5.4)
+- CLAUDE.md claimed "4 specialists" (actual: 15 across 4 tiers)
 - False claims about features (circuit breaker state file, Brahma commands)
 
 **Impact**: Users can't trust documentation, waste time on non-existent features
@@ -1665,19 +1674,20 @@ LangGraph (orchestration layer)
 
 ### Decision: Tier-Based Agent Organization
 
-**Date**: 2025-11-06
-**Context**: Documentation rewrite for all 9 agents
+**Date**: 2025-11-06 (expanded to 15 agents / 4 tiers in v5.2)
+**Context**: Documentation rewrite for all agents
 
-**Decision**: Organize agents into 3 tiers (Orchestration, Core Workflow, Production)
+**Decision**: Organize agents into 4 tiers (Orchestration, Core Workflow, Production, Growth & Strategy)
 
 **Tier Structure**:
 - **Tier 1 - Orchestration** (1 agent): chief-architect
 - **Tier 2 - Core Workflow** (5 agents): docs-researcher, implementation-planner, brahma-analyzer, code-implementer, brahma-investigator
 - **Tier 3 - Production** (3 agents): brahma-deployer, brahma-monitor, brahma-optimizer
+- **Tier 4 - Growth & Strategy** (6 agents): seo-strategist, business-analyst, content-strategist, product-strategist, security-auditor, ux-accessibility-reviewer
 
 **Rationale**:
-- Clearer mental model than flat list of 9 agents
-- Groups by lifecycle phase (plan, build, deploy, monitor, optimize)
+- Clearer mental model than flat list of 15 agents
+- Groups by lifecycle phase (plan, build, deploy, monitor, optimize, grow)
 - Matches software development lifecycle
 - Easier to find right agent for task
 
@@ -1688,8 +1698,8 @@ LangGraph (orchestration layer)
 
 ---
 
-**Last updated**: 2025-11-06 by Agentic Substrate v3.0 self-enhancement workflow
-**Major enhancement**: V4.0 OSS integration research, 43 gaps identified, 4 frameworks integrated
+**Last updated**: 2026-02-20 by Agentic Substrate v5.4 bug-fix workflow
+**Major enhancement**: V5.4 - 15 agents (4 tiers), 12 commands, 12 hooks, lifecycle hooks, semantic quality gates
 **Research method**: Ultrathink multi-agent parallel research (50+ sources, HIGH confidence)
-**Next review**: After Phase 1 (LangGraph) implementation complete
+**Next review**: Ongoing (review with each major version)
 **Maintainer**: Jaykumar Jayesh Bhailal Devji Lala Amtha Patel, VAMFI Inc.

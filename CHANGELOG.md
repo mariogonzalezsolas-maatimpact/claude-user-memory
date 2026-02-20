@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - **Commands**: 11 → 12 (added `/mode`)
 - **Hooks**: 10 → 12 (added session-start.sh, skill-extraction-reminder.sh)
-- **Managed files**: 56 → 59 (3 new files)
+- **Managed files**: 56 → 60 (4 new files)
 - **settings.json**: Added SessionStart, UserPromptSubmit, and prompt-type SubagentStop hooks
 - **Version**: Bumped across CLAUDE.md, user-level template, install.sh, install.ps1, manifest
 

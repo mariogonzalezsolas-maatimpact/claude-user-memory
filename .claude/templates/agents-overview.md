@@ -40,26 +40,26 @@ Fetches version-accurate docs from official sources in <2 min. Delivers Research
 Transforms ResearchPacks into minimal-change blueprints with rollback procedures. No API hallucination (matches ResearchPack exactly). Plan must score 85+. **Tools**: Read, Grep, Glob, Write.
 
 ### brahma-analyzer
-Validates alignment between specs, plans, tasks, and code. Detects gaps and conflicts before implementation. Analysis must score 80+. **Tools**: Read, Grep, Glob, Write, TodoWrite.
+Validates alignment between specs, plans, tasks, and code. Detects gaps and conflicts before implementation. Analysis must score 80+. **Tools**: Read, Grep, Glob, Write.
 
 ### code-implementer
 Executes plans with TDD (RED->GREEN->REFACTOR). Self-corrects with 3 retries + circuit breaker. Creates git commits with co-author attribution. All tests must pass.
 
 ### brahma-investigator
-Systematic root cause analysis for complex bugs and production incidents. Progressive thinking: think (routine) -> think hard (multi-component) -> think harder (novel failures). 3-retry limit. **Tools**: Read, Grep, Glob, Bash, TodoWrite.
+Systematic root cause analysis for complex bugs and production incidents. Progressive thinking: think (routine) -> think hard (multi-component) -> think harder (novel failures). 3-retry limit. **Tools**: Read, Grep, Glob, Bash.
 
 ---
 
 ## Tier 3: Production (Deploy -> Monitor -> Optimize)
 
 ### brahma-deployer
-Safe deployments with canary rollout (5%->25%->50%->100%). Auto-rollback on error rate >1% or latency >500ms. Supports blue-green, feature flags, IaC. **Tools**: Bash, Read, Write, Grep, TodoWrite, WebFetch.
+Safe deployments with canary rollout (5%->25%->50%->100%). Auto-rollback on error rate >1% or latency >500ms. Supports blue-green, feature flags, IaC. **Tools**: Bash, Read, Write, Grep, WebFetch.
 
 ### brahma-monitor
-Three pillars: Metrics + Logs + Traces. SLI/SLO tracking, proactive incident detection, runbook automation. **Tools**: Bash, Read, Write, WebFetch, TodoWrite.
+Three pillars: Metrics + Logs + Traces. SLI/SLO tracking, proactive incident detection, runbook automation. **Tools**: Bash, Read, Write, WebFetch.
 
 ### brahma-optimizer
-Performance profiling, scaling strategies, caching (Redis/CDN/app-level), DB query optimization. Profile first, optimize second, measure impact. **Tools**: Bash, Read, Write, Grep, TodoWrite, WebFetch.
+Performance profiling, scaling strategies, caching (Redis/CDN/app-level), DB query optimization. Profile first, optimize second, measure impact. **Tools**: Bash, Read, Write, WebFetch, Grep.
 
 ---
 
