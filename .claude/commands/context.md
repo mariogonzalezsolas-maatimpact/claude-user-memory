@@ -317,9 +317,6 @@ This command implements Anthropic's context engineering principles:
 # Add new context quickly
 #
 
-# Edit context files directly
-/memory
-
 # Analyze context
 /context analyze
 

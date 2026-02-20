@@ -1,9 +1,9 @@
 # OSS Agentic AI Framework Comparison Guide
 
-**Research Date**: 2025-11-06
+**Research Date**: 2025-11-06 (review periodically for updates)
 **Frameworks Evaluated**: 8
 **Sources**: 50+ authoritative
-**Confidence**: HIGH (all claims corroborated)
+**Confidence**: HIGH (all claims corroborated at time of research)
 
 ---
 
@@ -554,7 +554,7 @@ result = crew.kickoff()
 
 ## Final Recommendation
 
-**For Agentic Substrate v4.0**:
+**For Agentic Substrate v5.4**:
 
 **Phase 1** (Weeks 1-3): **LangGraph**
 - Highest fit score (95/100)

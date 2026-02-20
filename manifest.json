@@ -58,6 +58,8 @@
   "files": [
     ".claude/**/*",
     "install.sh",
+    "install.ps1",
+    "verify-installation.ps1",
     "README.md",
     "LICENSE",
     "knowledge-core.md",

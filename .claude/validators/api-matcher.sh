@@ -54,7 +54,7 @@ HALLUCINATED=()
 
 # Check each API in plan exists in research
 while IFS= read -r plan_api; do
-    if echo "$RESEARCH_APIS" | grep -qx "$plan_api"; then
+    if echo "$RESEARCH_APIS" | grep -qFx "$plan_api"; then
         MATCHES=$((MATCHES + 1))
     else
         # Check if it's a common utility (not necessarily from research)
@@ -78,7 +78,7 @@ if [ ${#MISMATCHES[@]} -gt 0 ]; then
         echo "   ❌ $api() - Not found in research"
 
         # Try to find similar API in research (fuzzy match)
-        SIMILAR=$(echo "$RESEARCH_APIS" | grep -i "$api" || echo "")
+        SIMILAR=$(echo "$RESEARCH_APIS" | grep -iF "$api" || echo "")
         if [ -n "$SIMILAR" ]; then
             echo "      💡 Similar API in research: $SIMILAR()"
             echo "      Possible typo or wrong API choice"

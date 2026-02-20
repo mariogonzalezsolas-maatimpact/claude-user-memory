@@ -1,13 +1,14 @@
-# Contributing to Claude Code Workflow Agents
+# Contributing to Agentic Substrate
 
-Thank you for your interest in contributing! This repository provides the official Research → Plan → Implement workflow agents for Claude Code CLI.
+Thank you for your interest in contributing! This repository provides the Agentic Substrate for Claude Code CLI: 15 specialized agents across 4 tiers, 12 commands, 5 skills, and 12 hooks.
 
 ## 🎯 Project Philosophy
 
-This project implements a systematic three-phase development workflow:
-1. **Research**: Gather authoritative, version-accurate documentation
-2. **Plan**: Create detailed, actionable implementation blueprints
-3. **Implement**: Execute precise, minimal code changes
+This project implements a systematic development workflow with quality gates:
+1. **Research**: Gather authoritative, version-accurate documentation (score >= 80)
+2. **Plan**: Create detailed, actionable implementation blueprints (score >= 85)
+3. **Analyze**: Validate consistency before implementation
+4. **Implement**: Execute precise, minimal code changes with TDD
 
 All contributions must align with this philosophy.
 
@@ -21,27 +22,27 @@ All contributions must align with this philosophy.
 ### Development Setup
 ```bash
 # Fork and clone the repository
-git clone https://github.com/YOUR_USERNAME/claude-code-workflow-agents.git
-cd claude-code-workflow-agents
+git clone https://github.com/YOUR_USERNAME/claude-user-memory.git
+cd claude-user-memory
 
 # Create a development branch
 git checkout -b feature/your-contribution
 
-# Install agents locally for testing
-cp agents/* ~/.claude/agents/
+# Install locally for testing
+./install.sh --force
 
-# Test with Claude Code
-claude-code
-> /agents  # Verify the 3 agents appear
+# Verify installation
+./verify-installation.sh  # Should show 15 agents, 5 skills, 12 commands, 12 hooks
 ```
 
 ## 📋 Types of Contributions
 
 ### 1. Agent Enhancement
-Improving the three workflow agents:
-- **docs-researcher**: Better documentation fetching strategies
-- **implementation-planner**: More comprehensive planning templates
-- **code-implementer**: Improved code execution patterns
+Improving the 15 agents across 4 tiers:
+- **Orchestration**: chief-architect
+- **Core (BUILD+FIX)**: docs-researcher, implementation-planner, brahma-analyzer, code-implementer, brahma-investigator
+- **Production (SERVE)**: brahma-deployer, brahma-monitor, brahma-optimizer
+- **Growth (GROW)**: seo-strategist, business-analyst, content-strategist, product-strategist, security-auditor, ux-accessibility-reviewer
 
 ### 2. Workflow Examples
 - Real-world scenarios demonstrating the workflow
@@ -114,11 +115,8 @@ color: unique-color
 ### Step 1: Understand Current Implementation
 ```bash
 # Read the agent you want to enhance
-cat agents/docs-researcher.md
-# or
-cat agents/implementation-planner.md
-# or
-cat agents/code-implementer.md
+cat .claude/agents/docs-researcher.md
+# or any of the 15 agents in .claude/agents/
 ```
 
 ### Step 2: Identify Enhancement Opportunities
@@ -130,13 +128,13 @@ cat agents/code-implementer.md
 ### Step 3: Test Your Changes
 ```bash
 # Install modified agent
-cp agents/your-modified-agent.md ~/.claude/agents/
+./install.sh --force
 
 # Test the complete workflow
-claude-code
-> Research Redis documentation
-> Plan Redis caching implementation
-> Implement the Redis caching plan
+claude
+> /research Redis documentation
+> /plan Redis caching implementation
+> /implement
 ```
 
 ### Step 4: Validate Workflow Dependencies
@@ -242,6 +240,6 @@ Contributors are recognized through:
 4. [ ] Test all code examples
 5. [ ] Submit PR with preview
 
-Thank you for contributing to the Claude Code workflow! 🎯
+Thank you for contributing to the Agentic Substrate!
 
 *Together, we're building systematic, quality-driven software development.*

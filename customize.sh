@@ -67,15 +67,16 @@ function list_mcps() {
   echo -e "${CYAN}           Available MCP Servers                      ${NC}"
   echo -e "${CYAN}═══════════════════════════════════════════════════════${NC}"
 
-  local servers=$(jq -r '.servers | keys[]' "$CONFIG_FILE")
-  for server in $servers; do
+  local servers
+  servers=$(jq -r '.servers | keys[]' "$CONFIG_FILE")
+  while IFS= read -r server; do
     local enabled=$(jq -r ".servers.\"$server\".enabled" "$CONFIG_FILE")
     local description=$(jq -r ".servers.\"$server\".description" "$CONFIG_FILE")
     local status_icon=$([ "$enabled" = "true" ] && echo "✓" || echo "✗")
     local status_color=$([ "$enabled" = "true" ] && echo "$GREEN" || echo "$RED")
 
     printf "${status_color}%-4s${NC} ${MAGENTA}%-20s${NC} %s\n" "[$status_icon]" "$server" "$description"
-  done
+  done <<< "$servers"
   echo ""
 }
 
@@ -85,11 +86,12 @@ function list_agents() {
   echo -e "${CYAN}           Configured Agents                          ${NC}"
   echo -e "${CYAN}═══════════════════════════════════════════════════════${NC}"
 
-  local agents=$(jq -r '.agent_mappings | keys[]' "$CONFIG_FILE")
-  for agent in $agents; do
+  local agents
+  agents=$(jq -r '.agent_mappings | keys[]' "$CONFIG_FILE")
+  while IFS= read -r agent; do
     local mcps=$(jq -r ".agent_mappings.\"$agent\".mcps | join(\", \")" "$CONFIG_FILE")
     printf "${MAGENTA}%-25s${NC} → %s\n" "$agent" "$mcps"
-  done
+  done <<< "$agents"
   echo ""
 }
 
@@ -148,7 +150,7 @@ function assign_mcp() {
 
   # Add MCP to agent's list if not already present
   local current_mcps=$(jq -r ".agent_mappings.\"$agent\".mcps | .[]" "$CONFIG_FILE")
-  if echo "$current_mcps" | grep -q "^$mcp$"; then
+  if echo "$current_mcps" | grep -qFx "$mcp"; then
     log_warning "MCP '$mcp' already assigned to agent '$agent'"
   else
     jq ".agent_mappings.\"$agent\".mcps += [\"$mcp\"]" "$CONFIG_FILE" > "${CONFIG_FILE}.tmp" && \

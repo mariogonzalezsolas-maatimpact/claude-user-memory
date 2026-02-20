@@ -1,4 +1,4 @@
-# Installation Behavior - Agentic Substrate v4.1
+# Installation Behavior - Agentic Substrate v5.4
 
 ## Overview
 
@@ -164,7 +164,7 @@ The uninstall script (`uninstall.sh`) automatically preserves:
 
 ## Upgrade Behavior
 
-When upgrading from v4.0 to v4.1:
+When upgrading to a new version:
 
 1. **Backup Created**: Old installation backed up
 2. **Managed Files Updated**: All template files refreshed
@@ -228,18 +228,18 @@ ls -la ~/.claude/CLAUDE.md.backup
 
 ## Manifest Version
 
-**Current**: v1.0.0
+**Current**: v1.1.0
 
-**Substrate Version**: v3.1.0
+**Substrate Version**: v5.4.0
 
-**Total Managed Files**: 36
-- Agents: 9
+**Total Managed Files**: 60
+- Agents: 15
 - Skills: 5
-- Commands: 5
-- Hooks: 7
+- Commands: 12
+- Hooks: 12
 - Validators: 2
 - Metrics: 1
-- Templates: 6
+- Templates: 8
 - Data: 1 (mcp-config-template.json)
 
 ## Troubleshooting
@@ -256,12 +256,12 @@ ls -la ~/.claude/CLAUDE.md.backup
 
 **Solution**: Restore from backup (`~/.claude.backup-<timestamp>/data/mcp-config.json`)
 
-### Issue: Manifest shows 35 files instead of 36
+### Issue: Manifest shows fewer files than expected
 
-**Solution**: Ensure `data/mcp-config-template.json` exists in repository and is listed in manifest
+**Solution**: Ensure all files from `manifest-template.json` are present in repository and listed in `managed_files`
 
 ---
 
-**Last Updated**: 2025-11-22
-**Version**: 4.1.0
+**Last Updated**: 2026-02-20
+**Version**: 5.4.0
 **Status**: Production-Ready

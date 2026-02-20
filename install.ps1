@@ -55,12 +55,12 @@ function Write-Success {
     Write-Host "[SUCCESS] $Message" -ForegroundColor Green
 }
 
-function Write-Warning {
+function Write-Warn {
     param([string]$Message)
     Write-Host "[WARNING] $Message" -ForegroundColor Yellow
 }
 
-function Write-Error {
+function Write-Err {
     param([string]$Message)
     Write-Host "[ERROR] $Message" -ForegroundColor Red
 }
@@ -121,20 +121,20 @@ function Test-Prerequisites {
 
     # Check source directory
     if (-not (Test-Path $CLAUDE_SOURCE)) {
-        Write-Error "Source directory not found: $CLAUDE_SOURCE"
-        Write-Error "Make sure you're running this script from the repository root"
+        Write-Err "Source directory not found: $CLAUDE_SOURCE"
+        Write-Err "Make sure you're running this script from the repository root"
         exit 1
     }
 
     # Check manifest
     if (-not (Test-Path $MANIFEST_TEMPLATE)) {
-        Write-Error "Manifest template not found: $MANIFEST_TEMPLATE"
+        Write-Err "Manifest template not found: $MANIFEST_TEMPLATE"
         exit 1
     }
 
     # Validate JSON
     if (-not (Test-JsonFile $MANIFEST_TEMPLATE)) {
-        Write-Error "Manifest template is invalid JSON"
+        Write-Err "Manifest template is invalid JSON"
         exit 1
     }
 
@@ -143,7 +143,7 @@ function Test-Prerequisites {
     if (-not $Force -and (Test-Path $versionFile)) {
         $installedVersion = Get-Content $versionFile -Raw
         if ($installedVersion.Trim() -eq $VERSION) {
-            Write-Warning "Agentic Substrate v$VERSION is already installed"
+            Write-Warn "Agentic Substrate v$VERSION is already installed"
             Write-Info "Use -Force to reinstall"
             exit 0
         }
@@ -173,7 +173,7 @@ function New-Backup {
         Write-Success "Backup created: $BACKUP_LOCATION"
     }
     catch {
-        Write-Warning "Backup creation failed (continuing anyway): $_"
+        Write-Warn "Backup creation failed (continuing anyway): $_"
         $script:BACKUP_LOCATION = $null
     }
 }
@@ -203,7 +203,7 @@ function Install-Files {
     $files = Get-JsonArray -Path $MANIFEST_TEMPLATE -ArrayName "managed_files"
 
     if ($files.Count -eq 0) {
-        Write-Error "Failed to read managed files from manifest"
+        Write-Err "Failed to read managed files from manifest"
         exit 1
     }
 
@@ -216,7 +216,7 @@ function Install-Files {
         $targetFile = Join-Path $CLAUDE_TARGET $file
 
         if (-not (Test-Path $sourceFile)) {
-            Write-Warning "Source file not found (skipping): $file"
+            Write-Warn "Source file not found (skipping): $file"
             continue
         }
 
@@ -240,7 +240,7 @@ function Install-Files {
                 }
             }
             catch {
-                Write-Warning "Failed to install: $file - $_"
+                Write-Warn "Failed to install: $file - $_"
             }
         }
     }
@@ -254,7 +254,7 @@ function Merge-ClaudeMd {
     $backup = Join-Path $CLAUDE_TARGET "CLAUDE.md.backup"
 
     if (-not (Test-Path $source)) {
-        Write-Warning "CLAUDE.md.user-level template not found (skipping)"
+        Write-Warn "CLAUDE.md.user-level template not found (skipping)"
         return
     }
 
@@ -315,7 +315,7 @@ function Install-McpConfig {
     $target = Join-Path $CLAUDE_TARGET "data\mcp-config.json"
 
     if (-not (Test-Path $source)) {
-        Write-Warning "MCP config template not found (skipping)"
+        Write-Warn "MCP config template not found (skipping)"
         return
     }
 
@@ -365,12 +365,12 @@ function Install-McpServers {
             Write-Success "DeepWiki MCP configured"
         }
         catch {
-            Write-Warning "DeepWiki MCP installation failed (non-critical)"
+            Write-Warn "DeepWiki MCP installation failed (non-critical)"
             Write-Info "You can install manually later: claude mcp add -s user -t http deepwiki https://mcp.deepwiki.com/mcp"
         }
     }
     else {
-        Write-Warning "Claude CLI not found, skipping MCP setup"
+        Write-Warn "Claude CLI not found, skipping MCP setup"
         Write-Info "Install Claude CLI then run: claude mcp add -s user -t http deepwiki https://mcp.deepwiki.com/mcp"
     }
 }
@@ -384,7 +384,7 @@ function New-Manifest {
     Write-Info "Generating installation manifest..."
 
     $manifest = Join-Path $CLAUDE_TARGET ".agentic-substrate-manifest.json"
-    $timestamp = Get-Date -Format "yyyy-MM-ddTHH:mm:ssZ"
+    $timestamp = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
 
     try {
         $data = Get-Content $MANIFEST_TEMPLATE -Raw | ConvertFrom-Json
@@ -398,6 +398,40 @@ function New-Manifest {
         # Fallback: copy template as-is
         Copy-Item -Path $MANIFEST_TEMPLATE -Destination $manifest -Force
         Write-Success "Installation manifest created (from template)"
+    }
+}
+
+function Configure-AgentTeams {
+    if ($DryRun) {
+        Write-Info "[DRY RUN] Would configure Agent Teams in settings.json"
+        return
+    }
+
+    $settingsFile = Join-Path $CLAUDE_TARGET "settings.json"
+
+    if (Test-Path $settingsFile) {
+        $content = Get-Content $settingsFile -Raw
+        if ($content -match "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS") {
+            Write-Info "Agent Teams already configured in settings.json"
+            return
+        }
+
+        try {
+            $data = $content | ConvertFrom-Json
+            if (-not $data.env) {
+                $data | Add-Member -NotePropertyName "env" -NotePropertyValue @{} -Force
+            }
+            $data.env | Add-Member -NotePropertyName "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS" -NotePropertyValue "1" -Force
+            $data | ConvertTo-Json -Depth 10 | Set-Content $settingsFile -Force
+            Write-Success "Agent Teams configured in settings.json"
+        }
+        catch {
+            Write-Warn "Could not auto-merge Agent Teams setting"
+            Write-Info 'Add manually to ~/.claude/settings.json: "env": { "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1" }'
+        }
+    }
+    else {
+        Write-Info "settings.json will be installed with Agent Teams support"
     }
 }
 
@@ -476,14 +510,14 @@ function Test-Installation {
     # Check version file
     $versionFile = Join-Path $CLAUDE_TARGET ".agentic-substrate-version"
     if (-not (Test-Path $versionFile)) {
-        Write-Error "Version file missing"
+        Write-Err "Version file missing"
         $errors++
     }
 
     # Check manifest
     $manifestFile = Join-Path $CLAUDE_TARGET ".agentic-substrate-manifest.json"
     if (-not (Test-Path $manifestFile)) {
-        Write-Error "Manifest file missing"
+        Write-Err "Manifest file missing"
         $errors++
     }
     else {
@@ -495,7 +529,7 @@ function Test-Installation {
         Write-Success "Installation validation passed"
     }
     else {
-        Write-Error "Installation validation failed with $errors error(s)"
+        Write-Err "Installation validation failed with $errors error(s)"
         exit 1
     }
 }
@@ -555,7 +589,7 @@ function Main {
     Write-Host ""
 
     if ($DryRun) {
-        Write-Warning "DRY RUN MODE - No changes will be made"
+        Write-Warn "DRY RUN MODE - No changes will be made"
         Write-Host ""
     }
 
@@ -565,6 +599,7 @@ function Main {
     Merge-ClaudeMd
     Install-McpConfig
     Install-McpServers
+    Configure-AgentTeams
     New-Manifest
     Write-Version
     New-RollbackScript

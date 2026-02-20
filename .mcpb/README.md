@@ -17,7 +17,7 @@ This directory contains assets for the Desktop Extension package.
 - Demonstrates Research → Plan → Implement flow
 
 **screenshot-agents.png**:
-- Shows all 4 agents (chief-architect, docs-researcher, implementation-planner, code-implementer)
+- Shows all 15 agents across 4 tiers (Orchestration, Core, Production, Growth)
 - Highlights multi-agent coordination
 
 **screenshot-context.png**:

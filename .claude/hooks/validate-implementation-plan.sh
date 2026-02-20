@@ -33,7 +33,7 @@ DEFECTS=()
 
 # Check 1: File changes section (10 pts)
 if grep -q "File Changes\|Files to\|Modified Files" "$PLAN_FILE"; then
-    FILE_COUNT=$(grep -cE "^\s*[-*]\s*\`.*\`|^###.*\..*|^##.*\..*" "$PLAN_FILE" 2>/dev/null || echo 0)
+    FILE_COUNT=$(grep -cE "^\s*[-*]\s*\`.*\`|^###.*\..*|^##.*\..*" "$PLAN_FILE" 2>/dev/null || echo "0")
     if [ "$FILE_COUNT" -gt 0 ]; then
         SCORE=$((SCORE + 10))
     else
@@ -45,7 +45,7 @@ else
 fi
 
 # Check 2: Implementation steps (10 pts)
-STEP_COUNT=$(grep -cE "^Step [0-9]+|^[0-9]+\.|^\*\*Step" "$PLAN_FILE" 2>/dev/null || echo 0)
+STEP_COUNT=$(grep -cE "^Step [0-9]+|^[0-9]+\.|^\*\*Step" "$PLAN_FILE" 2>/dev/null || echo "0")
 if [ "$STEP_COUNT" -ge 3 ]; then
     SCORE=$((SCORE + 10))
 elif [ "$STEP_COUNT" -gt 0 ]; then
@@ -56,8 +56,8 @@ else
 fi
 
 # Check 3: Verification methods (10 pts)
-VERIFY_COUNT=$(grep -cE "Verification:|Verify:|Check:|Test:|Expected:" "$PLAN_FILE" 2>/dev/null || echo 0)
-if [ "$VERIFY_COUNT" -ge "$STEP_COUNT" ]; then
+VERIFY_COUNT=$(grep -cE "Verification:|Verify:|Check:|Test:|Expected:" "$PLAN_FILE" 2>/dev/null || echo "0")
+if [ "$STEP_COUNT" -gt 0 ] && [ "$VERIFY_COUNT" -ge "$STEP_COUNT" ]; then
     SCORE=$((SCORE + 10))
 elif [ "$VERIFY_COUNT" -gt 0 ]; then
     SCORE=$((SCORE + 5))
@@ -89,7 +89,7 @@ else
 fi
 
 # Check 6: Risk assessment (10 pts)
-RISK_COUNT=$(grep -cE "Risk:|⚠️|Risks?:" "$PLAN_FILE" 2>/dev/null || echo 0)
+RISK_COUNT=$(grep -cE "Risk:|⚠️|Risks?:" "$PLAN_FILE" 2>/dev/null || echo "0")
 if [ "$RISK_COUNT" -ge 3 ]; then
     SCORE=$((SCORE + 10))
 elif [ "$RISK_COUNT" -gt 0 ]; then
@@ -100,7 +100,7 @@ else
 fi
 
 # Check 7: Minimal changes (5 pts)
-FILE_CHANGE_COUNT=$(grep -cE '^\s*[-*]\s*`.*`' "$PLAN_FILE" 2>/dev/null || echo 10)
+FILE_CHANGE_COUNT=$(grep -cE '^\s*[-*]\s*`.*`' "$PLAN_FILE" 2>/dev/null || echo "10")
 if [ "$FILE_CHANGE_COUNT" -le 10 ]; then
     SCORE=$((SCORE + 5))
 elif [ "$FILE_CHANGE_COUNT" -le 20 ]; then
@@ -115,7 +115,7 @@ fi
 
 # Check 8: Steps are actionable (10 pts)
 # Look for specific file paths and code snippets in steps
-CODE_IN_STEPS=$(grep -cE '```|^\s*`[^`]+`' "$PLAN_FILE" 2>/dev/null || echo 0)
+CODE_IN_STEPS=$(grep -cE '```|^\s*`[^`]+`' "$PLAN_FILE" 2>/dev/null || echo "0")
 if [ "$CODE_IN_STEPS" -ge "$STEP_COUNT" ]; then
     SCORE=$((SCORE + 10))
 elif [ "$CODE_IN_STEPS" -gt 0 ]; then

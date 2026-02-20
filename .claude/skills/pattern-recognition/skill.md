@@ -24,9 +24,9 @@ Claude will automatically invoke this skill when:
 2. **Reproducibility** - Document enough detail to replicate pattern
 3. **Simplicity** - Extract essential pattern, not every detail
 4. **Verification** - Patterns should be validated by actual code
-5. **Adaptive learning** - Learn from outcomes to suggest proven patterns (NEW v3.1)
+5. **Adaptive learning** - Learn from outcomes to suggest proven patterns (v5.4)
 
-## Before Implementation (Pattern Suggestion - NEW v3.1)
+## Before Implementation (Pattern Suggestion - v5.4)
 
 **Trigger**: User requests feature implementation via /workflow, /implement, or direct agent invocation
 
@@ -275,7 +275,7 @@ Version: [increment version number]
 - Note that pattern was "reinforced" in latest implementation
 - Don't create duplicate entries
 
-### Step 5: Outcome Metrics Capture (< 10 seconds) - NEW v3.1
+### Step 5: Outcome Metrics Capture (< 10 seconds) - v5.4
 
 **Purpose**: Track implementation outcomes for pattern learning and confidence scoring
 
@@ -338,7 +338,7 @@ outcome_metrics = {
 
 ---
 
-### Step 6: pattern-index.json Update (< 15 seconds) - NEW v3.1
+### Step 6: pattern-index.json Update (< 15 seconds) - v5.4
 
 **Purpose**: Update pattern metrics for adaptive learning and future suggestions
 
@@ -685,7 +685,7 @@ New patterns available for future implementations!
 
 ---
 
-## Confidence Calculation Algorithm (NEW v3.1)
+## Confidence Calculation Algorithm (v5.4)
 
 ### Bayesian Confidence with Time Decay
 

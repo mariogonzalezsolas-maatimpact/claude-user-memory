@@ -3,7 +3,13 @@
 # Exit 0 = allow idle, Exit 2 = block idle + stderr feedback
 
 set -euo pipefail
-INPUT=$(cat)
+
+# Guard: jq is required for JSON parsing
+if ! command -v jq &>/dev/null; then
+    exit 0
+fi
+
+INPUT=$(cat 2>/dev/null || echo "{}")
 TEAMMATE=$(echo "$INPUT" | jq -r '.teammate_name // "unknown"' 2>/dev/null)
 
 # Check if there are still pending tasks

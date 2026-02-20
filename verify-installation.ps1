@@ -20,9 +20,9 @@ function Write-Check { param([string]$Message) Write-Host "[CHECK] $Message" -Fo
 function Write-Info { param([string]$Message) Write-Host "[INFO] $Message" -ForegroundColor Gray }
 
 Write-Host ""
-Write-Host "=" * 60 -ForegroundColor Cyan
+Write-Host ("=" * 60) -ForegroundColor Cyan
 Write-Host "Agentic Substrate Installation Verification" -ForegroundColor Cyan
-Write-Host "=" * 60 -ForegroundColor Cyan
+Write-Host ("=" * 60) -ForegroundColor Cyan
 Write-Host ""
 
 $errors = 0
@@ -313,9 +313,9 @@ else {
 # ============================================================================
 
 Write-Host ""
-Write-Host "=" * 60 -ForegroundColor Cyan
+Write-Host ("=" * 60) -ForegroundColor Cyan
 Write-Host "Verification Summary" -ForegroundColor Cyan
-Write-Host "=" * 60 -ForegroundColor Cyan
+Write-Host ("=" * 60) -ForegroundColor Cyan
 Write-Host ""
 
 if ($errors -eq 0 -and $warnings -eq 0) {

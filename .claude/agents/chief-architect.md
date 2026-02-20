@@ -130,7 +130,7 @@ For this project, I will coordinate:
 **Proceed with this plan? (Yes/modify/cancel)**
 ```
 
-### Phase 3.5: Pattern Suggestion (NEW v3.1) - Before Implementation
+### Phase 3.5: Pattern Suggestion - Before Implementation
 
 **When**: Before delegating to @code-implementer (after research + planning complete)
 

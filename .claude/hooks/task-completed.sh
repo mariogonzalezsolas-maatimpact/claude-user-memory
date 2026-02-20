@@ -3,7 +3,13 @@
 # Exit 0 = allow completion, Exit 2 = block + stderr feedback
 
 set -euo pipefail
-INPUT=$(cat)
+
+# Guard: jq is required for JSON parsing
+if ! command -v jq &>/dev/null; then
+    exit 0
+fi
+
+INPUT=$(cat 2>/dev/null || echo "{}")
 TASK_SUBJECT=$(echo "$INPUT" | jq -r '.task_subject // "unknown"' 2>/dev/null)
 
 # Basic check: if task mentions "test" or "implement", verify tests exist

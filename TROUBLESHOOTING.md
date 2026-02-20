@@ -1,6 +1,6 @@
-# Troubleshooting Guide - claude-user-memory v2.0
+# Troubleshooting Guide - Agentic Substrate v5.4
 
-Common issues and solutions for the Research → Plan → Implement workflow.
+Common issues and solutions for the Research → Plan → Implement workflow and the 15-agent system.
 
 ---
 
@@ -141,7 +141,7 @@ Common issues and solutions for the Research → Plan → Implement workflow.
 **Solution**:
 ```bash
 # 1. Check self-correction is enabled
-#    (It should be by default in v2.0)
+#    (It should be by default in v5.4)
 
 # 2. Check error message is clear
 #    Run tests manually to see full output:
@@ -547,9 +547,9 @@ When reporting issues, include:
 
 ### Where to Get Help
 
-- GitHub Issues: [repository URL]
-- Documentation: `docs/` directory
-- Examples: `examples/v2/` directory
+- GitHub Issues: https://github.com/VAMFI/claude-user-memory/issues
+- Documentation: `.claude/templates/` directory
+- Examples: `examples/` directory
 
 ---
 
@@ -584,5 +584,5 @@ When reporting issues, include:
 
 ---
 
-**Last Updated**: 2025-10-17
-**Version**: 2.0
+**Last Updated**: 2026-02-20
+**Version**: 5.4.0

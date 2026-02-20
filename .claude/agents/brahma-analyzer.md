@@ -540,7 +540,7 @@ If NO, resolve these blockers:
 
 ### BUILD Workflow
 ```
-Navigator → Clarifier → Planner → Analyzer → Scout → Builder
+docs-researcher → implementation-planner → brahma-analyzer → code-implementer
 
 BEFORE Analyzer:
 - Possible inconsistencies

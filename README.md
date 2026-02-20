@@ -88,7 +88,7 @@ cd claude-user-memory
 @docs-researcher Research Stripe API
 @brahma-deployer Deploy v2.5.0
 
-# Growth & Strategy agents (new in v5.0)
+# Growth & Strategy agents
 @seo-strategist Audit SEO and create optimization roadmap
 @business-analyst Analyze customer onboarding process
 @content-strategist Create content strategy for launch
@@ -196,8 +196,8 @@ Your data and customizations are automatically preserved.
 - [Skills Overview](.claude/templates/skills-overview.md) - Auto-invoked capabilities
 - [Workflows Overview](.claude/templates/workflows-overview.md) - Development + Growth patterns
 - [Installation Behavior](INSTALLATION-BEHAVIOR.md) - Data preservation details
-- [Release Notes](archive/v4-artifacts/RELEASE-NOTES-V4.md) - v4.0/4.1 features
 - [Changelog](CHANGELOG.md) - Complete version history
+- [Legacy Release Notes](archive/v4-artifacts/RELEASE-NOTES-V4.md) - v4.0/4.1 features
 
 ---
 
@@ -318,7 +318,7 @@ cd claude-user-memory
 @docs-researcher Investigar API de Stripe
 @brahma-deployer Desplegar v2.5.0
 
-# Agentes de Crecimiento y Estrategia (nuevo en v5.0)
+# Agentes de Crecimiento y Estrategia
 @seo-strategist Auditar SEO y crear plan de optimizacion
 @business-analyst Analizar proceso de onboarding de clientes
 @content-strategist Crear estrategia de contenidos para lanzamiento

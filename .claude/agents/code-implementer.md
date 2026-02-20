@@ -269,7 +269,7 @@ Root Cause Hypothesis:
 Proposed Fix:
 [Specific change to attempt]
 
-# Track retry attempt (NEW v3.1)
+# Track retry attempt
 metrics["retry_count"] = 1
 ```
 
