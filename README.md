@@ -284,7 +284,7 @@ cd claude-user-memory
   - **SERVE** - Despliegue, monitorizacion, optimizacion
   - **GROW** - SEO, analisis de negocio, marketing de contenidos, estrategia de producto, seguridad, UX/accesibilidad
 - **5 Habilidades** - Capacidades auto-invocadas para investigacion, planificacion, validacion, patrones, contexto
-- **10 Comandos** - `/do`, `/workflow`, `/research`, `/plan`, `/implement`, `/context`, `/circuit-breaker`, `/security-audit`, `/seo-audit`, `/ux-review`
+- **12 Comandos** - `/do`, `/workflow`, `/research`, `/plan`, `/implement`, `/review`, `/mode`, `/context`, `/circuit-breaker`, `/security-audit`, `/seo-audit`, `/ux-review`
 - **Puertas de Calidad** - Investigacion >= 80, Planes >= 85, Tests pasando, circuit breaker de 3 reintentos
 - **Memoria** - Grafo de conocimiento persistente entre sesiones
 - **Opus 4.6** - Todos los agentes optimizados para el ultimo modelo de Claude

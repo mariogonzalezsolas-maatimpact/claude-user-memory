@@ -432,7 +432,7 @@ functionName(param1: Type, param2: Type): ReturnType
 - **Completed**: [timestamp]
 - **Duration**: [X] seconds
 - **Sources Consulted**: [N]
-- **Agent**: docs-researcher v3.0 (Sonnet 4.6)
+- **Agent**: docs-researcher v5.4 (Sonnet 4.6)
 
 ---
 
