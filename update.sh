@@ -118,7 +118,7 @@ parse_json_value() {
 
     # Try python
     if command -v python >/dev/null 2>&1; then
-        python -c "import json,sys; print json.load(open('$json_file'))['$key']" 2>/dev/null && return 0
+        python -c "import json,sys; print(json.load(open('$json_file'))['$key'])" 2>/dev/null && return 0
     fi
 
     # Try jq if available
@@ -146,7 +146,7 @@ parse_json_array() {
 
     # Try python
     if command -v python >/dev/null 2>&1; then
-        python -c "import json; print '\n'.join(json.load(open('$json_file'))['$array_name'])" 2>/dev/null && return 0
+        python -c "import json; print('\n'.join(json.load(open('$json_file'))['$array_name']))" 2>/dev/null && return 0
     fi
 
     # Try jq if available
@@ -549,10 +549,7 @@ generate_rollback() {
 
     local rollback_script="$CLAUDE_TARGET/rollback-to-v$CURRENT_VERSION.sh"
 
-    cat > "$rollback_script" 2>/dev/null << EOF || {
-        log_warning "Could not create rollback script"
-        return 1
-    }
+    cat > "$rollback_script" 2>/dev/null << EOF
 #!/usr/bin/env bash
 # Auto-generated rollback script for Agentic Substrate
 # Created: $(date 2>/dev/null || echo "unknown")
@@ -575,7 +572,7 @@ if [[ ! \$REPLY =~ ^[Yy]$ ]]; then
 fi
 
 # Backup current state before rollback
-ROLLBACK_BACKUP="\$HOME/.claude.rollback-backup-\$(date +%Y%m%d-%H%M%S 2>/dev/null || echo "backup-\$\$")"
+ROLLBACK_BACKUP="\$HOME/.claude.rollback-backup-\$(date +%Y%m%d-%H%M%S 2>/dev/null || echo backup-\$\$)"
 echo "📦 Backing up current state to \$ROLLBACK_BACKUP"
 cp -r "\$HOME/.claude" "\$ROLLBACK_BACKUP" 2>/dev/null || {
     echo "Warning: Could not create rollback backup"
@@ -600,6 +597,11 @@ echo ""
 echo "Rolled back to v$CURRENT_VERSION"
 echo "Current state backed up to: \$ROLLBACK_BACKUP"
 EOF
+
+    if [ ! -f "$rollback_script" ]; then
+        log_warning "Could not create rollback script"
+        return 1
+    fi
 
     chmod +x "$rollback_script" 2>/dev/null || true
     log_success "Rollback script created: $rollback_script"

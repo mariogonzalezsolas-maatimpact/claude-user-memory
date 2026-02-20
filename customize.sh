@@ -293,18 +293,22 @@ fi
 while [[ $# -gt 0 ]]; do
   case $1 in
     --enable-mcp)
+      [ -z "$2" ] && { log_error "--enable-mcp requires a server name"; exit 1; }
       enable_mcp "$2"
       shift 2
       ;;
     --disable-mcp)
+      [ -z "$2" ] && { log_error "--disable-mcp requires a server name"; exit 1; }
       disable_mcp "$2"
       shift 2
       ;;
     --assign-mcp)
+      [ -z "$2" ] || [ -z "$3" ] && { log_error "--assign-mcp requires <mcp> <agent>"; exit 1; }
       assign_mcp "$2" "$3"
       shift 3
       ;;
     --unassign-mcp)
+      [ -z "$2" ] || [ -z "$3" ] && { log_error "--unassign-mcp requires <mcp> <agent>"; exit 1; }
       unassign_mcp "$2" "$3"
       shift 3
       ;;

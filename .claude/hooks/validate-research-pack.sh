@@ -43,8 +43,10 @@ API_COUNT=$(grep -c "^###.*API\|^##.*API\|\`\`\`.*function\|\`\`\`.*class" "$RES
 if [ "$API_COUNT" -ge 3 ]; then
     SCORE=$((SCORE + 10))
 elif [ "$API_COUNT" -gt 0 ]; then
-    SCORE=$((SCORE + $((API_COUNT * 3))))
-    DEFECTS+=("⚠️  MINOR: Only $API_COUNT APIs documented, recommend 3+ ($((10 - API_COUNT * 3)) pts deducted)")
+    API_PARTIAL=$((API_COUNT * 3))
+    [ "$API_PARTIAL" -gt 10 ] && API_PARTIAL=10
+    SCORE=$((SCORE + API_PARTIAL))
+    DEFECTS+=("⚠️  MINOR: Only $API_COUNT APIs documented, recommend 3+ ($((10 - API_PARTIAL)) pts deducted)")
 else
     DEFECTS+=("❌ CRITICAL: No APIs documented (-10 pts)")
 fi
@@ -78,8 +80,10 @@ URL_COUNT=$(grep -cE "https?://|Source:" "$RESEARCH_FILE" 2>/dev/null || echo 0)
 if [ "$URL_COUNT" -ge 3 ]; then
     SCORE=$((SCORE + 10))
 elif [ "$URL_COUNT" -gt 0 ]; then
-    SCORE=$((SCORE + $((URL_COUNT * 3))))
-    DEFECTS+=("⚠️  MINOR: Only $URL_COUNT URLs/sources, recommend 3+ ($((10 - URL_COUNT * 3)) pts deducted)")
+    URL_PARTIAL=$((URL_COUNT * 3))
+    [ "$URL_PARTIAL" -gt 10 ] && URL_PARTIAL=10
+    SCORE=$((SCORE + URL_PARTIAL))
+    DEFECTS+=("⚠️  MINOR: Only $URL_COUNT URLs/sources, recommend 3+ ($((10 - URL_PARTIAL)) pts deducted)")
 else
     DEFECTS+=("❌ CRITICAL: No source URLs found (-10 pts)")
 fi

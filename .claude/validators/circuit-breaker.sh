@@ -22,38 +22,73 @@ fi
 # Function to get failure count for agent
 get_failure_count() {
     local agent="$1"
-    local count=$(grep "\"$agent\":" "$CIRCUIT_FILE" 2>/dev/null | grep -oE '[0-9]+' | tail -1)
+    local count
+    count=$(grep -o "\"$agent\": *[0-9]*" "$CIRCUIT_FILE" 2>/dev/null | grep -o '[0-9]*$')
     echo "${count:-0}"
+}
+
+# Rewrite entire circuit breaker file with updated entry
+_write_circuit_file() {
+    local target_agent="$1"
+    local target_count="$2"
+    local tmpfile="${CIRCUIT_FILE}.tmp"
+
+    # Collect all existing entries
+    declare -a names=()
+    declare -a counts=()
+    while IFS= read -r line; do
+        if [[ "$line" =~ \"([^\"]+)\":[[:space:]]*([0-9]+) ]]; then
+            local name="${BASH_REMATCH[1]}"
+            local count="${BASH_REMATCH[2]}"
+            if [ "$name" != "$target_agent" ]; then
+                names+=("$name")
+                counts+=("$count")
+            fi
+        fi
+    done < "$CIRCUIT_FILE"
+
+    # Add target entry
+    names+=("$target_agent")
+    counts+=("$target_count")
+
+    # Write valid JSON
+    local total=${#names[@]}
+    printf "{\n" > "$tmpfile"
+    for ((i=0; i<total; i++)); do
+        if [ $((i + 1)) -lt "$total" ]; then
+            printf '  "%s": %s,\n' "${names[$i]}" "${counts[$i]}" >> "$tmpfile"
+        else
+            printf '  "%s": %s\n' "${names[$i]}" "${counts[$i]}" >> "$tmpfile"
+        fi
+    done
+    printf "}\n" >> "$tmpfile"
+
+    mv "$tmpfile" "$CIRCUIT_FILE"
 }
 
 # Function to increment failure count
 increment_failure() {
     local agent="$1"
-    local current=$(get_failure_count "$agent")
+    local current
+    current=$(get_failure_count "$agent")
     local new_count=$((current + 1))
-
-    # Update or add entry
-    if grep -q "\"$agent\":" "$CIRCUIT_FILE"; then
-        sed -i.bak "s/\"$agent\": [0-9]*/\"$agent\": $new_count/" "$CIRCUIT_FILE"
-    else
-        # Add new entry
-        sed -i.bak "s/}/  \"$agent\": $new_count\n}/" "$CIRCUIT_FILE"
-    fi
+    _write_circuit_file "$agent" "$new_count"
 }
 
 # Function to reset circuit
 reset_circuit() {
     local agent="$1"
-    if grep -q "\"$agent\":" "$CIRCUIT_FILE"; then
-        sed -i.bak "s/\"$agent\": [0-9]*/\"$agent\": 0/" "$CIRCUIT_FILE"
+    if grep -q "\"$agent\":" "$CIRCUIT_FILE" 2>/dev/null; then
+        _write_circuit_file "$agent" "0"
     fi
 }
 
 # Function to check if circuit is open
 is_circuit_open() {
     local agent="$1"
-    local count=$(get_failure_count "$agent")
-    count=${count:-0}  # Default to 0 if empty
+    local count
+    count=$(get_failure_count "$agent")
+    count=${count:-0}
     [ "$count" -ge "$MAX_FAILURES" ]
 }
 
@@ -61,7 +96,7 @@ is_circuit_open() {
 case "$2" in
     "check")
         if is_circuit_open "$AGENT_NAME"; then
-            echo -e "${RED}🚫 CIRCUIT BREAKER OPEN${NC}"
+            echo -e "${RED}CIRCUIT BREAKER OPEN${NC}"
             echo ""
             echo "Agent: $AGENT_NAME"
             echo "Status: BLOCKED (too many consecutive failures)"
@@ -80,7 +115,7 @@ case "$2" in
             echo ""
             exit 1
         else
-            echo -e "${GREEN}✅ Circuit OK${NC}"
+            echo -e "${GREEN}Circuit OK${NC}"
             echo "Agent: $AGENT_NAME"
             echo "Failures: $(get_failure_count "$AGENT_NAME")/$MAX_FAILURES"
             exit 0
@@ -91,13 +126,13 @@ case "$2" in
         increment_failure "$AGENT_NAME"
         NEW_COUNT=$(get_failure_count "$AGENT_NAME")
 
-        echo -e "${YELLOW}⚠️  Failure recorded${NC}"
+        echo -e "${YELLOW}Failure recorded${NC}"
         echo "Agent: $AGENT_NAME"
         echo "Failure count: $NEW_COUNT/$MAX_FAILURES"
 
         if [ "$NEW_COUNT" -ge "$MAX_FAILURES" ]; then
             echo ""
-            echo -e "${RED}🚫 CIRCUIT BREAKER OPENED${NC}"
+            echo -e "${RED}CIRCUIT BREAKER OPENED${NC}"
             echo ""
             echo "Agent has failed $MAX_FAILURES times consecutively."
             echo "Blocking further attempts to prevent infinite loops."
@@ -113,7 +148,7 @@ case "$2" in
 
     "success")
         reset_circuit "$AGENT_NAME"
-        echo -e "${GREEN}✅ Success recorded - circuit reset${NC}"
+        echo -e "${GREEN}Success recorded - circuit reset${NC}"
         echo "Agent: $AGENT_NAME"
         echo "Failure count: 0/$MAX_FAILURES"
         exit 0
@@ -121,7 +156,7 @@ case "$2" in
 
     "reset")
         reset_circuit "$AGENT_NAME"
-        echo -e "${GREEN}✅ Circuit breaker reset${NC}"
+        echo -e "${GREEN}Circuit breaker reset${NC}"
         echo "Agent: $AGENT_NAME"
         echo "Failure count: 0/$MAX_FAILURES"
         echo ""

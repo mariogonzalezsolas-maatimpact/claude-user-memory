@@ -41,7 +41,7 @@ echo "🤖 Checking agents..."
 AGENT_COUNT=$(find "$CLAUDE_DIR/agents" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
 if [ "$AGENT_COUNT" -eq 9 ]; then
     check_pass "All 9 agents installed"
-    check_info "$(ls $CLAUDE_DIR/agents/*.md | xargs -n1 basename | sed 's/^/    - /')"
+    check_info "$(ls "$CLAUDE_DIR"/agents/*.md | xargs -n1 basename | sed 's/^/    - /')"
 else
     check_fail "Expected 9 agents, found $AGENT_COUNT"
 fi
@@ -52,7 +52,7 @@ echo "🧠 Checking skills..."
 SKILL_COUNT=$(find "$CLAUDE_DIR/skills" -name "skill.md" 2>/dev/null | wc -l | tr -d ' ')
 if [ "$SKILL_COUNT" -eq 5 ]; then
     check_pass "All 5 skills installed"
-    check_info "$(ls -d $CLAUDE_DIR/skills/*/ | xargs -n1 basename | sed 's/^/    - /')"
+    check_info "$(ls -d "$CLAUDE_DIR"/skills/*/ | xargs -n1 basename | sed 's/^/    - /')"
 else
     check_fail "Expected 5 skills, found $SKILL_COUNT"
 fi
@@ -63,7 +63,7 @@ echo "⚡ Checking commands..."
 COMMAND_COUNT=$(find "$CLAUDE_DIR/commands" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
 if [ "$COMMAND_COUNT" -eq 5 ]; then
     check_pass "All 5 commands installed"
-    check_info "$(ls $CLAUDE_DIR/commands/*.md | xargs -n1 basename | sed 's/\.md$//' | sed 's/^/    \/ /')"
+    check_info "$(ls "$CLAUDE_DIR"/commands/*.md | xargs -n1 basename | sed 's/\.md$//' | sed 's/^/    \/ /')"
 else
     check_fail "Expected 5 commands, found $COMMAND_COUNT"
 fi
@@ -74,12 +74,14 @@ echo "🔗 Checking hooks..."
 HOOK_COUNT=$(find "$CLAUDE_DIR/hooks" -name "*.sh" 2>/dev/null | wc -l | tr -d ' ')
 if [ "$HOOK_COUNT" -eq 7 ]; then
     check_pass "All 7 hooks installed"
-    # Check if executable
-    NON_EXEC=$(find "$CLAUDE_DIR/hooks" -name "*.sh" ! -perm -111 2>/dev/null | wc -l | tr -d ' ')
-    if [ "$NON_EXEC" -eq 0 ]; then
-        check_pass "All hooks are executable"
-    else
-        check_fail "$NON_EXEC hooks are not executable"
+    # Check if executable (skip on Windows where perm checks are unreliable)
+    if [[ "$OSTYPE" != "msys" && "$OSTYPE" != "cygwin" ]]; then
+        NON_EXEC=$(find "$CLAUDE_DIR/hooks" -name "*.sh" ! -perm -111 2>/dev/null | wc -l | tr -d ' ')
+        if [ "$NON_EXEC" -eq 0 ]; then
+            check_pass "All hooks are executable"
+        else
+            check_fail "$NON_EXEC hooks are not executable"
+        fi
     fi
 else
     check_fail "Expected 7 hooks, found $HOOK_COUNT"
@@ -91,12 +93,14 @@ echo "✔️  Checking validators..."
 VALIDATOR_COUNT=$(find "$CLAUDE_DIR/validators" -name "*.sh" 2>/dev/null | wc -l | tr -d ' ')
 if [ "$VALIDATOR_COUNT" -eq 2 ]; then
     check_pass "All 2 validators installed"
-    # Check if executable
-    NON_EXEC=$(find "$CLAUDE_DIR/validators" -name "*.sh" ! -perm -111 2>/dev/null | wc -l | tr -d ' ')
-    if [ "$NON_EXEC" -eq 0 ]; then
-        check_pass "All validators are executable"
-    else
-        check_fail "$NON_EXEC validators are not executable"
+    # Check if executable (skip on Windows where perm checks are unreliable)
+    if [[ "$OSTYPE" != "msys" && "$OSTYPE" != "cygwin" ]]; then
+        NON_EXEC=$(find "$CLAUDE_DIR/validators" -name "*.sh" ! -perm -111 2>/dev/null | wc -l | tr -d ' ')
+        if [ "$NON_EXEC" -eq 0 ]; then
+            check_pass "All validators are executable"
+        else
+            check_fail "$NON_EXEC validators are not executable"
+        fi
     fi
 else
     check_fail "Expected 2 validators, found $VALIDATOR_COUNT"
@@ -120,7 +124,7 @@ if [ "$TEMPLATE_COUNT" -eq 6 ]; then
     check_pass "All 6 templates installed"
 else
     check_fail "Expected 6 templates, found $TEMPLATE_COUNT"
-    check_info "Found: $(find $CLAUDE_DIR/templates -type f | xargs -n1 basename | sed 's/^/    - /')"
+    check_info "Found: $(find "$CLAUDE_DIR/templates" -type f | xargs -n1 basename | sed 's/^/    - /')"
 fi
 echo ""
 

@@ -97,22 +97,18 @@ EOF
 fi
 
 # Increment version
-CURRENT_VERSION=$(grep "^Version:" "$KNOWLEDGE_FILE" | awk '{print $2}' || echo "1.0")
+CURRENT_VERSION=$(grep "^Version:" "$KNOWLEDGE_FILE" | awk '{print $2}' || true)
+CURRENT_VERSION="${CURRENT_VERSION:-1.0}"
 NEW_VERSION=$(echo "$CURRENT_VERSION" | awk -F. '{print $1"."$2+1}')
 
-# Update timestamp and version
+# Update timestamp and version - use gsed if available (macOS via Homebrew)
 if command -v gsed &> /dev/null; then
-    SED_CMD="gsed"
-else
-    SED_CMD="sed"
-fi
-
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    # macOS
+    gsed -i "s/^Last Updated:.*/Last Updated: $(date -u +"%Y-%m-%dT%H:%M:%SZ")/" "$KNOWLEDGE_FILE"
+    gsed -i "s/^Version:.*/Version: $NEW_VERSION/" "$KNOWLEDGE_FILE"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
     sed -i '' "s/^Last Updated:.*/Last Updated: $(date -u +"%Y-%m-%dT%H:%M:%SZ")/" "$KNOWLEDGE_FILE"
     sed -i '' "s/^Version:.*/Version: $NEW_VERSION/" "$KNOWLEDGE_FILE"
 else
-    # Linux
     sed -i "s/^Last Updated:.*/Last Updated: $(date -u +"%Y-%m-%dT%H:%M:%SZ")/" "$KNOWLEDGE_FILE"
     sed -i "s/^Version:.*/Version: $NEW_VERSION/" "$KNOWLEDGE_FILE"
 fi

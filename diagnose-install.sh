@@ -19,7 +19,7 @@ echo ""
 echo "📁 Installation Directory:"
 if [ -d "$HOME/.claude" ]; then
     echo "  ✅ $HOME/.claude exists"
-    echo "  Size: $(du -sh $HOME/.claude 2>/dev/null | cut -f1)"
+    echo "  Size: $(du -sh "$HOME/.claude" 2>/dev/null | cut -f1)"
 else
     echo "  ❌ $HOME/.claude does NOT exist"
     echo "  → Installation has not run or failed"
@@ -70,7 +70,7 @@ if [ "$AGENT_COUNT" -eq 15 ]; then
 else
     echo "    ❌ Missing $((15 - AGENT_COUNT)) agents"
     echo "    Found:"
-    find "$HOME/.claude/agents" -name "*.md" 2>/dev/null | xargs -n1 basename | sed 's/^/      - /'
+    find "$HOME/.claude/agents" -name "*.md" 2>/dev/null | while read -r f; do basename "$f"; done | sed 's/^/      - /'
 fi
 echo ""
 
@@ -81,7 +81,7 @@ if [ "$SKILL_COUNT" -eq 5 ]; then
 else
     echo "    ❌ Missing $((5 - SKILL_COUNT)) skills"
     echo "    Found:"
-    ls -d "$HOME/.claude/skills"/*/ 2>/dev/null | xargs -n1 basename | sed 's/^/      - /'
+    ls -d "$HOME/.claude/skills"/*/ 2>/dev/null | while read -r f; do basename "$f"; done | sed 's/^/      - /'
 fi
 echo ""
 
@@ -92,7 +92,7 @@ if [ "$COMMAND_COUNT" -eq 7 ]; then
 else
     echo "    ❌ Missing $((7 - COMMAND_COUNT)) commands"
     echo "    Found:"
-    find "$HOME/.claude/commands" -name "*.md" 2>/dev/null | xargs -n1 basename | sed 's/\.md$//' | sed 's/^/      \/ /'
+    find "$HOME/.claude/commands" -name "*.md" 2>/dev/null | while read -r f; do basename "$f" .md; done | sed 's/^/      \/ /'
 fi
 echo ""
 

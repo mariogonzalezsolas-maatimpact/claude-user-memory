@@ -22,8 +22,12 @@ fi
 # Circuit breaker state
 CB_FILE="$PROJECT_DIR/.claude/.circuit-breaker-state"
 if [ -f "$CB_FILE" ]; then
-    CB_STATE=$(cat "$CB_FILE" 2>/dev/null | head -1)
-    echo "Circuit breaker: $CB_STATE"
+    # Check if any agent has 3+ failures (circuit open)
+    if grep -qE '"[^"]+": *[3-9]|"[^"]+": *[1-9][0-9]+' "$CB_FILE" 2>/dev/null; then
+        echo "Circuit breaker: OPEN"
+    else
+        echo "Circuit breaker: CLOSED"
+    fi
 else
     echo "Circuit breaker: CLOSED"
 fi
@@ -31,12 +35,10 @@ fi
 # Existing artifacts
 ARTIFACTS=""
 for f in "$PROJECT_DIR"/ResearchPack*.md "$PROJECT_DIR"/.claude/ResearchPack*.md; do
-    [ -f "$f" ] && ARTIFACTS="$ARTIFACTS ResearchPack"
-    break
+    [ -f "$f" ] && ARTIFACTS="$ARTIFACTS ResearchPack" && break
 done
 for f in "$PROJECT_DIR"/ImplementationPlan*.md "$PROJECT_DIR"/.claude/ImplementationPlan*.md; do
-    [ -f "$f" ] && ARTIFACTS="$ARTIFACTS Plan"
-    break
+    [ -f "$f" ] && ARTIFACTS="$ARTIFACTS Plan" && break
 done
 [ -f "$PROJECT_DIR/knowledge-core.md" ] && ARTIFACTS="$ARTIFACTS knowledge-core"
 if [ -n "$ARTIFACTS" ]; then

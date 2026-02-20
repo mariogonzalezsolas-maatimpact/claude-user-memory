@@ -142,7 +142,7 @@ parse_json_value() {
 
     # Try python
     if command -v python >/dev/null 2>&1; then
-        python -c "import json,sys; print json.load(open('$json_file'))['$key']" 2>/dev/null && return 0
+        python -c "import json,sys; print(json.load(open('$json_file'))['$key'])" 2>/dev/null && return 0
     fi
 
     # Try jq if available
