@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/auto-format.sh\"",
+            "command": "[ -f \"$CLAUDE_PROJECT_DIR/.claude/hooks/auto-format.sh\" ] && bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/auto-format.sh\" || true",
             "timeout": 30
           }
         ]
@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/check-agent-economics.sh\"",
+            "command": "[ -f \"$CLAUDE_PROJECT_DIR/.claude/hooks/check-agent-economics.sh\" ] && bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/check-agent-economics.sh\" || true",
             "timeout": 10
           }
         ]
@@ -28,7 +28,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/suggest-context-edits.sh\"",
+            "command": "[ -f \"$CLAUDE_PROJECT_DIR/.claude/hooks/suggest-context-edits.sh\" ] && bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/suggest-context-edits.sh\" || true",
             "timeout": 10
           }
         ]
@@ -57,7 +57,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/update-knowledge-core.sh\"",
+            "command": "[ -f \"$CLAUDE_PROJECT_DIR/.claude/hooks/update-knowledge-core.sh\" ] && bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/update-knowledge-core.sh\" || true",
             "timeout": 30
           }
         ]
@@ -68,7 +68,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/teammate-idle.sh\"",
+            "command": "[ -f \"$CLAUDE_PROJECT_DIR/.claude/hooks/teammate-idle.sh\" ] && bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/teammate-idle.sh\" || true",
             "timeout": 10
           }
         ]
@@ -79,7 +79,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/task-completed.sh\"",
+            "command": "[ -f \"$CLAUDE_PROJECT_DIR/.claude/hooks/task-completed.sh\" ] && bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/task-completed.sh\" || true",
             "timeout": 15
           }
         ]
@@ -90,7 +90,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/pre-compact-backup.sh\"",
+            "command": "[ -f \"$CLAUDE_PROJECT_DIR/.claude/hooks/pre-compact-backup.sh\" ] && bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/pre-compact-backup.sh\" || true",
             "timeout": 30
           }
         ]
@@ -101,7 +101,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/skill-extraction-reminder.sh\"",
+            "command": "[ -f \"$CLAUDE_PROJECT_DIR/.claude/hooks/skill-extraction-reminder.sh\" ] && bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/skill-extraction-reminder.sh\" || true",
             "timeout": 5
           }
         ]
@@ -112,7 +112,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/session-start.sh\"",
+            "command": "[ -f \"$CLAUDE_PROJECT_DIR/.claude/hooks/session-start.sh\" ] && bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/session-start.sh\" || true",
             "timeout": 15
           }
         ]
