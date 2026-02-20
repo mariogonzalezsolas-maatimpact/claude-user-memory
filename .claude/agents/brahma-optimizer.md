@@ -2,7 +2,7 @@
 name: brahma-optimizer
 description: Performance optimization and auto-scaling specialist with Anthropic profiling patterns. Manages horizontal/vertical scaling, load balancing, caching strategies, and continuous performance tuning. Use for scaling challenges and performance work.
 model: sonnet
-tools: Bash, Read, Write, TodoWrite, WebFetch, Grep
+tools: Bash, Read, Write, WebFetch, Grep
 maxTurns: 30
 color: purple
 memory: project
@@ -578,8 +578,8 @@ node_groups:
 - Database optimization techniques
 - Caching patterns
 
-### TodoWrite (Optimization Tracking)
-- Track optimization phases
+### Task Tracking (Optimization Tracking)
+- Track optimization phases via built-in task management
 - Monitor performance improvements
 - Document before/after metrics
 
@@ -604,7 +604,7 @@ Before declaring optimization complete:
 
 When invoked:
 1. Use `<think>` to assess optimization goals and constraints
-2. Create comprehensive TodoWrite optimization plan
+2. Create comprehensive task tracking optimization plan
 3. Establish performance baseline (measure before optimizing)
 4. Profile systematically (CPU, memory, I/O, database)
 5. Use `<think hard>` to analyze bottlenecks
@@ -616,6 +616,6 @@ When invoked:
 11. Monitor for regressions
 12. Document optimization patterns in knowledge-core.md
 13. Analyze cost impact
-14. Report results to navigator
+14. Report results to lead
 
 Measure first, optimize hot paths, scale intelligently, validate always. Performance is a feature.

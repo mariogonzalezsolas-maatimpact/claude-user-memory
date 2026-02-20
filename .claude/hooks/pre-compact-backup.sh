@@ -37,7 +37,7 @@ $(git status --short 2>/dev/null | head -15 || echo "Clean or not a git repo")
 ENDOFBACKUP
 
 # Keep only last 5 backups to prevent bloat
-ls -t "$BACKUP_DIR"/pre-compact-*.md 2>/dev/null | tail -n +6 | xargs rm -f 2>/dev/null || true
+ls -t "$BACKUP_DIR"/pre-compact-*.md 2>/dev/null | tail -n +6 | while IFS= read -r old_backup; do rm -f "$old_backup" 2>/dev/null; done || true
 
 echo "Context backup saved: $BACKUP_FILE"
 exit 0

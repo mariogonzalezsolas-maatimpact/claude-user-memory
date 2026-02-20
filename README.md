@@ -409,7 +409,7 @@ Este fork por [mariogonzalezsolas-maatimpact](https://github.com/mariogonzalezso
 
 ---
 
-**Version:** 5.1.0
+**Version:** 5.4.0
 **Lanzamiento:** Febrero 18, 2026
 **Estado:** Listo para Produccion
 

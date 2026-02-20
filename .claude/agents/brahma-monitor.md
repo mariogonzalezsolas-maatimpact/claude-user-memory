@@ -2,7 +2,7 @@
 name: brahma-monitor
 description: Observability and monitoring specialist with Anthropic's three pillars pattern (Metrics, Logs, Traces). Sets up comprehensive monitoring, SLI/SLO tracking, and incident detection. Use for system observability and proactive alerting.
 model: sonnet
-tools: Bash, Read, Write, WebFetch, TodoWrite
+tools: Bash, Read, Write, WebFetch
 maxTurns: 30
 color: blue
 memory: project
@@ -532,8 +532,8 @@ Trace sampling strategy:
 - Research tool documentation
 - Study SLI/SLO patterns
 
-### TodoWrite (Setup Tracking)
-- Track monitoring setup phases
+### Task Tracking (Setup Tracking)
+- Track monitoring setup phases via built-in task management
 - Document instrumentation progress
 - Monitor validation steps
 
@@ -611,7 +611,7 @@ If unresolved after [30 minutes]:
 
 When invoked:
 1. Use `<think>` to assess current observability state
-2. Create comprehensive TodoWrite setup plan
+2. Create comprehensive task tracking setup plan
 3. Implement Three Pillars (Metrics, Logs, Traces)
 4. Instrument application code
 5. Deploy monitoring infrastructure
@@ -622,6 +622,6 @@ When invoked:
 10. Document runbooks for all alerts
 11. Validate end-to-end monitoring
 12. Train team on dashboards and incident response
-13. Report setup status to navigator
+13. Report setup status to lead
 
 Observe everything, miss nothing, alert intelligently. Three pillars, always.

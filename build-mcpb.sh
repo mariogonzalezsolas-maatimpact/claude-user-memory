@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # Build .mcpb package for Desktop Extension distribution
-# Agentic Substrate v3.1 - Adaptive Learning Integration
+# Agentic Substrate v5.4 - Adaptive Learning Integration
 
 set -euo pipefail
 
-VERSION="3.1.0"
+VERSION="5.4.0"
 PACKAGE_NAME="agentic-substrate-${VERSION}.mcpb"
 
 echo "🔨 Building Agentic Substrate .mcpb package v${VERSION}..."
@@ -22,11 +22,11 @@ echo "📋 Copying files..."
 
 cp -r .claude "$BUILD_DIR/"
 cp install.sh "$BUILD_DIR/"
-cp manifest.json "$BUILD_DIR/"
+cp manifest-template.json "$BUILD_DIR/" 2>/dev/null || echo "⚠️  manifest-template.json not found, skipping"
+cp manifest.json "$BUILD_DIR/" 2>/dev/null || echo "⚠️  manifest.json not found, skipping"
 cp README.md "$BUILD_DIR/"
-cp PHILOSOPHY.md "$BUILD_DIR/"
-cp LICENSE "$BUILD_DIR/"
-cp knowledge-core.md "$BUILD_DIR/"
+cp PHILOSOPHY.md "$BUILD_DIR/" 2>/dev/null || echo "⚠️  PHILOSOPHY.md not found, skipping"
+cp LICENSE "$BUILD_DIR/" 2>/dev/null || echo "⚠️  LICENSE not found, skipping"
 cp CLAUDE.md "$BUILD_DIR/" 2>/dev/null || echo "⚠️  CLAUDE.md not found, skipping"
 
 # Copy .mcpb assets if they exist
@@ -49,11 +49,11 @@ FILE_COUNT=$(find "$BUILD_DIR" -type f | wc -l | tr -d ' ')
 echo ""
 echo "📊 Package contents:"
 echo "   Files: $FILE_COUNT"
-echo "   Agents: 4"
+echo "   Agents: 15"
 echo "   Skills: 5"
-echo "   Commands: 5"
-echo "   Hooks: 8"
-echo "   Templates: 5"
+echo "   Commands: 12"
+echo "   Hooks: 12"
+echo "   Templates: 8"
 
 # Create .mcpb (zip archive)
 echo ""

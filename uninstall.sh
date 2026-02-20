@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Agentic Substrate v4.1 - Safe Uninstallation (Robust Cross-Platform)
+# Agentic Substrate v5.4 - Safe Uninstallation (Robust Cross-Platform)
 # Removes installed files while preserving user data and customizations
 
-VERSION="4.1.0"
+VERSION="5.4.0"
 
 # DO NOT use set -e - we want explicit error handling
 # set -e causes immediate exit on any error, preventing cleanup
@@ -258,39 +258,11 @@ MANIFEST_FILE="$CLAUDE_TARGET/.agentic-substrate-manifest.json"
 BACKUP_DIR="$CLAUDE_TARGET/backups/uninstall-$(date +%Y%m%d-%H%M%S 2>/dev/null || echo "backup")"
 
 # Check if file was modified
+# TODO: Implement per-file checksums in manifest to enable real modification detection.
+# Currently the manifest has no per-file checksums, so parse_json_value cannot look up
+# nested paths like "files.<name>.checksum". Always returns 1 (not modified) for now.
 is_modified() {
-    local file="$1"
-
-    # Check if manifest exists and has checksum
-    if [ ! -f "$MANIFEST_FILE" ]; then
-        return 1  # Can't determine, assume not modified
-    fi
-
-    local filename
-    filename=$(basename "$file")
-
-    # Try to get original checksum from manifest
-    local original_checksum
-    original_checksum=$(parse_json_value "$MANIFEST_FILE" "files.$filename.checksum")
-
-    if [ -z "$original_checksum" ]; then
-        return 1  # Can't determine
-    fi
-
-    # Calculate current checksum
-    local current_checksum
-    current_checksum=$(calculate_checksum "$file")
-
-    if [ -z "$current_checksum" ]; then
-        return 1  # Can't calculate
-    fi
-
-    # Compare
-    if [ "$original_checksum" != "$current_checksum" ]; then
-        return 0  # Modified
-    fi
-
-    return 1  # Not modified
+    return 1  # Not modified (no checksum data available in manifest)
 }
 
 # Categories of files to handle

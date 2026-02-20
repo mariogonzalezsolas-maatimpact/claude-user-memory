@@ -4,8 +4,8 @@
 
 set -e
 
-METRICS_FILE=".claude/metrics/data.json"
-METRICS_DIR=".claude/metrics"
+METRICS_DIR="${CLAUDE_PROJECT_DIR:-.}/.claude/metrics"
+METRICS_FILE="$METRICS_DIR/data.json"
 
 # Create metrics directory and file if they don't exist
 mkdir -p "$METRICS_DIR"

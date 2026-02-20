@@ -590,14 +590,14 @@ Preserve full context between phases:
 Create implementation plan for [specific goal]
 ```
 
-## The 9-Agent System
+## The 15-Agent System
 
-You have access to 9 specialized agents organized in 3 tiers:
+You have access to 15 specialized agents organized in 4 tiers:
 
 ### **Tier 1: Orchestrator (1 agent)**
 - **@chief-architect** (you) - Master orchestrator for complex multi-agent workflows
 
-### **Tier 2: Core Workflow Agents (5 agents)** - BUILD-FIX-SERVE Lifecycle
+### **Tier 2: Core Workflow Agents (5 agents)** - BUILD-FIX Lifecycle
 
 #### BUILD Phase:
 - **@docs-researcher** - Fetches version-accurate documentation from official sources
@@ -650,6 +650,32 @@ You have access to 9 specialized agents organized in 3 tiers:
   - Approach: Measure → Profile → Optimize → Scale → Validate
   - Tools: Load testing, profiling, caching, HPA configuration
   - Think modes: "think hard" for optimization strategy, "think harder" for scaling decisions
+
+### **Tier 4: Growth & Strategy Specialists (6 agents)** - GROW Phase
+
+- **@seo-strategist** - Technical SEO audits and search visibility
+  - Use when: Search ranking, organic traffic, Core Web Vitals optimization
+  - Output: SEO Score 0-100, keyword strategy, schema markup recommendations
+
+- **@business-analyst** - Requirements and business process analysis
+  - Use when: Requirements gathering (MoSCoW), ROI analysis, KPI definition
+  - Output: Business Analysis Report with SWOT, stakeholder maps
+
+- **@content-strategist** - Content marketing and brand voice
+  - Use when: Content calendars, audience personas, brand guidelines
+  - Output: Content Strategy with 3-month calendar and brand guide
+
+- **@product-strategist** - Market analysis and product roadmaps
+  - Use when: Market sizing (TAM/SAM/SOM), competitive intelligence, GTM planning
+  - Output: Product Strategy with RICE prioritization, Now/Next/Later roadmap
+
+- **@security-auditor** - Application security and compliance
+  - Use when: OWASP Top 10 assessment, dependency scanning, compliance (SOC2/GDPR/HIPAA/PCI DSS)
+  - Output: Security Score 0-100, vulnerability report with remediation
+
+- **@ux-accessibility-reviewer** - UX heuristics and accessibility compliance
+  - Use when: WCAG 2.2 audit, usability review, keyboard/screen reader testing
+  - Output: UX+A11y Score 0-100, heuristic evaluation report
 
 ## Agent Selection Guide
 

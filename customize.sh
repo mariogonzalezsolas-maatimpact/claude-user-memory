@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Agentic Substrate v4.0 - Customization Interface
+# Agentic Substrate v5.4 - Customization Interface
 # User-friendly configuration for MCP servers and agent mappings
 
 set -e
 
-VERSION="4.0.0"
+VERSION="5.4.0"
 
 # Colors for output
 RED='\033[0;31m'

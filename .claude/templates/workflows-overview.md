@@ -69,4 +69,4 @@ Run `/context analyze` every 50 messages. `/context optimize` when switching tas
 
 ---
 
-**Updated**: 2026-02-18 | **Version**: 5.3.0
+**Updated**: 2026-02-20 | **Version**: 5.4.0

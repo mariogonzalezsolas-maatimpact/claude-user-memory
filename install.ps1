@@ -23,7 +23,7 @@
     .\install.ps1 -Force
 
 .NOTES
-    Version: 5.2.0
+    Version: 5.4.0
     Author: Agentic Substrate Team + Windows compatibility by mariogonzalezsolas-maatimpact
 #>
 
@@ -276,29 +276,38 @@ function Merge-ClaudeMd {
         return
     }
 
-    # Existing CLAUDE.md found - smart merge
+    # Existing CLAUDE.md found - smart merge with markers
     Write-Info "Existing CLAUDE.md found - performing smart merge..."
 
     # Create backup
     Copy-Item -Path $target -Destination $backup -Force
 
-    # Create merged version
+    $START_MARKER = "# --- AGENTIC SUBSTRATE START ---"
+    $END_MARKER = "# --- AGENTIC SUBSTRATE END ---"
     $sourceContent = Get-Content $source -Raw
     $targetContent = Get-Content $target -Raw
 
-    $mergedContent = @"
-$sourceContent
+    if ($targetContent -match [regex]::Escape($START_MARKER)) {
+        # CASE 1: Markers present - replace managed section only
+        Write-Info "Markers found - replacing managed section..."
+        $pattern = [regex]::Escape($START_MARKER) + "[\s\S]*?" + [regex]::Escape($END_MARKER)
+        $mergedContent = [regex]::Replace($targetContent, $pattern, $sourceContent.TrimEnd())
+    }
+    else {
+        # CASE 2: No markers (legacy or bloated install) - replace entirely
+        $headerCount = ([regex]::Matches($targetContent, "(?m)^# Agentic Substrate v")).Count
+        if ($headerCount -gt 1) {
+            Write-Info "Detected $headerCount template copies (bloated) - cleaning up..."
+        }
+        else {
+            Write-Info "Legacy format detected - upgrading to marker format..."
+        }
+        $mergedContent = $sourceContent
+    }
 
----
-
-# USER CUSTOMIZATIONS (preserved from previous installation)
-
-$targetContent
-"@
-
-    Set-Content -Path $target -Value $mergedContent -Force
-    Write-Success "User-level CLAUDE.md smart-merged"
-    Write-Info "Original backed up to: CLAUDE.md.backup"
+    Set-Content -Path $target -Value $mergedContent.TrimEnd() -Force -NoNewline
+    Write-Success "User-level CLAUDE.md updated (idempotent)"
+    Write-Info "Backup saved to: CLAUDE.md.backup"
 }
 
 function Install-McpConfig {
@@ -509,7 +518,7 @@ function Show-Summary {
     Write-Host "  Location: $CLAUDE_TARGET"
     Write-Host "  Version: $VERSION"
     Write-Host "  Platform: Windows (PowerShell)"
-    Write-Host "  Agents: 15 | Skills: 5 | Commands: 11"
+    Write-Host "  Agents: 15 | Skills: 5 | Commands: 12"
     Write-Host ""
 
     if ($BACKUP_LOCATION) {

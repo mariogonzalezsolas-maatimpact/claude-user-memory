@@ -3,7 +3,7 @@
 # PostToolUse hook: Run tests after code implementation
 # Disabled by default (enable in settings.json when test suite is fast)
 
-set -eo pipefail
+set -e
 
 echo "🧪 Running tests..."
 

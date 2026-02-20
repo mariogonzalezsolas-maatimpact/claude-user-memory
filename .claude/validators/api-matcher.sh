@@ -100,7 +100,7 @@ if [ ${#MISMATCHES[@]} -gt 0 ]; then
         echo "   Recommendation: Re-run @implementation-planner with strict instruction:"
         echo "   'Use ONLY APIs from ResearchPack. No hallucination allowed.'"
         echo ""
-        exit 1  # Block implementation
+        exit 2  # Block implementation (exit 2 = Claude Code hook blocking convention)
     else
         echo -e "${YELLOW}⚠️  WARNING: Some APIs not in ResearchPack${NC}"
         echo "   These might be valid (utility functions, language features)"

@@ -10,7 +10,7 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
-CIRCUIT_FILE=".claude/.circuit-breaker-state"
+CIRCUIT_FILE="${CLAUDE_PROJECT_DIR:-.}/.claude/.circuit-breaker-state"
 AGENT_NAME="$1"
 MAX_FAILURES=3
 

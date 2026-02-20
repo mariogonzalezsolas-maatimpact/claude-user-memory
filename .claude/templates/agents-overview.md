@@ -113,4 +113,4 @@ Nielsen's 10 heuristics, WCAG 2.2 (A/AA/AAA), keyboard/screen reader testing, co
 
 ---
 
-**Updated**: 2026-02-18 | **Version**: 5.3.0 | **Agents**: 15 (3 Opus + 12 Sonnet)
+**Updated**: 2026-02-20 | **Version**: 5.4.0 | **Agents**: 15 (3 Opus + 12 Sonnet)

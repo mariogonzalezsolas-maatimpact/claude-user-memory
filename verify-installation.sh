@@ -8,7 +8,7 @@ CLAUDE_DIR="$HOME/.claude"
 FAIL_COUNT=0
 
 function check_pass() { echo "  ✅ $1"; }
-function check_fail() { echo "  ❌ $1"; ((FAIL_COUNT++)); }
+function check_fail() { echo "  ❌ $1"; FAIL_COUNT=$((FAIL_COUNT + 1)); }
 function check_info() { echo "  ℹ️  $1"; }
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
@@ -39,11 +39,11 @@ echo ""
 # Check agents
 echo "🤖 Checking agents..."
 AGENT_COUNT=$(find "$CLAUDE_DIR/agents" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
-if [ "$AGENT_COUNT" -eq 9 ]; then
-    check_pass "All 9 agents installed"
+if [ "$AGENT_COUNT" -eq 15 ]; then
+    check_pass "All 15 agents installed"
     check_info "$(ls "$CLAUDE_DIR"/agents/*.md | xargs -n1 basename | sed 's/^/    - /')"
 else
-    check_fail "Expected 9 agents, found $AGENT_COUNT"
+    check_fail "Expected 15 agents, found $AGENT_COUNT"
 fi
 echo ""
 
@@ -61,19 +61,19 @@ echo ""
 # Check commands
 echo "⚡ Checking commands..."
 COMMAND_COUNT=$(find "$CLAUDE_DIR/commands" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
-if [ "$COMMAND_COUNT" -eq 5 ]; then
-    check_pass "All 5 commands installed"
+if [ "$COMMAND_COUNT" -eq 12 ]; then
+    check_pass "All 12 commands installed"
     check_info "$(ls "$CLAUDE_DIR"/commands/*.md | xargs -n1 basename | sed 's/\.md$//' | sed 's/^/    \/ /')"
 else
-    check_fail "Expected 5 commands, found $COMMAND_COUNT"
+    check_fail "Expected 12 commands, found $COMMAND_COUNT"
 fi
 echo ""
 
 # Check hooks
 echo "🔗 Checking hooks..."
 HOOK_COUNT=$(find "$CLAUDE_DIR/hooks" -name "*.sh" 2>/dev/null | wc -l | tr -d ' ')
-if [ "$HOOK_COUNT" -eq 7 ]; then
-    check_pass "All 7 hooks installed"
+if [ "$HOOK_COUNT" -eq 12 ]; then
+    check_pass "All 12 hooks installed"
     # Check if executable (skip on Windows where perm checks are unreliable)
     if [[ "$OSTYPE" != "msys" && "$OSTYPE" != "cygwin" ]]; then
         NON_EXEC=$(find "$CLAUDE_DIR/hooks" -name "*.sh" ! -perm -111 2>/dev/null | wc -l | tr -d ' ')
@@ -84,7 +84,7 @@ if [ "$HOOK_COUNT" -eq 7 ]; then
         fi
     fi
 else
-    check_fail "Expected 7 hooks, found $HOOK_COUNT"
+    check_fail "Expected 12 hooks, found $HOOK_COUNT"
 fi
 echo ""
 
@@ -120,10 +120,10 @@ echo ""
 # Check templates
 echo "📝 Checking templates..."
 TEMPLATE_COUNT=$(find "$CLAUDE_DIR/templates" -type f 2>/dev/null | wc -l | tr -d ' ')
-if [ "$TEMPLATE_COUNT" -eq 6 ]; then
-    check_pass "All 6 templates installed"
+if [ "$TEMPLATE_COUNT" -eq 8 ]; then
+    check_pass "All 8 templates installed"
 else
-    check_fail "Expected 6 templates, found $TEMPLATE_COUNT"
+    check_fail "Expected 8 templates, found $TEMPLATE_COUNT"
     check_info "Found: $(find "$CLAUDE_DIR/templates" -type f | xargs -n1 basename | sed 's/^/    - /')"
 fi
 echo ""
@@ -167,4 +167,4 @@ fi
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 
-exit $FAIL_COUNT
+exit $(( FAIL_COUNT > 0 ? 1 : 0 ))

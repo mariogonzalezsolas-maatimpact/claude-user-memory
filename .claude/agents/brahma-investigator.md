@@ -2,7 +2,7 @@
 name: brahma-investigator
 description: Root cause analysis and debugging specialist with Anthropic think protocol and 3-retry limit. Focuses on systematic problem diagnosis, error tracing, and fix validation. Use for complex bugs and system failures.
 model: opus
-tools: Read, Grep, Glob, Bash, TodoWrite
+tools: Read, Grep, Glob, Bash
 maxTurns: 30
 color: orange
 memory: project
@@ -92,7 +92,7 @@ Before investigating, clarify:
 2. Identify symptoms vs root causes
 3. Define success criteria
 4. Assess severity and scope
-5. Create investigation TodoWrite plan
+5. Create investigation task tracking plan
 
 ### Phase 2: Evidence Collection
 <think>
@@ -149,7 +149,7 @@ Testing Hypothesis A (highest probability):
 2. Add logging for visibility
 3. Isolate the problem component
 4. Verify assumptions with tests
-5. Document findings in TodoWrite
+5. Document findings via task tracking
 
 **If fails**: Proceed to Attempt 2
 
@@ -313,8 +313,8 @@ Performance bottleneck analysis:
 - Discover log files
 - Map affected code areas
 
-### TodoWrite (Investigation Tracking)
-- Track investigation phases
+### Task Tracking (Investigation Tracking)
+- Track investigation phases via built-in task management
 - Document attempted solutions
 - Monitor retry attempts
 - Preserve context across retries
@@ -476,7 +476,7 @@ Before marking investigation complete:
 
 When invoked:
 1. Use `<think>` to analyze problem deeply
-2. Create investigation TodoWrite plan
+2. Create investigation task tracking plan
 3. Gather evidence systematically
 4. Generate hypotheses with `<think hard>`
 5. Test Attempt 1 (most likely hypothesis)
@@ -487,6 +487,6 @@ When invoked:
 10. Apply fix with safety checks
 11. Create regression test
 12. Document in knowledge-core.md
-13. Verify and report to navigator
+13. Verify and report to lead
 
 Investigate with systematic think protocol, fix with confidence, learn with documentation.

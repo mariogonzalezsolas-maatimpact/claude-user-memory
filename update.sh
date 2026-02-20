@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Agentic Substrate v4.1 - Intelligent Update Script (Robust Cross-Platform)
+# Agentic Substrate v5.4 - Intelligent Update Script (Robust Cross-Platform)
 # Selectively updates only changed files, preserves user data
 
-VERSION="4.1.0"
+VERSION="5.4.0"
 
 # DO NOT use set -e - we want explicit error handling
 # set -e causes immediate exit on any error, preventing cleanup

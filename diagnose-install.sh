@@ -86,20 +86,20 @@ fi
 echo ""
 
 COMMAND_COUNT=$(find "$HOME/.claude/commands" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
-echo "  Commands: $COMMAND_COUNT/7"
-if [ "$COMMAND_COUNT" -eq 7 ]; then
+echo "  Commands: $COMMAND_COUNT/12"
+if [ "$COMMAND_COUNT" -eq 12 ]; then
     echo "    ✅ All commands present"
 else
-    echo "    ❌ Missing $((7 - COMMAND_COUNT)) commands"
+    echo "    ❌ Missing $((12 - COMMAND_COUNT)) commands"
     echo "    Found:"
     find "$HOME/.claude/commands" -name "*.md" 2>/dev/null | while read -r f; do basename "$f" .md; done | sed 's/^/      \/ /'
 fi
 echo ""
 
 HOOK_COUNT=$(find "$HOME/.claude/hooks" -name "*.sh" 2>/dev/null | wc -l | tr -d ' ')
-echo "  Hooks: $HOOK_COUNT/9"
-if [ "$HOOK_COUNT" -lt 9 ]; then
-    echo "    ⚠️  Missing $((9 - HOOK_COUNT)) hooks"
+echo "  Hooks: $HOOK_COUNT/12"
+if [ "$HOOK_COUNT" -lt 12 ]; then
+    echo "    ⚠️  Missing $((12 - HOOK_COUNT)) hooks"
 fi
 echo ""
 
@@ -115,9 +115,9 @@ echo "  Metrics: $METRIC_COUNT/1"
 echo ""
 
 TEMPLATE_COUNT=$(find "$HOME/.claude/templates" -type f 2>/dev/null | wc -l | tr -d ' ')
-echo "  Templates: $TEMPLATE_COUNT/6"
-if [ "$TEMPLATE_COUNT" -lt 6 ]; then
-    echo "    ⚠️  Missing $((6 - TEMPLATE_COUNT)) templates"
+echo "  Templates: $TEMPLATE_COUNT/8"
+if [ "$TEMPLATE_COUNT" -lt 8 ]; then
+    echo "    ⚠️  Missing $((8 - TEMPLATE_COUNT)) templates"
 fi
 echo ""
 
@@ -137,14 +137,14 @@ echo ""
 # Summary
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 TOTAL=$((AGENT_COUNT + SKILL_COUNT + COMMAND_COUNT + HOOK_COUNT + VALIDATOR_COUNT + METRIC_COUNT + TEMPLATE_COUNT))
-echo "📊 Total files: $TOTAL/46"
+echo "📊 Total files: $TOTAL/60"
 echo ""
 
-if [ "$TOTAL" -eq 46 ] && [ "$COMMAND_COUNT" -eq 7 ] && [ "$SKILL_COUNT" -eq 5 ]; then
+if [ "$TOTAL" -eq 60 ] && [ "$COMMAND_COUNT" -eq 12 ] && [ "$SKILL_COUNT" -eq 5 ]; then
     echo "✅ INSTALLATION COMPLETE"
     echo ""
     echo "All components installed correctly!"
-elif [ "$COMMAND_COUNT" -lt 7 ] || [ "$SKILL_COUNT" -lt 5 ]; then
+elif [ "$COMMAND_COUNT" -lt 12 ] || [ "$SKILL_COUNT" -lt 5 ]; then
     echo "❌ INSTALLATION INCOMPLETE"
     echo ""
     echo "Problem: Commands and/or Skills are missing"

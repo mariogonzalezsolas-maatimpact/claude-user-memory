@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Agentic Substrate v5.0 - Robust Cross-Platform Installation
+# Agentic Substrate v5.4 - Robust Cross-Platform Installation
 # Works on: macOS, Linux, WSL, Windows (Git Bash/MSYS2), minimal containers, with/without Python
 # Optimized for Claude Opus 4.6 with 15 agents across 4 tiers
 
@@ -691,9 +691,9 @@ configure_agent_teams() {
         settings_path=$(to_windows_path "$settings")
 
         if [ -n "$PYTHON_CMD" ]; then
-            $PYTHON_CMD << 'PYEOF' "$settings_path" 2>/dev/null
-import json, sys
-path = sys.argv[1]
+            SETTINGS_PATH="$settings_path" $PYTHON_CMD << 'PYEOF' 2>/dev/null
+import json, os
+path = os.environ['SETTINGS_PATH']
 with open(path, 'r') as f:
     data = json.load(f)
 if 'env' not in data:
@@ -902,7 +902,7 @@ display_summary() {
     echo "  Location: $CLAUDE_TARGET"
     echo "  Version: $VERSION"
     echo "  Platform: $OS_TYPE"
-    echo "  Agents: 15 | Skills: 5 | Commands: 7"
+    echo "  Agents: 15 | Skills: 5 | Commands: 12"
     echo ""
 
     if [ -n "$BACKUP_LOCATION" ]; then

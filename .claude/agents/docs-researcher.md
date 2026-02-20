@@ -100,7 +100,7 @@ You are the **Documentation Researcher** - a speed-focused agent that fetches au
    - ⚠️ DeepWiki doesn't have repo → Log warning, proceed to Phase 2
    - ❌ DeepWiki unavailable → Fallback to WebSearch
 
-**Quality Gate**: ResearchPack without DeepWiki attempt = INVALID for code tasks
+**Note**: If DeepWiki MCP is available, use it to enrich research. If not available, proceed with WebSearch and WebFetch.
 
 ### Phase 2: Documentation Retrieval (< 90 sec)
 
@@ -432,7 +432,7 @@ functionName(param1: Type, param2: Type): ReturnType
 - **Completed**: [timestamp]
 - **Duration**: [X] seconds
 - **Sources Consulted**: [N]
-- **Agent**: docs-researcher v3.0 (Opus 4.6)
+- **Agent**: docs-researcher v3.0 (Sonnet 4.6)
 
 ---
 

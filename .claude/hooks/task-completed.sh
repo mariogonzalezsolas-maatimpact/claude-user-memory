@@ -10,10 +10,10 @@ TASK_SUBJECT=$(echo "$INPUT" | jq -r '.task_subject // "unknown"' 2>/dev/null)
 if echo "$TASK_SUBJECT" | grep -iqE "implement|build|create|add"; then
     # Windows/MSYS compatibility: -newer flag requires reference file to exist
     if [ -f /tmp/.task-start ]; then
-        RECENT_TESTS=$(find . -name "*test*" -o -name "*spec*" -newer /tmp/.task-start 2>/dev/null | head -1)
+        RECENT_TESTS=$(find . \( -name "*test*" -o -name "*spec*" \) -newer /tmp/.task-start 2>/dev/null | head -1)
     else
         # Fallback: check for test files modified in last 60 minutes
-        RECENT_TESTS=$(find . -name "*test*" -o -name "*spec*" -mmin -60 2>/dev/null | head -1)
+        RECENT_TESTS=$(find . \( -name "*test*" -o -name "*spec*" \) -mmin -60 2>/dev/null | head -1)
     fi
     if [ -z "$RECENT_TESTS" ]; then
         echo "Implementation task completed without tests. Add tests before marking complete." >&2

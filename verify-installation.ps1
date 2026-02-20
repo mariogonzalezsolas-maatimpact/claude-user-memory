@@ -94,10 +94,16 @@ $expectedAgents = @(
     "brahma-investigator",
     "brahma-monitor",
     "brahma-optimizer",
+    "business-analyst",
     "chief-architect",
     "code-implementer",
+    "content-strategist",
     "docs-researcher",
-    "implementation-planner"
+    "implementation-planner",
+    "product-strategist",
+    "security-auditor",
+    "seo-strategist",
+    "ux-accessibility-reviewer"
 )
 
 $agentsDir = Join-Path $CLAUDE_TARGET "agents"
@@ -165,10 +171,17 @@ else {
 Write-Check "Checking commands..."
 
 $expectedCommands = @(
+    "circuit-breaker",
     "context",
+    "do",
     "implement",
+    "mode",
     "plan",
     "research",
+    "review",
+    "security-audit",
+    "seo-audit",
+    "ux-review",
     "workflow"
 )
 

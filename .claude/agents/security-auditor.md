@@ -203,7 +203,7 @@ const hash = await bcrypt.hash(password, 12);
 ## Audit Summary
 - **Date**: [Date]
 - **Scope**: [What was audited]
-- **Auditor**: security-auditor (Opus 4.6)
+- **Auditor**: security-auditor (Sonnet 4.6)
 - **Overall Risk Level**: [CRITICAL / HIGH / MEDIUM / LOW]
 
 ## Security Score: [X/100]
