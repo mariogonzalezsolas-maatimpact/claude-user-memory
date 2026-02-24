@@ -9,6 +9,7 @@ import shutil
 
 VERSION = "5.4.0"
 INSTALL_DIR = os.path.join(os.path.expanduser("~"), ".claude")
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # ============================================================================
 # PLATFORM DETECTION
@@ -54,40 +55,33 @@ def is_installed():
     return None
 
 # ============================================================================
-# SCRIPT RUNNERS
+# SCRIPT RUNNERS (use relative paths from repo root)
 # ============================================================================
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-
-def to_bash_path(win_path):
-    """Convert Windows path to bash-compatible path (C:\\foo -> /c/foo)."""
-    path = win_path.replace("\\", "/")
-    if len(path) >= 2 and path[1] == ":":
-        path = "/" + path[0].lower() + path[2:]
-    return path
-
-def run_bash(script_name):
-    script = os.path.join(SCRIPT_DIR, "scripts", "unix", script_name)
-    if not os.path.isfile(script):
-        print(f"    Script not found: {script}")
+def run_bash(relative_path):
+    """Run a bash script using relative path from repo root."""
+    full_path = os.path.join(SCRIPT_DIR, relative_path)
+    if not os.path.isfile(full_path):
+        print(f"    Script not found: {relative_path}")
         return 1
-    bash_path = to_bash_path(script) if detect_os() == "windows" else script
-    return subprocess.call(["bash", bash_path])
+    # Use relative path with cwd=repo root - works on all platforms
+    return subprocess.call(["bash", relative_path.replace("\\", "/")], cwd=SCRIPT_DIR)
 
-def run_bash_with_args(script_name, args):
-    script = os.path.join(SCRIPT_DIR, "scripts", "unix", script_name)
-    if not os.path.isfile(script):
-        print(f"    Script not found: {script}")
+def run_bash_with_args(relative_path, args):
+    """Run a bash script with arguments using relative path from repo root."""
+    full_path = os.path.join(SCRIPT_DIR, relative_path)
+    if not os.path.isfile(full_path):
+        print(f"    Script not found: {relative_path}")
         return 1
-    bash_path = to_bash_path(script) if detect_os() == "windows" else script
-    return subprocess.call(["bash", bash_path] + args)
+    return subprocess.call(["bash", relative_path.replace("\\", "/")] + args, cwd=SCRIPT_DIR)
 
-def run_powershell(ps_cmd, script_name):
-    script = os.path.join(SCRIPT_DIR, "scripts", "windows", script_name)
-    if not os.path.isfile(script):
-        print(f"    Script not found: {script}")
+def run_powershell(ps_cmd, relative_path):
+    """Run a PowerShell script using full path (PS handles Windows paths)."""
+    full_path = os.path.join(SCRIPT_DIR, relative_path)
+    if not os.path.isfile(full_path):
+        print(f"    Script not found: {relative_path}")
         return 1
-    return subprocess.call([ps_cmd, "-ExecutionPolicy", "Bypass", "-File", script])
+    return subprocess.call([ps_cmd, "-ExecutionPolicy", "Bypass", "-File", full_path])
 
 # ============================================================================
 # ACTIONS
@@ -106,18 +100,18 @@ def action_install(os_type):
             print("      2) PowerShell (install.ps1)")
             choice = input("\n    Choose [1/2] (default: 1): ").strip()
             if choice == "2":
-                return run_powershell(ps_cmd, "install.ps1")
-            return run_bash("install.sh")
+                return run_powershell(ps_cmd, "scripts/windows/install.ps1")
+            return run_bash("scripts/unix/install.sh")
         elif ps_cmd:
-            return run_powershell(ps_cmd, "install.ps1")
+            return run_powershell(ps_cmd, "scripts/windows/install.ps1")
         elif bash:
-            return run_bash("install.sh")
+            return run_bash("scripts/unix/install.sh")
         else:
             print("    ERROR: No bash or PowerShell found.")
             print("    Install Git for Windows: https://git-scm.com/download/win")
             return 1
     else:
-        return run_bash("install.sh")
+        return run_bash("scripts/unix/install.sh")
 
 def action_uninstall(os_type):
     print("\n    --- Uninstall Agentic Substrate ---\n")
@@ -133,18 +127,18 @@ def action_uninstall(os_type):
 
     preview = input("    Preview first? [Y/n]: ").strip().lower()
     if preview in ("", "y", "yes", "s", "si"):
-        run_bash_with_args("uninstall.sh", ["--dry-run"])
+        run_bash_with_args("scripts/unix/uninstall.sh", ["--dry-run"])
         print()
 
     confirm = input("    Proceed with uninstall? [y/N]: ").strip().lower()
     if confirm in ("y", "yes", "s", "si"):
-        return run_bash("uninstall.sh")
+        return run_bash("scripts/unix/uninstall.sh")
     print("    Cancelled.")
     return 0
 
 def action_update(os_type):
     print("\n    --- Update (changed files only) ---\n")
-    return run_bash("update.sh")
+    return run_bash("scripts/unix/update.sh")
 
 def action_verify(os_type):
     print("\n    --- Verify Installation ---\n")
@@ -196,7 +190,7 @@ def action_verify(os_type):
 
 def action_configure(os_type):
     print("\n    --- Configure MCP Servers ---\n")
-    return run_bash("customize.sh")
+    return run_bash("scripts/unix/customize.sh")
 
 def action_status(os_type):
     print("\n    --- Status ---\n")
@@ -229,10 +223,9 @@ def action_status(os_type):
 def action_diagnose(os_type):
     print("\n    --- Diagnose Installation ---\n")
 
-    script = os.path.join(SCRIPT_DIR, "dev", "tools", "diagnose-install.sh")
-    if os.path.isfile(script) and has_bash():
-        bash_path = to_bash_path(script) if detect_os() == "windows" else script
-        return subprocess.call(["bash", bash_path])
+    diag_path = os.path.join(SCRIPT_DIR, "dev", "tools", "diagnose-install.sh")
+    if os.path.isfile(diag_path) and has_bash():
+        return subprocess.call(["bash", "dev/tools/diagnose-install.sh"], cwd=SCRIPT_DIR)
 
     # Fallback: basic Python diagnostics
     print("    Running basic diagnostics...\n")
