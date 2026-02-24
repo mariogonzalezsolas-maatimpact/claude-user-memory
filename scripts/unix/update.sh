@@ -111,19 +111,19 @@ parse_json_value() {
         return 1
     fi
 
-    # Try python3
+    # Try python3 (using env vars to avoid shell injection)
     if command -v python3 >/dev/null 2>&1; then
-        python3 -c "import json,sys; print(json.load(open('$json_file'))['$key'])" 2>/dev/null && return 0
+        JSON_FILE="$json_file" JSON_KEY="$key" python3 -c "import json,os; print(json.load(open(os.environ['JSON_FILE']))[os.environ['JSON_KEY']])" 2>/dev/null && return 0
     fi
 
     # Try python
     if command -v python >/dev/null 2>&1; then
-        python -c "import json,sys; print(json.load(open('$json_file'))['$key'])" 2>/dev/null && return 0
+        JSON_FILE="$json_file" JSON_KEY="$key" python -c "import json,os; print(json.load(open(os.environ['JSON_FILE']))[os.environ['JSON_KEY']])" 2>/dev/null && return 0
     fi
 
     # Try jq if available
     if command -v jq >/dev/null 2>&1; then
-        jq -r ".$key" "$json_file" 2>/dev/null && return 0
+        jq -r --arg k "$key" '.[$k]' "$json_file" 2>/dev/null && return 0
     fi
 
     # Fallback: bash grep/sed
@@ -139,19 +139,19 @@ parse_json_array() {
         return 1
     fi
 
-    # Try python3
+    # Try python3 (using env vars to avoid shell injection)
     if command -v python3 >/dev/null 2>&1; then
-        python3 -c "import json; print('\n'.join(json.load(open('$json_file'))['$array_name']))" 2>/dev/null && return 0
+        JSON_FILE="$json_file" JSON_KEY="$array_name" python3 -c "import json,os; print('\n'.join(json.load(open(os.environ['JSON_FILE']))[os.environ['JSON_KEY']]))" 2>/dev/null && return 0
     fi
 
     # Try python
     if command -v python >/dev/null 2>&1; then
-        python -c "import json; print('\n'.join(json.load(open('$json_file'))['$array_name']))" 2>/dev/null && return 0
+        JSON_FILE="$json_file" JSON_KEY="$array_name" python -c "import json,os; print('\n'.join(json.load(open(os.environ['JSON_FILE']))[os.environ['JSON_KEY']]))" 2>/dev/null && return 0
     fi
 
     # Try jq if available
     if command -v jq >/dev/null 2>&1; then
-        jq -r ".$array_name[]" "$json_file" 2>/dev/null && return 0
+        jq -r --arg k "$array_name" '.[$k][]' "$json_file" 2>/dev/null && return 0
     fi
 
     # Fallback: bash parsing

@@ -57,6 +57,8 @@
     "templates/implementation-report.md",
     "templates/CLAUDE.md.template",
     "templates/CLAUDE.md.user-level",
+    "templates/quality-gates.md",
+    "templates/AGENT-REPORT-PROTOCOL.md",
     "templates/skills-overview.md",
     "templates/workflows-overview.md",
     "data/mcp-config-template.json",
@@ -115,14 +117,14 @@
     }
   },
   "metadata": {
-    "total_files": 62,
+    "total_files": 64,
     "agents": 15,
     "skills": 5,
     "commands": 12,
     "hooks": 12,
     "validators": 2,
     "metrics": 1,
-    "templates": 8,
+    "templates": 10,
     "data": 1,
     "integrations": 4,
     "config": 2

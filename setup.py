@@ -64,7 +64,12 @@ def run_bash(relative_path):
     if not os.path.isfile(full_path):
         print(f"    Script not found: {relative_path}")
         return 1
-    return subprocess.call(["bash", relative_path.replace("\\", "/")], cwd=SCRIPT_DIR)
+    try:
+        return subprocess.call(["bash", relative_path.replace("\\", "/")], cwd=SCRIPT_DIR)
+    except FileNotFoundError:
+        print("    ERROR: bash not found.")
+        print("    Install Git for Windows: https://git-scm.com/download/win")
+        return 1
 
 def run_bash_with_args(relative_path, args):
     """Run a bash script with arguments using relative path from repo root."""
@@ -72,7 +77,12 @@ def run_bash_with_args(relative_path, args):
     if not os.path.isfile(full_path):
         print(f"    Script not found: {relative_path}")
         return 1
-    return subprocess.call(["bash", relative_path.replace("\\", "/")] + args, cwd=SCRIPT_DIR)
+    try:
+        return subprocess.call(["bash", relative_path.replace("\\", "/")] + args, cwd=SCRIPT_DIR)
+    except FileNotFoundError:
+        print("    ERROR: bash not found.")
+        print("    Install Git for Windows: https://git-scm.com/download/win")
+        return 1
 
 def run_powershell(ps_cmd, relative_path):
     """Run a PowerShell script using full path (PS handles Windows paths)."""
@@ -158,6 +168,11 @@ def action_uninstall(os_type):
     print(f"    Location: {INSTALL_DIR}")
     print()
 
+    if os_type == "windows" and not has_bash():
+        print("    ERROR: Uninstall requires bash (no PowerShell uninstaller available).")
+        print("    Install Git for Windows: https://git-scm.com/download/win")
+        return 1
+
     preview = input("    Preview first? [Y/n]: ").strip().lower()
     if preview in ("", "y", "yes", "s", "si"):
         run_bash_with_args("scripts/unix/uninstall.sh", ["--dry-run"])
@@ -171,6 +186,11 @@ def action_uninstall(os_type):
 
 def action_update(os_type):
     print("\n    --- Update (changed files only) ---\n")
+
+    if os_type == "windows" and not has_bash():
+        print("    ERROR: Update requires bash (no PowerShell updater available).")
+        print("    Install Git for Windows: https://git-scm.com/download/win")
+        return 1
 
     # Pull latest changes from remote before updating
     print("    Pulling latest changes from git...")
@@ -422,8 +442,23 @@ def main():
     # Direct command: python setup.py install / uninstall / verify / status
     if len(sys.argv) > 1:
         cmd = sys.argv[1].lower()
-        # Support --force for direct install command
         force_flag = "--force" in sys.argv or "-Force" in sys.argv
+
+        # Handle install --force directly (bypass interactive menu)
+        if cmd == "install" and force_flag:
+            if os_type == "windows":
+                ps_cmd = has_powershell()
+                if has_bash():
+                    sys.exit(_run_install_bash(force=True))
+                elif ps_cmd:
+                    sys.exit(_run_install_ps(ps_cmd, force=True))
+                else:
+                    print("    ERROR: No bash or PowerShell found.")
+                    print("    Install Git for Windows: https://git-scm.com/download/win")
+                    sys.exit(1)
+            else:
+                sys.exit(_run_install_bash(force=True))
+
         for key, name, desc, action in MENU_OPTIONS:
             if cmd == name.lower() and action:
                 sys.exit(action(os_type))

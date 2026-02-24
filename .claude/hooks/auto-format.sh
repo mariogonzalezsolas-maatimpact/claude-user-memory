@@ -13,6 +13,11 @@ if [ -z "$FILE_PATH" ]; then
     exit 0
 fi
 
+# Reject paths starting with - (prevents flag injection into formatters)
+case "$FILE_PATH" in
+    -*) exit 0 ;;
+esac
+
 # Only format code files (not markdown, json, etc.)
 case "$FILE_PATH" in
     *.ts|*.tsx|*.js|*.jsx)

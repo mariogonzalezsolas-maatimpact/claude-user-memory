@@ -14,7 +14,8 @@ TEAMMATE=$(echo "$INPUT" | jq -r '.teammate_name // "unknown"' 2>/dev/null)
 
 # Check if there are still pending tasks
 PENDING=$(echo "$INPUT" | jq -r '.pending_tasks // 0' 2>/dev/null)
-if [ "$PENDING" -gt 0 ]; then
+PENDING="${PENDING:-0}"
+if [ "$PENDING" -gt 0 ] 2>/dev/null; then
     echo "You still have $PENDING pending tasks. Check the task list and claim the next one." >&2
     exit 2
 fi

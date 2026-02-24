@@ -19,6 +19,24 @@ if [ ! -f "$CIRCUIT_FILE" ]; then
     echo "{}" > "$CIRCUIT_FILE"
 fi
 
+# Lock helpers for concurrent access safety (Agent Teams)
+_acquire_circuit_lock() {
+    local lockdir="${CIRCUIT_FILE}.lock"
+    local attempts=0
+    while ! mkdir "$lockdir" 2>/dev/null; do
+        ((attempts++)) || true
+        if [ "$attempts" -ge 10 ]; then
+            return 1  # Give up after ~5 seconds
+        fi
+        sleep 0.5 2>/dev/null || sleep 1
+    done
+    return 0
+}
+
+_release_circuit_lock() {
+    rmdir "${CIRCUIT_FILE}.lock" 2>/dev/null || true
+}
+
 # Function to get failure count for agent
 get_failure_count() {
     local agent="$1"
@@ -27,11 +45,13 @@ get_failure_count() {
     echo "${count:-0}"
 }
 
-# Rewrite entire circuit breaker file with updated entry
+# Rewrite entire circuit breaker file with updated entry (locked)
 _write_circuit_file() {
     local target_agent="$1"
     local target_count="$2"
     local tmpfile="${CIRCUIT_FILE}.tmp"
+
+    _acquire_circuit_lock || { echo "Warning: Could not acquire circuit breaker lock" >&2; }
 
     # Collect all existing entries
     declare -a names=()
@@ -64,6 +84,7 @@ _write_circuit_file() {
     printf "}\n" >> "$tmpfile"
 
     mv "$tmpfile" "$CIRCUIT_FILE"
+    _release_circuit_lock
 }
 
 # Function to increment failure count

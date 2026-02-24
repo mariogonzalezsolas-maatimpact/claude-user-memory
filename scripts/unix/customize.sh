@@ -70,8 +70,8 @@ function list_mcps() {
   local servers
   servers=$(jq -r '.servers | keys[]' "$CONFIG_FILE")
   while IFS= read -r server; do
-    local enabled=$(jq -r ".servers.\"$server\".enabled" "$CONFIG_FILE")
-    local description=$(jq -r ".servers.\"$server\".description" "$CONFIG_FILE")
+    local enabled=$(jq -r --arg s "$server" '.servers[$s].enabled' "$CONFIG_FILE")
+    local description=$(jq -r --arg s "$server" '.servers[$s].description' "$CONFIG_FILE")
     local status_icon=$([ "$enabled" = "true" ] && echo "✓" || echo "✗")
     local status_color=$([ "$enabled" = "true" ] && echo "$GREEN" || echo "$RED")
 
@@ -89,7 +89,7 @@ function list_agents() {
   local agents
   agents=$(jq -r '.agent_mappings | keys[]' "$CONFIG_FILE")
   while IFS= read -r agent; do
-    local mcps=$(jq -r ".agent_mappings.\"$agent\".mcps | join(\", \")" "$CONFIG_FILE")
+    local mcps=$(jq -r --arg a "$agent" '.agent_mappings[$a].mcps | join(", ")' "$CONFIG_FILE")
     printf "${MAGENTA}%-25s${NC} → %s\n" "$agent" "$mcps"
   done <<< "$agents"
   echo ""
@@ -99,7 +99,7 @@ function list_agents() {
 function enable_mcp() {
   local server="$1"
 
-  if ! jq -e ".servers.\"$server\"" "$CONFIG_FILE" > /dev/null 2>&1; then
+  if ! jq -e --arg s "$server" '.servers[$s]' "$CONFIG_FILE" > /dev/null 2>&1; then
     log_error "MCP server '$server' not found"
     log_info "Available servers: $(jq -r '.servers | keys | join(", ")' "$CONFIG_FILE")"
     return 1
@@ -107,7 +107,7 @@ function enable_mcp() {
 
   backup_config
 
-  jq ".servers.\"$server\".enabled = true" "$CONFIG_FILE" > "${CONFIG_FILE}.tmp" && \
+  jq --arg s "$server" '.servers[$s].enabled = true' "$CONFIG_FILE" > "${CONFIG_FILE}.tmp" && \
     mv "${CONFIG_FILE}.tmp" "$CONFIG_FILE"
 
   log_success "Enabled MCP server: $server"
@@ -117,14 +117,14 @@ function enable_mcp() {
 function disable_mcp() {
   local server="$1"
 
-  if ! jq -e ".servers.\"$server\"" "$CONFIG_FILE" > /dev/null 2>&1; then
+  if ! jq -e --arg s "$server" '.servers[$s]' "$CONFIG_FILE" > /dev/null 2>&1; then
     log_error "MCP server '$server' not found"
     return 1
   fi
 
   backup_config
 
-  jq ".servers.\"$server\".enabled = false" "$CONFIG_FILE" > "${CONFIG_FILE}.tmp" && \
+  jq --arg s "$server" '.servers[$s].enabled = false' "$CONFIG_FILE" > "${CONFIG_FILE}.tmp" && \
     mv "${CONFIG_FILE}.tmp" "$CONFIG_FILE"
 
   log_success "Disabled MCP server: $server"
@@ -135,12 +135,12 @@ function assign_mcp() {
   local mcp="$1"
   local agent="$2"
 
-  if ! jq -e ".servers.\"$mcp\"" "$CONFIG_FILE" > /dev/null 2>&1; then
+  if ! jq -e --arg s "$mcp" '.servers[$s]' "$CONFIG_FILE" > /dev/null 2>&1; then
     log_error "MCP server '$mcp' not found"
     return 1
   fi
 
-  if ! jq -e ".agent_mappings.\"$agent\"" "$CONFIG_FILE" > /dev/null 2>&1; then
+  if ! jq -e --arg a "$agent" '.agent_mappings[$a]' "$CONFIG_FILE" > /dev/null 2>&1; then
     log_error "Agent '$agent' not found"
     log_info "Available agents: $(jq -r '.agent_mappings | keys | join(", ")' "$CONFIG_FILE")"
     return 1
@@ -149,11 +149,11 @@ function assign_mcp() {
   backup_config
 
   # Add MCP to agent's list if not already present
-  local current_mcps=$(jq -r ".agent_mappings.\"$agent\".mcps | .[]" "$CONFIG_FILE")
+  local current_mcps=$(jq -r --arg a "$agent" '.agent_mappings[$a].mcps | .[]' "$CONFIG_FILE")
   if echo "$current_mcps" | grep -qFx "$mcp"; then
     log_warning "MCP '$mcp' already assigned to agent '$agent'"
   else
-    jq ".agent_mappings.\"$agent\".mcps += [\"$mcp\"]" "$CONFIG_FILE" > "${CONFIG_FILE}.tmp" && \
+    jq --arg a "$agent" --arg m "$mcp" '.agent_mappings[$a].mcps += [$m]' "$CONFIG_FILE" > "${CONFIG_FILE}.tmp" && \
       mv "${CONFIG_FILE}.tmp" "$CONFIG_FILE"
     log_success "Assigned MCP '$mcp' to agent '$agent'"
   fi
@@ -164,14 +164,14 @@ function unassign_mcp() {
   local mcp="$1"
   local agent="$2"
 
-  if ! jq -e ".agent_mappings.\"$agent\"" "$CONFIG_FILE" > /dev/null 2>&1; then
+  if ! jq -e --arg a "$agent" '.agent_mappings[$a]' "$CONFIG_FILE" > /dev/null 2>&1; then
     log_error "Agent '$agent' not found"
     return 1
   fi
 
   backup_config
 
-  jq ".agent_mappings.\"$agent\".mcps -= [\"$mcp\"]" "$CONFIG_FILE" > "${CONFIG_FILE}.tmp" && \
+  jq --arg a "$agent" --arg m "$mcp" '.agent_mappings[$a].mcps -= [$m]' "$CONFIG_FILE" > "${CONFIG_FILE}.tmp" && \
     mv "${CONFIG_FILE}.tmp" "$CONFIG_FILE"
 
   log_success "Removed MCP '$mcp' from agent '$agent'"
