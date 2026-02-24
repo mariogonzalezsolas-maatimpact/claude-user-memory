@@ -554,7 +554,7 @@ result = crew.kickoff()
 
 ## Final Recommendation
 
-**For Agentic Substrate v5.4**:
+**For Agentic Substrate v6.0**:
 
 **Phase 1** (Weeks 1-3): **LangGraph**
 - Highest fit score (95/100)

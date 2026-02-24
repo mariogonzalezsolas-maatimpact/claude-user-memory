@@ -1,4 +1,4 @@
-# Installation Behavior - Agentic Substrate v5.4
+# Installation Behavior - Agentic Substrate v6.0
 
 ## Overview
 
@@ -230,7 +230,7 @@ ls -la ~/.claude/CLAUDE.md.backup
 
 **Current**: v1.1.0
 
-**Substrate Version**: v5.4.0
+**Substrate Version**: v6.0.0
 
 **Total Managed Files**: 60
 - Agents: 15
@@ -265,5 +265,5 @@ ls -la ~/.claude/CLAUDE.md.backup
 ---
 
 **Last Updated**: 2026-02-20
-**Version**: 5.4.0
+**Version**: 6.0.0
 **Status**: Production-Ready

@@ -62,17 +62,37 @@ Analyze the request and assign exactly one route:
 
 ### Complexity Detection
 - **Simple** (1-2 files): Direct execution, minimal plan
-- **Medium** (3-5 files): Standard workflow with gates
-- **Complex** (6+ files, multi-domain): `@chief-architect` orchestration
+- **Medium** (3-5 files): Agent Team (default) or sequential workflow
+- **Complex** (6+ files, multi-domain): Agent Team with `@chief-architect` orchestration
 
-### Agent Teams Escalation
-If task touches 3+ layers (frontend + backend + database) or user requests parallel work:
+### Agent Teams (Default for FEATURE/IMPLEMENT/ORCHESTRATE)
+
+**Agent Teams is ON by default.** For FEATURE, IMPLEMENT, and ORCHESTRATE routes, `/do` automatically plans with Agent Team teammates unless the user opts out.
+
+**Opt-out keywords** (use sequential sub-agents instead):
+- "simple", "sequential", "sin equipo", "no team", "solo", "single agent"
+
+**Default behavior** (no opt-out keyword detected):
 ```
-This task touches [X layers]: [list]
-Recommended team: [N] teammates
-Proceed with Agent Team? Or prefer sequential?
+Route: FEATURE
+Agent Team: 3 teammates
+
+1. Backend Teammate: [scope]
+2. Frontend Teammate: [scope]
+3. Tests Teammate: [scope]
+
+File ownership and dependencies defined per teammate.
+Proceed? (yes / modify / cancel)
 ```
-Never auto-spawn teams -- always confirm first.
+
+**Opted-out behavior** (`/do add auth, simple`):
+```
+Route: FEATURE
+Agent: /workflow (sequential, single agent)
+...
+```
+
+Agent Teams still require user confirmation before spawning.
 
 ---
 

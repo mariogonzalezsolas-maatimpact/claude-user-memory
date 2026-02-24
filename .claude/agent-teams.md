@@ -8,14 +8,16 @@ Experimental parallel collaboration layer for Claude Code. Teammates are persist
 
 ## Entry Point: `/do`
 
-The `/do` command automatically detects when a task would benefit from Agent Teams. You don't need to manually decide -- just use `/do` and it will:
+**Agent Teams is the default** for FEATURE, IMPLEMENT, and ORCHESTRATE routes. `/do` automatically plans with Agent Team teammates:
 
-1. Analyze your task for multi-layer/parallel signals
-2. Recommend an Agent Team if beneficial
-3. Ask for your confirmation before spawning
-4. Fall back to sub-agents if you prefer
+1. Classify task and detect layers/scope
+2. Plan with Agent Team (teammates, file ownership, dependencies)
+3. Show plan and wait for confirmation
+4. Execute with parallel teammates
 
-You can also explicitly request a team: `/do build payment system with agent team`
+**To opt out** (use sequential single-agent workflow instead), add one of these keywords:
+- "simple", "sequential", "sin equipo", "no team", "solo", "single agent"
+- Example: `/do add auth, simple` -> sequential `/workflow`
 
 ---
 

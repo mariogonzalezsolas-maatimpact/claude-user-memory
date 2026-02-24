@@ -31,4 +31,4 @@ User: "Add Redis caching"
 
 ---
 
-**Updated**: 2026-02-20 | **Version**: 5.4.0
+**Updated**: 2026-02-24 | **Version**: 6.0.0

@@ -1,7 +1,7 @@
-# Project Knowledge Core - Agentic Substrate v5.4
+# Project Knowledge Core - Agentic Substrate v6.0
 
-**Last Updated**: 2026-02-20
-**Version**: 5.4.0 (15-Agent System with Growth & Strategy Tier)
+**Last Updated**: 2026-02-24
+**Version**: 6.0.0 (15-Agent System with Quality Gates & Model Mixing)
 **Project**: Claude User Memory → Agentic Substrate
 
 **Purpose**: This document is the single source of truth for this project's architectural decisions, established patterns, and key learnings. It serves as the persistent memory for all AI agents working on the Agentic Substrate system.
@@ -898,7 +898,7 @@ Command(
 
 **Implementation**: See `ResearchPack-Anthropic-Engineering-Philosophy.md` and `ImplementationPlan-Agentic-Substrate.md`
 
-**Status**: Active - Core philosophy of Agentic Substrate v5.4
+**Status**: Active - Core philosophy of Agentic Substrate v6.0
 
 ---
 
@@ -1597,7 +1597,7 @@ optimized = optimizer.compile(module, trainset=examples)
 **Severity**: CRITICAL (32/100 documentation integrity score)
 
 **Problem**:
-- agents-overview.md documented only 4 agents (actual: 15 as of v5.4)
+- agents-overview.md documented only 4 agents (actual: 15 as of v6.0)
 - CLAUDE.md claimed "4 specialists" (actual: 15 across 4 tiers)
 - False claims about features (circuit breaker state file, Brahma commands)
 
@@ -1698,8 +1698,8 @@ LangGraph (orchestration layer)
 
 ---
 
-**Last updated**: 2026-02-20 by Agentic Substrate v5.4 bug-fix workflow
-**Major enhancement**: V5.4 - 15 agents (4 tiers), 12 commands, 12 hooks, lifecycle hooks, semantic quality gates
+**Last updated**: 2026-02-24 by Agentic Substrate v6.0 upgrade workflow
+**Major enhancement**: V6.0 - 15 agents (3 Opus + 7 Sonnet + 5 Haiku), mandatory plan mode, quality gates, agent report protocol
 **Research method**: Ultrathink multi-agent parallel research (50+ sources, HIGH confidence)
 **Next review**: Ongoing (review with each major version)
 **Maintainer**: Jaykumar Jayesh Bhailal Devji Lala Amtha Patel, VAMFI Inc.

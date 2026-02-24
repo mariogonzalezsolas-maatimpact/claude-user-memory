@@ -1,4 +1,4 @@
-# Troubleshooting Guide - Agentic Substrate v5.4
+# Troubleshooting Guide - Agentic Substrate v6.0
 
 Common issues and solutions for the Research → Plan → Implement workflow and the 15-agent system.
 
@@ -141,7 +141,7 @@ Common issues and solutions for the Research → Plan → Implement workflow and
 **Solution**:
 ```bash
 # 1. Check self-correction is enabled
-#    (It should be by default in v5.4)
+#    (It should be by default in v6.0)
 
 # 2. Check error message is clear
 #    Run tests manually to see full output:
@@ -585,4 +585,4 @@ When reporting issues, include:
 ---
 
 **Last Updated**: 2026-02-20
-**Version**: 5.4.0
+**Version**: 6.0.0

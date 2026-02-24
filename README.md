@@ -1,4 +1,4 @@
-# Agentic Substrate v5.4
+# Agentic Substrate v6.0
 
 **Research-first development system for Claude Code CLI - Optimized for Claude Opus 4.6**
 
@@ -167,7 +167,7 @@ MIT License - See [LICENSE](LICENSE)
 ---
 
 <a name="espanol"></a>
-# Agentic Substrate v5.4 (Espanol)
+# Agentic Substrate v6.0 (Espanol)
 
 **Sistema de desarrollo basado en investigacion para Claude Code CLI - Optimizado para Claude Opus 4.6**
 
@@ -306,8 +306,8 @@ bash scripts/unix/uninstall.sh      # Desinstalar (preserva datos)
 
 ---
 
-**Version:** 5.4.0
-**Lanzamiento:** Febrero 18, 2026
+**Version:** 6.0.0
+**Lanzamiento:** Febrero 24, 2026
 **Estado:** Listo para Produccion
 
 *Investigar -> Planificar -> Implementar -> Aprender*
