@@ -1,4 +1,4 @@
-# Agentic Substrate v5.4
+# Agentic Substrate v6.0
 
 Source repository for the Claude Code CLI enhancement system. Users install to `~/.claude/` via `install.sh` or `install.ps1`.
 
@@ -10,7 +10,7 @@ Source repository for the Claude Code CLI enhancement system. Users install to `
 - Circuit breaker opens after 3 failures: /circuit-breaker reset
 
 ## Commands (12)
-- `/do [anything]` -- Universal router (RECOMMENDED)
+- `/do [anything]` -- Universal router with mandatory planning (RECOMMENDED)
 - `/workflow [feature]` -- Full automation: research -> plan -> implement
 - `/research [topic]` -- Fetch version-accurate docs (<2 min)
 - `/plan [feature]` -- Create minimal-change blueprint
@@ -23,11 +23,26 @@ Source repository for the Claude Code CLI enhancement system. Users install to `
 - `/seo-audit [scope]` -- Technical SEO + Core Web Vitals audit
 - `/ux-review [scope]` -- WCAG 2.2 + usability heuristics audit
 
-## 15 Agents (4 Tiers)
-- **Orchestrator**: chief-architect
-- **Core (BUILD+FIX)**: docs-researcher, implementation-planner, brahma-analyzer, code-implementer, brahma-investigator
-- **Production (SERVE)**: brahma-deployer, brahma-monitor, brahma-optimizer
-- **Growth (GROW)**: seo-strategist, business-analyst, content-strategist, product-strategist, security-auditor, ux-accessibility-reviewer
+## 15 Agents (4 Tiers, 3 Models)
+- **Orchestrator** (opus): chief-architect
+- **Core** (opus+sonnet): docs-researcher, implementation-planner, brahma-analyzer, code-implementer, brahma-investigator
+- **Production** (sonnet): brahma-deployer, brahma-monitor, brahma-optimizer
+- **Growth** (haiku+sonnet): seo-strategist, business-analyst, content-strategist, product-strategist, security-auditor, ux-accessibility-reviewer
+
+### Model Distribution
+- **Opus** (3): chief-architect, code-implementer, brahma-investigator -- orchestration + deep reasoning
+- **Sonnet** (7): docs-researcher, implementation-planner, brahma-analyzer, brahma-deployer, brahma-monitor, brahma-optimizer, security-auditor -- analysis + code
+- **Haiku** (5): seo-strategist, business-analyst, content-strategist, product-strategist, ux-accessibility-reviewer -- checklist + content
+
+## Quality Gates
+@.claude/templates/quality-gates.md
+
+| Transition | Threshold |
+|------------|-----------|
+| Research -> Plan | Score >= 80 |
+| Plan -> Implement | Score >= 85 |
+| Analysis | Score >= 80 |
+| Implementation | Tests pass, circuit breaker closed |
 
 ## Thinking Modes
 Add keyword: **think** (30-60s) | **think hard** (1-2min) | **think harder** (2-4min) | **ultrathink** (5-10min)
@@ -36,6 +51,7 @@ Add keyword: **think** (30-60s) | **think hard** (1-2min) | **think harder** (2-
 @.claude/templates/agents-overview.md
 @.claude/templates/skills-overview.md
 @.claude/templates/workflows-overview.md
+@.claude/templates/quality-gates.md
 @.claude/agent-teams.md
 
 ## Quick Fixes

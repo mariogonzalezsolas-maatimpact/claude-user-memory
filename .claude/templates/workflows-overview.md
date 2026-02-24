@@ -2,25 +2,56 @@
 
 ## Universal Command: `/do`
 
-Just say what you want -- `/do` analyzes intent and routes automatically:
+Just say what you want -- `/do` classifies, plans, confirms, then executes:
 
-| Intent | Routes To |
-|--------|-----------|
-| Build/Add/Create | `/workflow` |
-| Research/Learn | `/research` |
-| Plan/Design | `/plan` |
-| Implement (with plan) | `/implement` |
-| Debug/Investigate | `@brahma-investigator` |
-| Deploy/Release | `@brahma-deployer` |
-| Optimize/Performance | `@brahma-optimizer` |
-| Review code | `/review` |
-| SEO/Search | `@seo-strategist` |
-| Business/Requirements | `@business-analyst` |
-| Content/Marketing | `@content-strategist` |
-| Product/Roadmap | `@product-strategist` |
-| Security/Compliance | `@security-auditor` |
-| UX/Accessibility | `@ux-accessibility-reviewer` |
-| Complex multi-domain | `@chief-architect` |
+| Route | Executes | Gates |
+|-------|----------|-------|
+| FEATURE | `/workflow` | Research (80+) -> Plan (85+) -> Tests Pass |
+| RESEARCH | `@docs-researcher` | ResearchPack (80+) |
+| PLAN | `@implementation-planner` | Plan Score (85+) |
+| IMPLEMENT | `@code-implementer` | Tests Pass |
+| DEBUG | `@brahma-investigator` | Investigation -> Fix Verified |
+| DEPLOY | `@brahma-deployer` | Pre-deploy -> Post-deploy |
+| OPTIMIZE | `@brahma-optimizer` | Baseline -> Improvement Verified |
+| MONITOR | `@brahma-monitor` | Three Pillars Configured |
+| REVIEW | `/review` | Review Complete |
+| SEO | `@seo-strategist` | Audit Delivered |
+| SECURITY | `@security-auditor` | Audit Delivered |
+| UX | `@ux-accessibility-reviewer` | Audit Delivered |
+| BUSINESS | `@business-analyst` | Analysis Delivered |
+| CONTENT | `@content-strategist` | Strategy Delivered |
+| PRODUCT | `@product-strategist` | Strategy Delivered |
+| ORCHESTRATE | `@chief-architect` | Per-phase gates |
+| SIMPLE | Direct answer | None |
+
+### Mandatory Plan Mode
+
+Every `/do` invocation shows a plan and waits for confirmation before executing:
+```
+Route: [ROUTE]
+Agent: [agent]
+Gates: [applicable gates]
+Plan: [numbered steps]
+Proceed? (yes / modify / cancel)
+```
+
+No action is taken without user confirmation (except SIMPLE direct answers).
+
+---
+
+## Quality Gates System
+
+@.claude/templates/quality-gates.md
+
+### Gate Flow
+```
+Research (80+) -> Plan (85+) -> Analysis (80+) -> Tests Pass
+```
+
+If any gate FAILS, execution stops and the failure is reported with suggested fixes.
+
+### Circuit Breaker
+3 consecutive failures = STOP. Check: `/circuit-breaker status`. Reset: `/circuit-breaker reset`.
 
 ---
 
@@ -45,14 +76,6 @@ Just say what you want -- `/do` analyzes intent and routes automatically:
 
 **RED** (write failing test) -> **GREEN** (minimal code to pass) -> **REFACTOR** (improve quality). 6-10 min per feature unit.
 
-## Error Recovery
-
-3 self-correction attempts, then circuit breaker opens. Check: `/circuit-breaker status`. Reset: `/circuit-breaker reset`.
-
-## Context Management
-
-Run `/context analyze` every 50 messages. `/context optimize` when switching tasks. `/context reset` for fresh start. (39% improvement, 84% token reduction)
-
 ---
 
 ## Growth & Strategy Patterns
@@ -69,4 +92,10 @@ Run `/context analyze` every 50 messages. `/context optimize` when switching tas
 
 ---
 
-**Updated**: 2026-02-20 | **Version**: 5.4.0
+## Context Management
+
+Run `/context analyze` every 50 messages. `/context optimize` when switching tasks. `/context reset` for fresh start. (39% improvement, 84% token reduction)
+
+---
+
+**Updated**: 2026-02-24 | **Version**: 6.0.0

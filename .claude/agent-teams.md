@@ -339,3 +339,25 @@ Two quality gate hooks are installed for Agent Teams:
 ---
 
 *Agent Teams is experimental. The feature flag and behavior may change in future Claude Code releases.*
+
+---
+
+## Agent Teams + Report Protocol
+
+All teammates MUST use the Agent Report Protocol when completing tasks:
+
+@.claude/templates/AGENT-REPORT-PROTOCOL.md
+
+### How It Works in Teams
+
+1. **Each teammate** formats their completed work as a compact Agent Report (<800 tokens)
+2. **The lead** receives all reports and can read them quickly (<3000 tokens total for a 5-agent team)
+3. **Cross-team synthesis**: The lead scans all status lines, detects patterns across reports, and resolves dependencies
+4. **Drill-down via messaging**: If the lead needs the full artifact from a teammate, they send a direct message requesting it
+
+### Benefits for Agent Teams
+
+- **Reduced context overhead**: 5 teammates x 600 tokens = 3000 tokens (vs. 5 x 5000+ tokens raw output)
+- **Faster lead processing**: Status + Key Findings give 80% of the picture in <30 seconds
+- **Better coordination**: Blockers are surfaced explicitly, dependency chains are visible
+- **Selective depth**: Lead only requests full details where needed, saving tokens for orchestration

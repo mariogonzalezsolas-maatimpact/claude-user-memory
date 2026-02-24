@@ -1,11 +1,11 @@
 ---
 name: do
-description: Intelligent command router. Analyzes your request and automatically selects the best command, agent, or workflow to execute. Just tell it what you want. Auto-gathers context on first use.
+description: Intelligent command router with mandatory planning. Analyzes your request, shows a plan, waits for confirmation, then executes. Auto-gathers context on first use.
 ---
 
 # /do Command
 
-**The Universal Command** - Just say what you want, and I'll figure out how to do it.
+**The Universal Command** - Just say what you want. I classify, plan, confirm, then execute.
 
 ## Usage
 
@@ -13,438 +13,222 @@ description: Intelligent command router. Analyzes your request and automatically
 /do [anything you want]
 ```
 
-## First Use in Session - Automatic Context Gathering
+## Flow: CLASSIFY -> PLAN -> CONFIRM -> EXECUTE -> REPORT
 
-**On first `/do` of the session**, automatically gather project context:
+Every `/do` invocation follows this mandatory flow. No step is skipped.
 
-### Step 0: Context Discovery (First Use Only)
+---
 
-**Execute these searches in parallel**:
+## Step 0: Context Discovery (First Use Only)
 
-1. **Find project CLAUDE.md**:
-   ```
-   Look for: ./CLAUDE.md, ./.claude/CLAUDE.md, ./docs/CLAUDE.md
-   ```
+On first `/do` of the session, gather project context in parallel:
 
-2. **Find key documentation**:
-   ```
-   Glob: **/*.md (limit to first 20)
-   Priority: README.md, CONTRIBUTING.md, ARCHITECTURE.md, docs/*.md
-   ```
+1. Find CLAUDE.md (`./CLAUDE.md`, `./.claude/CLAUDE.md`)
+2. Detect project type (package.json, Cargo.toml, go.mod, requirements.txt)
+3. Find existing artifacts (ResearchPack, ImplementationPlan, knowledge-core.md)
+4. Check circuit breaker state (`~/.claude/.circuit-breaker-state`)
 
-3. **Detect project type**:
-   ```
-   Look for: package.json, Cargo.toml, go.mod, requirements.txt, pom.xml
-   Extract: project name, version, main dependencies
-   ```
-
-4. **Find existing context artifacts**:
-   ```
-   Look for: ResearchPack*.md, ImplementationPlan*.md, knowledge-core.md
-   In: ./, ./.claude/, ./docs/
-   ```
-
-5. **Check circuit breaker state**:
-   ```
-   Read: ~/.claude/.circuit-breaker-state
-   ```
-
-**Report context summary**:
+Report:
 ```
-📍 Project Context Loaded
-   Project: [name from package.json or directory]
-   Type: [Node.js/Python/Rust/Go/etc]
-   CLAUDE.md: [Found/Not found]
-   Existing artifacts: [ResearchPack, Plan, etc. or None]
-   Circuit breaker: [CLOSED/OPEN]
-
-Ready to help. What do you need?
+Project: [name] | Type: [stack] | Artifacts: [list or None] | Circuit Breaker: [CLOSED/OPEN]
 ```
 
-**Then proceed to intent classification.**
+---
+
+## Step 1: CLASSIFY
+
+Analyze the request and assign exactly one route:
+
+| Route | Keywords / Signals | Executes |
+|-------|-------------------|----------|
+| FEATURE | add, create, build, implement, make, develop | `/workflow` (research -> plan -> implement) |
+| RESEARCH | research, learn, understand, how does, what is, docs | `@docs-researcher` |
+| PLAN | plan, design, architect, strategy, approach | `@implementation-planner` |
+| IMPLEMENT | implement the plan, execute, code this, finish | `@code-implementer` |
+| DEBUG | why, debug, investigate, fix, broken, error, bug | `@brahma-investigator` |
+| DEPLOY | deploy, release, ship, push to production, rollout | `@brahma-deployer` |
+| OPTIMIZE | optimize, performance, slow, faster, scale | `@brahma-optimizer` |
+| MONITOR | monitor, observe, metrics, logs, alerts, dashboard | `@brahma-monitor` |
+| REVIEW | review, code review, PR, pull request, audit code | `/review` |
+| SEO | seo, search engine, rankings, meta tags, schema | `@seo-strategist` |
+| SECURITY | security, vulnerability, owasp, compliance, audit | `@security-auditor` |
+| UX | ux, usability, accessibility, wcag, a11y | `@ux-accessibility-reviewer` |
+| BUSINESS | business, requirements, stakeholders, roi, process | `@business-analyst` |
+| CONTENT | content, blog, social media, marketing, brand | `@content-strategist` |
+| PRODUCT | product, roadmap, market, competitive, gtm, pricing | `@product-strategist` |
+| CONTEXT | context, memory, tokens, too long, clean up | `/context analyze` |
+| ORCHESTRATE | complete, full, entire, end-to-end, multi-domain | `@chief-architect` |
+| SIMPLE | direct question, no action needed | Direct answer |
+
+### Complexity Detection
+- **Simple** (1-2 files): Direct execution, minimal plan
+- **Medium** (3-5 files): Standard workflow with gates
+- **Complex** (6+ files, multi-domain): `@chief-architect` orchestration
+
+### Agent Teams Escalation
+If task touches 3+ layers (frontend + backend + database) or user requests parallel work:
+```
+This task touches [X layers]: [list]
+Recommended team: [N] teammates
+Proceed with Agent Team? Or prefer sequential?
+```
+Never auto-spawn teams -- always confirm first.
+
+---
+
+## Step 2: PLAN (Mandatory)
+
+**Always show a plan before executing. No exceptions.**
+
+Based on the classified route, present:
+
+```
+Route: [ROUTE NAME]
+Agent: [agent or command to execute]
+Quality Gates: [gates from quality-gates.md for this route]
+
+Plan:
+1. [First action]
+2. [Second action]
+3. [Expected deliverable]
+
+Estimated time: [X] minutes
+
+Proceed? (yes / modify / cancel)
+```
+
+### Quality Gates Reference
+@.claude/templates/quality-gates.md
+
+The plan must show which gates apply to this route (from the gates-per-route table).
+
+### Smart Shortcuts
+- If ResearchPack already exists -> skip research, note in plan
+- If Implementation Plan exists -> skip planning, note in plan
+- If circuit breaker OPEN -> refuse implementation, suggest diagnostics
+
+---
+
+## Step 3: CONFIRM
+
+Wait for user confirmation before executing:
+- **yes** / **y** / **proceed**: Execute the plan
+- **modify**: User adjusts the plan, re-present
+- **cancel**: Abort, no action taken
+- **No response needed for SIMPLE route**: Direct answers execute immediately
+
+---
+
+## Step 4: EXECUTE
+
+Run the classified route with the confirmed plan:
+
+1. Dispatch to the selected agent or command
+2. Evaluate quality gates between phases (if multi-phase route)
+3. If a gate FAILS: stop, report the failure, suggest fixes
+4. If circuit breaker trips: stop, report state
+
+### Execution Rules
+- Follow the plan exactly as confirmed
+- Report progress at natural milestones
+- If blocked, report immediately (don't spin)
+
+---
+
+## Step 5: REPORT
+
+After execution completes, present results:
+
+1. Receive Agent Report from dispatched agent
+2. Check status: COMPLETE / PARTIAL / BLOCKED / FAILED
+3. Present summary to user:
+   - Key findings (top 3)
+   - Changes made (file list)
+   - Quality gate results
+   - Any blockers or risks
+4. Offer drill-down: "Want details on [specific finding]?"
+5. If BLOCKED/FAILED: Report issue and suggest next steps
+
+### Agent Report Protocol
+@.claude/templates/AGENT-REPORT-PROTOCOL.md
+
+---
 
 ## Examples
 
-```bash
-/do add authentication to my API
-/do why is this function slow?
-/do research how to use Redis
-/do check if my context is getting too large
-/do deploy to production
-/do fix the bug in login.js
-/do explain this codebase
+**User**: `/do add authentication to my API`
+```
+Route: FEATURE
+Agent: /workflow (research -> plan -> implement)
+Gates: Research (80+) -> Plan (85+) -> Tests Pass
+
+Plan:
+1. @docs-researcher: Research auth library options
+2. @implementation-planner: Create implementation blueprint
+3. @code-implementer: Implement with TDD
+
+Estimated time: 10-15 minutes
+Proceed?
 ```
 
-## How It Works
-
-I analyze your request and automatically route to the best approach:
-
-| Your Intent | I Execute |
-|-------------|-----------|
-| Build/Add/Create feature | `/workflow` (full automation) |
-| Research/Learn/Understand | `/research` + summary |
-| Plan/Design/Architect | `/plan` (create blueprint) |
-| Implement/Code/Fix (with plan) | `/implement` |
-| Debug/Investigate/Why | `@brahma-investigator` |
-| Deploy/Release | `@brahma-deployer` |
-| Optimize/Performance | `@brahma-optimizer` |
-| Monitor/Observe | `@brahma-monitor` |
-| Review code/PR/quality | `/review` (multi-perspective) |
-| Analyze code/patterns | `@brahma-analyzer` |
-| SEO/Search/Rankings | `@seo-strategist` |
-| Business analysis/Requirements | `@business-analyst` |
-| Content/Marketing/Blog/Social | `@content-strategist` |
-| Product strategy/Roadmap/Market | `@product-strategist` |
-| Security audit/Vulnerabilities | `@security-auditor` |
-| UX review/Accessibility/WCAG | `@ux-accessibility-reviewer` |
-| Context/Memory issues | `/context analyze` |
-| Complex multi-domain | `@chief-architect` |
-| Complex parallel work (3+ layers) | Agent Team (with confirmation) |
-| Simple question | Direct answer |
-
-## Decision Logic
-
-**Executing command...**
-
-Analyze the user's request using this decision tree:
-
-### Step 1: Classify Intent
-
-**Keywords indicating WORKFLOW** (full automation):
-- "add", "create", "build", "implement", "make", "develop"
-- "feature", "functionality", "system", "module"
-- "with", "using", "that does"
-- Example: "add Redis caching to the API"
-
-**Keywords indicating RESEARCH only**:
-- "research", "learn", "understand", "how does", "what is"
-- "documentation", "docs", "API reference"
-- "best practices", "patterns"
-- Example: "research JWT authentication best practices"
-
-**Keywords indicating PLAN only**:
-- "plan", "design", "architect", "structure"
-- "how should I", "what's the best way"
-- "strategy", "approach"
-- Example: "plan the database migration strategy"
-
-**Keywords indicating IMPLEMENT only**:
-- "implement the plan", "execute", "code this"
-- "finish", "complete the implementation"
-- Example: "implement the plan we just made"
-
-**Keywords indicating DEBUG/INVESTIGATE**:
-- "why", "debug", "investigate", "fix", "broken"
-- "error", "bug", "issue", "problem", "failing"
-- "not working", "crashed"
-- Example: "why is the login failing?"
-
-**Keywords indicating DEPLOY**:
-- "deploy", "release", "ship", "push to production"
-- "rollout", "launch"
-- Example: "deploy v2.0 to production"
-
-**Keywords indicating OPTIMIZE**:
-- "optimize", "performance", "slow", "faster"
-- "speed up", "improve", "scale"
-- Example: "optimize the database queries"
-
-**Keywords indicating MONITOR**:
-- "monitor", "observe", "metrics", "logs"
-- "alert", "dashboard", "health"
-- Example: "set up monitoring for the API"
-
-**Keywords indicating CODE REVIEW**:
-- "review", "code review", "PR review", "pull request"
-- "review code", "check code quality", "audit code"
-- Example: "review the changes in src/auth/"
-
-**Keywords indicating ANALYZE**:
-- "analyze", "check", "validate"
-- "consistency", "patterns in code"
-- Example: "analyze the authentication patterns in codebase"
-
-**Keywords indicating SEO**:
-- "seo", "search engine", "rankings", "keywords", "meta tags"
-- "organic traffic", "schema markup", "structured data"
-- "core web vitals", "google", "search visibility"
-- Example: "improve SEO for our landing page"
-
-**Keywords indicating BUSINESS ANALYSIS**:
-- "business", "requirements", "stakeholders", "process"
-- "roi", "cost-benefit", "kpi", "business logic"
-- "swot", "value proposition", "business case"
-- Example: "analyze our customer onboarding process"
-
-**Keywords indicating CONTENT/MARKETING**:
-- "content", "blog", "social media", "marketing"
-- "brand", "messaging", "copywriting", "newsletter"
-- "content calendar", "brand voice", "engagement"
-- Example: "create content strategy for our product launch"
-
-**Keywords indicating PRODUCT STRATEGY**:
-- "product", "roadmap", "market", "competitive"
-- "feature prioritization", "go-to-market", "gtm"
-- "market analysis", "positioning", "pricing"
-- Example: "evaluate market opportunity for new feature"
-
-**Keywords indicating SECURITY**:
-- "security", "vulnerability", "audit", "owasp"
-- "compliance", "penetration", "breach", "secure"
-- "gdpr", "soc2", "hipaa", "encryption"
-- Example: "security audit before production deployment"
-
-**Keywords indicating UX/ACCESSIBILITY**:
-- "ux", "usability", "accessibility", "wcag"
-- "user experience", "a11y", "inclusive design"
-- "screen reader", "keyboard navigation", "contrast"
-- "heuristic", "user journey", "personas"
-- Example: "audit accessibility compliance for our app"
-
-**Keywords indicating CONTEXT issues**:
-- "context", "memory", "tokens", "too long"
-- "optimize context", "reduce", "clean up"
-- Example: "my context is getting too large"
-
-**Keywords indicating COMPLEX orchestration**:
-- "complete", "full", "entire", "end-to-end"
-- Multiple domains mentioned (frontend + backend + database)
-- "everything needed for"
-- Example: "build complete e-commerce checkout system"
-
-### Step 1.5: Agent Teams Escalation Check
-
-**BEFORE executing**, evaluate whether the task would benefit from parallel Agent Teams teammates instead of sequential sub-agents.
-
-#### Escalate to Agent Team if ANY of these are true:
-
-**Multi-layer signals** (task touches 3+ distinct layers):
-- Frontend + Backend + Database mentioned
-- API + UI + Tests mentioned
-- "full-stack", "end-to-end", "cross-layer", "complete system"
-- Example: "add Stripe payment integration" → DB + backend + frontend + tests
-
-**Explicit parallel request**:
-- "en paralelo", "in parallel", "simultaneously", "agent team", "team", "teammates"
-- Example: "review this PR with a team"
-
-**Multi-angle audit/review**:
-- "full audit", "complete review", "comprehensive audit"
-- Security + performance + coverage angles
-- Example: "full security audit of the codebase"
-
-**Large refactor signals**:
-- "refactor", "migrate", "rewrite" + mentions 5+ files or multiple directories
-- "across all modules", "every service", "entire codebase"
-- Example: "refactor auth across all microservices"
-
-#### Keep sub-agents (default) if ANY of these are true:
-- Task is single-domain (only backend, only frontend, only research)
-- User says "quick", "rapido", "simple", "fast"
-- Task is research-only, plan-only, or single-file fix
-- Task matches a specific agent category (SEO, security, etc.) without multi-layer scope
-
-#### When escalating, propose (never auto-spawn):
-
-Show the user:
+**User**: `/do why is the login failing?`
 ```
-🚀 Agent Teams Recommendation
-   This task touches [X layers]: [list layers detected]
-   Recommended team: [N] teammates
+Route: DEBUG
+Agent: @brahma-investigator
+Gates: Investigation Complete -> Fix Verified
 
-   1. [Role 1]: [scope]
-   2. [Role 2]: [scope]
-   3. [Role 3]: [scope]
+Plan:
+1. Investigate login failure with 3-retry strategy
+2. Identify root cause with evidence
+3. Create regression test
 
-   Template: [Code Review Team / Feature Build Team / Debug Team]
-
-   Proceed with Agent Team? Or prefer sequential sub-agents?
+Estimated time: 5-10 minutes
+Proceed?
 ```
 
-**If user confirms** → Use the matching template from agent-teams.md to brief teammates
-**If user declines** → Continue with normal sub-agent routing (Step 2)
-
-### Step 2: Execute Decision
-
-Based on classification, announce what you're doing:
-
+**User**: `/do research Redis caching`
 ```
-🎯 Intent detected: [CATEGORY]
-📋 Executing: [COMMAND/AGENT]
-💡 Reason: [WHY THIS CHOICE]
+Route: RESEARCH
+Agent: @docs-researcher
+Gates: ResearchPack (80+)
+
+Plan:
+1. Fetch Redis docs for detected version
+2. Extract key APIs, setup, gotchas
+3. Deliver ResearchPack
+
+Estimated time: 2 minutes
+Proceed?
+```
+
+**User**: `/do deploy v2.0`
+```
+Route: DEPLOY
+Agent: @brahma-deployer
+Gates: Pre-deploy Checks -> Post-deploy Validation
+
+Plan:
+1. Pre-deployment validation (tests, staging, config)
+2. Canary deployment (5% -> 25% -> 50% -> 100%)
+3. Post-deployment monitoring
+
+Estimated time: 45-60 minutes
+Proceed?
+```
+
+**User**: `/do what is this function?`
+```
+Route: SIMPLE
+[Direct answer provided immediately, no confirmation needed]
+```
 
 ---
-[Execute the chosen command/agent]
-```
 
-### Step 3: Fallback Logic
-
-If intent is unclear:
-1. Ask ONE clarifying question with options
-2. Default to `/workflow` for feature requests
-3. Default to `@brahma-investigator` for problems/issues
-4. Default to `/research` for questions
-
-### Step 4: Smart Enhancements
-
-**Auto-detect complexity**:
-- Simple task (1-2 files) → Direct implementation
-- Medium task (3-5 files) → `/workflow`
-- Complex task (6+ files, multiple domains) → `@chief-architect`
-
-**Auto-detect urgency**:
-- "urgent", "asap", "quick" → Skip extensive research, focus on solution
-- "careful", "safe", "production" → Full workflow with all quality gates
-
-**Auto-detect existing context**:
-- ResearchPack exists → Skip to `/plan`
-- Plan exists → Skip to `/implement`
-- Nothing exists → Start with `/research` or `/workflow`
-
-## Examples with Routing
-
-**User**: `/do add user authentication`
-```
-🎯 Intent: BUILD FEATURE
-📋 Executing: /workflow add user authentication
-💡 Reason: "add" + "authentication" = new feature requiring research, planning, and implementation
-```
-
-**User**: `/do why is my API slow?`
-```
-🎯 Intent: DEBUG/INVESTIGATE
-📋 Executing: @brahma-investigator analyze API performance issue
-💡 Reason: "why" + "slow" = performance investigation needed
-```
-
-**User**: `/do learn about WebSockets`
-```
-🎯 Intent: RESEARCH
-📋 Executing: /research WebSockets
-💡 Reason: "learn about" = research request, no implementation needed
-```
-
-**User**: `/do my context is huge`
-```
-🎯 Intent: CONTEXT MANAGEMENT
-📋 Executing: /context analyze
-💡 Reason: "context" + size concern = context optimization needed
-```
-
-**User**: `/do deploy the new version`
-```
-🎯 Intent: DEPLOYMENT
-📋 Executing: @brahma-deployer
-💡 Reason: "deploy" = production deployment workflow
-```
-
-**User**: `/do improve our SEO rankings`
-```
-🎯 Intent: SEO
-📋 Executing: @seo-strategist
-💡 Reason: "SEO" + "rankings" = search engine optimization audit needed
-```
-
-**User**: `/do analyze our customer journey`
-```
-🎯 Intent: BUSINESS ANALYSIS
-📋 Executing: @business-analyst
-💡 Reason: "analyze" + "customer journey" = business process analysis
-```
-
-**User**: `/do create blog content for launch`
-```
-🎯 Intent: CONTENT/MARKETING
-📋 Executing: @content-strategist
-💡 Reason: "blog content" + "launch" = content marketing strategy
-```
-
-**User**: `/do evaluate market opportunity`
-```
-🎯 Intent: PRODUCT STRATEGY
-📋 Executing: @product-strategist
-💡 Reason: "market opportunity" = market analysis and product strategy
-```
-
-**User**: `/do security check before deploy`
-```
-🎯 Intent: SECURITY
-📋 Executing: @security-auditor
-💡 Reason: "security check" + "deploy" = pre-deployment security audit
-```
-
-**User**: `/do check accessibility compliance`
-```
-🎯 Intent: UX/ACCESSIBILITY
-📋 Executing: @ux-accessibility-reviewer
-💡 Reason: "accessibility compliance" = WCAG audit and UX review
-```
-
-**User**: `/do add Stripe payment integration`
-```
-🎯 Intent: BUILD FEATURE (multi-layer)
-🚀 Agent Teams Recommendation:
-   This task touches 4 layers: DB + backend + frontend + tests
-   Recommended: Feature Build Team (3 teammates)
-   Proceed with Agent Team? Or prefer sequential sub-agents?
-```
-
-**User**: `/do full security audit of the codebase`
-```
-🎯 Intent: SECURITY AUDIT (multi-angle)
-🚀 Agent Teams Recommendation:
-   Multi-angle audit detected: security + performance + test coverage
-   Recommended: Code Review Team (3 teammates)
-   Proceed with Agent Team? Or prefer sequential sub-agents?
-```
-
-**User**: `/do fix the bug in auth middleware`
-```
-🎯 Intent: DEBUG/INVESTIGATE
-📋 Executing: @brahma-investigator
-💡 Reason: Focused single-module task → sub-agents (no escalation)
-```
-
-**User**: `/do research Redis caching best practices`
-```
-🎯 Intent: RESEARCH
-📋 Executing: /research Redis caching
-💡 Reason: Research-only → sub-agents (no escalation)
-```
-
-## Context Awareness Throughout Session
-
-### Continuous Context Monitoring
-
-Every `/do` command checks:
-- **Existing ResearchPack** → Can skip research phase
-- **Existing Plan** → Can skip planning phase
-- **Recent errors** → May need investigation first
-- **Circuit breaker state** → May be blocked
-- **Session history** → What we already discussed
-
-### Smart Continuation
-
-If you say `/do continue` or `/do next`:
-- Looks at what was done before
-- Continues from where we left off
-- Example: Research done → Proceeds to Plan
-
-### Context Commands
+## Context Commands
 
 ```bash
-/do what's the context?     → Shows current project state
-/do clean up context        → Runs /context optimize
-/do start fresh             → Runs /context reset
-/do what did we do?         → Summarizes session actions
+/do continue          # Resume from where we left off
+/do what's the context?  # Show current project state
+/do clean up context     # Runs /context optimize
+/do start fresh          # Runs /context reset
 ```
-
-## Benefits
-
-- **No need to memorize commands** - Just say what you want
-- **Intelligent routing** - I pick the best tool for the job
-- **Context aware** - I check what's already done
-- **Auto-discovery** - Finds CLAUDE.md, docs, and artifacts
-- **Complexity detection** - Simple tasks stay simple
-- **Session memory** - Remembers what we've done
-- **One entry point** - `/do` handles everything
