@@ -59,19 +59,28 @@ def is_installed():
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
+def to_bash_path(win_path):
+    """Convert Windows path to bash-compatible path (C:\\foo -> /c/foo)."""
+    path = win_path.replace("\\", "/")
+    if len(path) >= 2 and path[1] == ":":
+        path = "/" + path[0].lower() + path[2:]
+    return path
+
 def run_bash(script_name):
     script = os.path.join(SCRIPT_DIR, "scripts", "unix", script_name)
     if not os.path.isfile(script):
         print(f"    Script not found: {script}")
         return 1
-    return subprocess.call(["bash", script])
+    bash_path = to_bash_path(script) if detect_os() == "windows" else script
+    return subprocess.call(["bash", bash_path])
 
 def run_bash_with_args(script_name, args):
     script = os.path.join(SCRIPT_DIR, "scripts", "unix", script_name)
     if not os.path.isfile(script):
         print(f"    Script not found: {script}")
         return 1
-    return subprocess.call(["bash", script] + args)
+    bash_path = to_bash_path(script) if detect_os() == "windows" else script
+    return subprocess.call(["bash", bash_path] + args)
 
 def run_powershell(ps_cmd, script_name):
     script = os.path.join(SCRIPT_DIR, "scripts", "windows", script_name)

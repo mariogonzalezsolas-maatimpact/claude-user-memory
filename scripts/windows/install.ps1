@@ -37,8 +37,18 @@ $ErrorActionPreference = "Stop"
 $VERSION = "5.4.0"
 $CLAUDE_TARGET = Join-Path $env:USERPROFILE ".claude"
 $SCRIPT_DIR = Split-Path -Parent $MyInvocation.MyCommand.Path
-$CLAUDE_SOURCE = Join-Path $SCRIPT_DIR ".claude"
-$MANIFEST_TEMPLATE = Join-Path $SCRIPT_DIR "manifest-template.json"
+# Resolve repo root: scripts/windows/install.ps1 -> repo root is ../../
+$REPO_ROOT = Split-Path -Parent (Split-Path -Parent $SCRIPT_DIR)
+if (-not (Test-Path (Join-Path $REPO_ROOT ".claude"))) {
+    # Fallback: script is at repo root (flat layout)
+    $REPO_ROOT = $SCRIPT_DIR
+}
+$CLAUDE_SOURCE = Join-Path $REPO_ROOT ".claude"
+$MANIFEST_TEMPLATE = Join-Path (Join-Path $REPO_ROOT "scripts") "manifest-template.json"
+if (-not (Test-Path $MANIFEST_TEMPLATE)) {
+    # Fallback: manifest next to script (flat layout)
+    $MANIFEST_TEMPLATE = Join-Path $SCRIPT_DIR "manifest-template.json"
+}
 $BACKUP_LOCATION = $null
 
 # ============================================================================
