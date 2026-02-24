@@ -50,6 +50,24 @@
             "prompt": "Evaluate the implementation-planner output as a Plan quality gate. Check: (1) Is a rollback procedure present? (2) Are all files to be modified listed? (3) Are steps sequenced with clear order? (4) Does the plan match the ResearchPack APIs (no hallucinated APIs)? (5) Is a risk assessment included? Score 0-100. If score < 85, output BLOCK with specific deficiencies. If >= 85, output PASS."
           }
         ]
+      },
+      {
+        "matcher": "brahma-analyzer",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Evaluate the brahma-analyzer output as an Analysis quality gate. Check: (1) Are constitutional principles respected? (2) Is coverage complete (all requirements traced)? (3) Are inconsistencies identified and resolved? (4) Is the report actionable with clear next steps? Score 0-100. If score < 80, output BLOCK with specific gaps. If >= 80, output PASS."
+          }
+        ]
+      },
+      {
+        "matcher": "code-implementer",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Evaluate the code-implementer output as an Implementation quality gate. Check: (1) Do all tests pass (zero failures)? (2) Was TDD followed (RED-GREEN-REFACTOR)? (3) Are changes minimal and surgical per the plan? (4) Is the circuit breaker still CLOSED? If ALL checks pass, output PASS. If ANY fail, output BLOCK with specific failures."
+          }
+        ]
       }
     ],
     "Stop": [

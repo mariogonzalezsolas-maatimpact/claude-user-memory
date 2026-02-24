@@ -7,10 +7,15 @@ Just say what you want -- `/do` classifies, plans, confirms, then executes:
 | Route | Executes | Gates |
 |-------|----------|-------|
 | FEATURE | `/workflow` | Research (80+) -> Plan (85+) -> Tests Pass |
+| REFACTOR | `@code-implementer` (refactor mode) | Tests Pass |
+| TEST | `@code-implementer` (TDD mode) | Tests Pass |
 | RESEARCH | `@docs-researcher` | ResearchPack (80+) |
 | PLAN | `@implementation-planner` | Plan Score (85+) |
 | IMPLEMENT | `@code-implementer` | Tests Pass |
 | DEBUG | `@brahma-investigator` | Investigation -> Fix Verified |
+| MIGRATE | `/workflow` (migration mode) | Research (80+) -> Plan (85+) -> Tests Pass |
+| INCIDENT | `@brahma-investigator` + `@brahma-monitor` | Investigation -> Service Restored |
+| ROLLBACK | Direct (git revert + verification) | Rollback Verified |
 | DEPLOY | `@brahma-deployer` | Pre-deploy -> Post-deploy |
 | OPTIMIZE | `@brahma-optimizer` | Baseline -> Improvement Verified |
 | MONITOR | `@brahma-monitor` | Three Pillars Configured |
@@ -99,4 +104,4 @@ Run `/context analyze` every 50 messages. `/context optimize` when switching tas
 
 ---
 
-**Updated**: 2026-02-24 | **Version**: 6.0.0
+**Updated**: 2026-02-24 | **Version**: 6.0.0 | **Routes**: 23

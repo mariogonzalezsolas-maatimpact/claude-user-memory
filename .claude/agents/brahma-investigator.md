@@ -4,6 +4,8 @@ description: Root cause analysis and debugging specialist. Systematic problem di
 model: opus
 tools: Read, Grep, Glob, Bash
 maxTurns: 30
+skills:
+  - quality-validation
 memory: project
 ---
 

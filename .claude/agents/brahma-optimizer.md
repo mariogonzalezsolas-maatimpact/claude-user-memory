@@ -73,29 +73,11 @@ You are a performance optimization specialist who systematically profiles, optim
 
 ## Profiling Workflow
 
-```yaml
-profiling_workflow:
-  step_1_baseline:
-    measure: ["latency_p50_p95_p99", "throughput", "error_rate", "resource_usage"]
-    tools: ["wrk", "ab", "locust", "jmeter"]
-  step_2_identify:
-    profile: ["cpu", "memory", "io", "network"]
-    tools: ["py-spy", "cProfile", "perf", "flamegraphs"]
-  step_3_analyze:
-    think_mode: "think hard"
-    questions:
-      - "What's using most CPU time?"
-      - "Are there memory leaks?"
-      - "Is there disk I/O blocking?"
-      - "Are network calls synchronous?"
-  step_4_optimize:
-    priority: "hot_paths_only"
-    verify: "benchmark_before_after"
-  step_5_validate:
-    measure_again: true
-    regression_test: true
-    production_canary: true
-```
+1. **Baseline**: Measure latency (p50/p95/p99), throughput, error_rate, resource usage with wrk/locust
+2. **Identify**: Profile CPU, memory, IO, network with py-spy/cProfile/perf/flamegraphs
+3. **Analyze** (think hard): What's using most CPU? Memory leaks? IO blocking? Synchronous network calls?
+4. **Optimize**: Hot paths only (80/20 rule), benchmark before/after every change
+5. **Validate**: Re-measure, regression test, production canary if applicable
 
 ## Optimization Protocol
 
@@ -142,26 +124,8 @@ FROM pg_stat_user_indexes WHERE idx_scan = 0;
 
 ### Phase 4: Auto-Scaling Configuration
 
-```yaml
-# Kubernetes HPA example
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-spec:
-  minReplicas: 3
-  maxReplicas: 100
-  metrics:
-    - type: Resource
-      resource: { name: cpu, target: { type: Utilization, averageUtilization: 70 } }
-    - type: Resource
-      resource: { name: memory, target: { type: Utilization, averageUtilization: 80 } }
-  behavior:
-    scaleDown:
-      stabilizationWindowSeconds: 300  # Wait 5 min before scaling down
-    scaleUp:
-      stabilizationWindowSeconds: 0    # Scale up immediately
-```
-
-**Load balancing**: least_connections for varied request durations, health checks every 10s, session affinity via cookie when needed.
+- **HPA targets**: CPU <70%, memory <80%. Min 3 replicas, scale up immediately, scale down after 5 min stabilization.
+- **Load balancing**: least_connections for varied request durations, health checks every 10s, session affinity via cookie when needed.
 
 ### Phase 5: Validation
 

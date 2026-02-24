@@ -8,16 +8,16 @@
 - Quality gates: Research 80+, Plan 85+, Tests pass
 - Circuit breaker opens after 3 failures: /circuit-breaker reset
 
-## Commands
-- `/do [anything]` -- Universal router (RECOMMENDED)
+## Commands (12)
+- `/do [anything]` -- Universal router with mandatory planning (RECOMMENDED)
 - `/workflow [feature]` -- Full automation: research -> plan -> implement
 - `/research [topic]` -- Fetch version-accurate docs (<2 min)
 - `/plan [feature]` -- Create minimal-change blueprint
 - `/implement` -- Execute plan with TDD + self-correction (3 retries)
 - `/review [scope]` -- Multi-perspective code review (security + perf + architecture)
 - `/mode [token-efficiency|introspection|default]` -- Switch behavioral modes
-- `/context [analyze|optimize|reset]` -- Context health (run every 50 messages)
-- `/circuit-breaker [status|reset]` -- Manage implementation circuit breaker
+- `/context [analyze|optimize|reset]` -- Context health
+- `/circuit-breaker [status|reset]` -- Manage circuit breaker
 - `/security-audit [scope]` -- OWASP Top 10 + code security review
 - `/seo-audit [scope]` -- Technical SEO + Core Web Vitals audit
 - `/ux-review [scope]` -- WCAG 2.2 + usability heuristics audit
@@ -41,6 +41,9 @@ Add keyword: **think** (30-60s) | **think hard** (1-2min) | **think harder** (2-
 @.claude/templates/agents-overview.md
 @.claude/templates/skills-overview.md
 @.claude/templates/workflows-overview.md
+@.claude/templates/quality-gates.md
+@.claude/templates/think-protocol.md
+@.claude/templates/AGENT-REPORT-PROTOCOL.md
 @.claude/agent-teams.md
 
 # --- AGENTIC SUBSTRATE END ---

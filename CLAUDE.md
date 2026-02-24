@@ -52,6 +52,8 @@ Add keyword: **think** (30-60s) | **think hard** (1-2min) | **think harder** (2-
 @.claude/templates/skills-overview.md
 @.claude/templates/workflows-overview.md
 @.claude/templates/quality-gates.md
+@.claude/templates/think-protocol.md
+@.claude/templates/AGENT-REPORT-PROTOCOL.md
 @.claude/agent-teams.md
 
 ## Quick Fixes

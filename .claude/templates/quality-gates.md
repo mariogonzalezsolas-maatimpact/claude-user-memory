@@ -33,7 +33,12 @@ Standard quality gates for all workflow routes in the Agentic Substrate. Gates e
 | Route | Gates | Gate Sequence |
 |-------|-------|---------------|
 | FEATURE | 3 | Research (80+) -> Plan (85+) -> Tests Pass |
+| REFACTOR | 1 | Tests Pass (no regressions) |
+| TEST | 1 | Tests Pass (coverage target met) |
 | DEBUG | 2 | Investigation Complete -> Fix Verified |
+| MIGRATE | 3 | Research (80+) -> Plan (85+) -> Tests Pass |
+| INCIDENT | 2 | Investigation Complete -> Service Restored |
+| ROLLBACK | 1 | Rollback Verified (tests pass post-revert) |
 | REVIEW | 1 | Review Complete |
 | DEPLOY | 2 | Pre-deploy Checks -> Post-deploy Validation |
 | RESEARCH | 1 | ResearchPack (80+) |
@@ -151,4 +156,4 @@ Checked before every implementation phase. If OPEN, `/do` refuses to start imple
 
 ---
 
-**Updated**: 2026-02-24 | **Version**: 6.0.0 | **Gates**: 4 defined, 18 routes covered
+**Updated**: 2026-02-24 | **Version**: 6.0.0 | **Gates**: 4 defined, 23 routes covered

@@ -41,15 +41,20 @@ Analyze the request and assign exactly one route:
 
 | Route | Keywords / Signals | Executes |
 |-------|-------------------|----------|
-| FEATURE | add, create, build, implement, make, develop | `/workflow` (research -> plan -> implement) |
+| FEATURE | add, create, build, make, develop, new feature | `/workflow` (research -> plan -> implement) |
+| REFACTOR | refactor, clean up code, simplify, restructure, rename | `@code-implementer` (refactor mode) |
+| TEST | write tests, add tests, test coverage, unit test, e2e | `@code-implementer` (TDD mode) |
 | RESEARCH | research, learn, understand, how does, what is, docs | `@docs-researcher` |
 | PLAN | plan, design, architect, strategy, approach | `@implementation-planner` |
 | IMPLEMENT | implement the plan, execute, code this, finish | `@code-implementer` |
-| DEBUG | why, debug, investigate, fix, broken, error, bug | `@brahma-investigator` |
+| DEBUG | why, debug, investigate, broken, error, bug | `@brahma-investigator` |
+| MIGRATE | migrate, convert, switch from X to Y, upgrade dependency | `/workflow` (migration mode) |
 | DEPLOY | deploy, release, ship, push to production, rollout | `@brahma-deployer` |
 | OPTIMIZE | optimize, performance, slow, faster, scale | `@brahma-optimizer` |
 | MONITOR | monitor, observe, metrics, logs, alerts, dashboard | `@brahma-monitor` |
+| INCIDENT | production down, outage, emergency, users can't, P0/P1 | `@brahma-investigator` + `@brahma-monitor` |
 | REVIEW | review, code review, PR, pull request, audit code | `/review` |
+| ROLLBACK | revert, undo, rollback, go back, restore previous | Direct (git revert + verification) |
 | SEO | seo, search engine, rankings, meta tags, schema | `@seo-strategist` |
 | SECURITY | security, vulnerability, owasp, compliance, audit | `@security-auditor` |
 | UX | ux, usability, accessibility, wcag, a11y | `@ux-accessibility-reviewer` |
@@ -59,6 +64,16 @@ Analyze the request and assign exactly one route:
 | CONTEXT | context, memory, tokens, too long, clean up | `/context analyze` |
 | ORCHESTRATE | complete, full, entire, end-to-end, multi-domain | `@chief-architect` |
 | SIMPLE | direct question, no action needed | Direct answer |
+
+### Disambiguation Priority
+
+When keywords match multiple routes, use this priority:
+1. **INCIDENT** takes priority over DEBUG (urgency signals: "down", "outage", "emergency", "P0")
+2. **REFACTOR** takes priority over FEATURE (no new functionality, just restructuring)
+3. **TEST** takes priority over IMPLEMENT (explicitly about tests, not feature code)
+4. **MIGRATE** takes priority over FEATURE (data/schema/dependency changes, not new features)
+5. **ROLLBACK** takes priority over DEBUG (user wants to undo, not investigate)
+6. **"fix"** routes to DEBUG (not IMPLEMENT) unless preceded by "implement the fix"
 
 ### Complexity Detection
 - **Simple** (1-2 files): Direct execution, minimal plan
