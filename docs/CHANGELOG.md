@@ -5,6 +5,23 @@ All notable changes to Agentic Substrate will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.0.0] - 2026-02-24
+
+### Changed
+- **Agent Teams default ON**: Agent Teams is now the default for FEATURE, IMPLEMENT, and ORCHESTRATE routes in `/do`
+- **Version**: All references bumped to v6.0.0 across CLAUDE.md, user-level template, agents-overview, workflows-overview, quality-gates, agent-teams, install scripts, and manifest
+- **Model optimization**: Full optimization for Claude Opus 4.6 (3 critical agents) + Sonnet 4.6 (7 agents) + Haiku 4.5 (5 agents)
+- **README.md**: Complete rewrite with comprehensive architecture documentation, accurate component counts, repository structure, and bilingual content (English + Spanish)
+
+### Architecture
+- **15 agents** across 4 tiers (unchanged from v5.0)
+- **12 commands** (unchanged from v5.4)
+- **5 skills** (unchanged)
+- **12 hooks** (unchanged from v5.4)
+- **60 managed files** in installation manifest
+
+---
+
 ## [5.4.0] - 2026-02-18
 
 ### Added
