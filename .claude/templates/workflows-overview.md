@@ -21,6 +21,7 @@ Just say what you want -- `/do` classifies, plans, confirms, then executes:
 | BUSINESS | `@business-analyst` | Analysis Delivered |
 | CONTENT | `@content-strategist` | Strategy Delivered |
 | PRODUCT | `@product-strategist` | Strategy Delivered |
+| CONTEXT | `/context` | None (utility command) |
 | ORCHESTRATE | `@chief-architect` | Per-phase gates |
 | SIMPLE | Direct answer | None |
 

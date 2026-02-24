@@ -740,8 +740,11 @@ with open(path, 'w') as f:
     json.dump(data, f, indent=2)
     f.write('\n')
 PYEOF
+                log_success "settings.json created with Agent Teams enabled (from source)"
+            else
+                log_warning "settings.json copied from source but could not add Agent Teams env var (Python unavailable)"
+                log_info "Add manually to ~/.claude/settings.json: \"env\": { \"CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS\": \"1\" }"
             fi
-            log_success "settings.json created with Agent Teams enabled (from source)"
         else
             # Only as last resort, create minimal
             cat > "$settings" << 'EOF'

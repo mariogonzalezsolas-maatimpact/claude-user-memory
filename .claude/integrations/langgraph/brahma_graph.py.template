@@ -1,5 +1,5 @@
 """
-Agentic Substrate v5.4 - LangGraph Workflow Graph
+Agentic Substrate v6.0 - LangGraph Workflow Graph
 
 StateGraph implementation of the core workflow:
   Research -> Plan -> Analyze -> Implement
@@ -12,7 +12,7 @@ USAGE:
     pip install langgraph>=0.6.0 langchain-anthropic
     python brahma_graph.py
 
-Updated: 2026-02-24 | Agentic Substrate v5.4.0
+Updated: 2026-02-24 | Agentic Substrate v6.0.0
 """
 
 from typing import Literal
@@ -314,7 +314,7 @@ if __name__ == "__main__":
     # Run workflow
     config = {"configurable": {"thread_id": "demo-1"}}
     print("=" * 60)
-    print("Agentic Substrate v5.4 - LangGraph Core Workflow")
+    print("Agentic Substrate v6.0 - LangGraph Core Workflow")
     print("=" * 60)
 
     result = graph.invoke(initial, config)

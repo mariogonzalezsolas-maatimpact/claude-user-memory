@@ -1,5 +1,5 @@
 """
-Agentic Substrate v5.4 - Quality Gates for LangGraph
+Agentic Substrate v6.0 - Quality Gates for LangGraph
 
 Reusable quality gate functions for conditional edge routing.
 These map directly to the Agentic Substrate quality thresholds.
@@ -7,7 +7,7 @@ These map directly to the Agentic Substrate quality thresholds.
 USAGE:
     from quality_gates import research_gate, plan_gate, analysis_gate, test_gate
 
-Updated: 2026-02-24 | Agentic Substrate v5.4.0
+Updated: 2026-02-24 | Agentic Substrate v6.0.0
 """
 
 from typing import Any

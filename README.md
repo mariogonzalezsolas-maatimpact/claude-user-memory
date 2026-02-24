@@ -214,10 +214,10 @@ powershell scripts/windows/verify-installation.ps1
 
 | Directory | Files | Contents |
 |-----------|-------|----------|
-| `agents/` | 15 | Agent definitions (2,496 lines total) |
-| `commands/` | 12 | Slash command definitions (1,713 lines) |
+| `agents/` | 15 | Agent definitions (2,481 lines total) |
+| `commands/` | 12 | Slash command definitions (1,717 lines) |
 | `skills/` | 5 | Auto-invoked skills (2,439 lines) |
-| `hooks/` | 12 | Lifecycle hooks (773 lines) |
+| `hooks/` | 12 | Lifecycle hooks (791 lines) |
 | `templates/` | 10 | Shared templates and overviews |
 | `validators/` | 2 | API matcher + circuit breaker |
 | `metrics/` | 1 | Workflow metrics tracker |

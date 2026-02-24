@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # Build .mcpb package for Desktop Extension distribution
-# Agentic Substrate v5.4 - Adaptive Learning Integration
+# Agentic Substrate v6.0 - Adaptive Learning Integration
 
 set -euo pipefail
 
-VERSION="5.4.0"
+VERSION="6.0.0"
 PACKAGE_NAME="agentic-substrate-${VERSION}.mcpb"
 
 echo "🔨 Building Agentic Substrate .mcpb package v${VERSION}..."

@@ -2,7 +2,7 @@
   "dxt_version": "1.0.0",
   "name": "agentic-substrate",
   "displayName": "Agentic Substrate - Claude Code Enhancement",
-  "version": "5.4.0",
+  "version": "6.0.0",
   "description": "The foundational layer for Claude Code superintelligence. 15 specialized agents across 4 tiers (BUILD+FIX+SERVE+GROW), optimized for Opus 4.6. Adds Research→Plan→Implement workflow, Growth & Strategy agents (SEO, Business, Content, Product, Security, UX), multi-agent coordination, context engineering, and think protocols.",
   "server": {
     "type": "static",
