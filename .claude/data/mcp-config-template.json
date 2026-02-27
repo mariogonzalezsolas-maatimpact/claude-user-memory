@@ -53,6 +53,27 @@
         "resolve-library-id", "get-library-docs"
       ],
       "installation_note": "Enable after installing context7 MCP server"
+    },
+
+    "gsc": {
+      "enabled": true,
+      "priority": 5,
+      "type": "stdio",
+      "command": "python",
+      "args": ["gsc_server.py"],
+      "description": "Google Search Console MCP server for SEO analytics, search performance, URL inspection, and sitemap management",
+      "required_for": ["seo-strategist"],
+      "tools": [
+        "list_properties", "get_site_details", "add_site", "delete_site",
+        "get_search_analytics", "get_search_analytics_by_page",
+        "get_search_analytics_by_country", "get_search_analytics_by_device",
+        "get_search_analytics_with_filters", "compare_search_analytics_periods",
+        "inspect_url", "batch_inspect_urls",
+        "list_sitemaps", "get_sitemap", "submit_sitemap", "delete_sitemap",
+        "get_performance_summary", "get_top_growing_queries",
+        "get_top_declining_queries"
+      ],
+      "installation_note": "Requires Google Cloud OAuth or service account credentials. See ~/mcp-servers/mcp-gsc/README.md"
     }
   },
 
@@ -103,8 +124,8 @@
     },
 
     "seo-strategist": {
-      "mcps": ["memory"],
-      "description": "SEO specialist uses memory for keyword history and audit baselines"
+      "mcps": ["memory", "gsc"],
+      "description": "SEO specialist uses memory for keyword history and audit baselines, plus GSC for live search analytics"
     },
 
     "business-analyst": {
