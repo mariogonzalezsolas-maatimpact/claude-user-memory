@@ -14,6 +14,7 @@ Analyze and optimize your Claude Code context configuration using Anthropic's co
 /context analyze        # Same as default
 /context optimize       # Actively optimize context
 /context reset          # Reset to templates
+/context rules          # List active rules and their path patterns
 ```
 
 ## What This Does
@@ -86,6 +87,23 @@ When you run `/context reset`:
    - Ideal for switching to new project
    - Removes accumulated context rot
    - Begins with clean slate
+
+### Rules Mode
+
+When you run `/context rules`:
+
+1. **Scan rule directories**
+   - `.claude/rules/` (project rules)
+   - `~/.claude/rules/` (user rules)
+
+2. **Parse YAML frontmatter**
+   - Extract `paths` glob patterns from each rule file
+   - Identify rules with no frontmatter (always-active)
+
+3. **Report active rules**
+   - List all rules with their path patterns
+   - Show which rules match currently-open files
+   - Flag any malformed rules
 
 ## Output Examples
 
@@ -336,19 +354,30 @@ This command implements Anthropic's context engineering principles:
 
 The `/context` command respects the memory hierarchy:
 
-1. **Enterprise** (`/Library/Application Support/ClaudeCode/CLAUDE.md`)
-   - Not modified by `/context` (managed by organization)
+1. **Managed Policy** (admin-managed)
+   - Not modified by `/context` (managed by organization admins)
 
 2. **Project** (`./CLAUDE.md`)
    - Analyzed and optimized by `/context`
    - Reset by `/context reset`
 
-3. **User** (`~/.claude/CLAUDE.md`)
+3. **Project Rules** (`.claude/rules/*.md`)
+   - Listed by `/context rules`
+   - Shows path patterns and which rules are currently active
+
+4. **User** (`~/.claude/CLAUDE.md` + `~/.claude/rules/`)
    - Analyzed but not modified (personal preferences)
 
-4. **Imports** (`@path/to/file.md`)
+5. **Project Local** (`./CLAUDE.local.md`)
+   - Analyzed but not modified (personal project prefs)
+
+6. **Imports** (`@path/to/file.md`)
    - Analyzed for size/relevance
    - Not directly modified (source files managed separately)
+
+7. **Auto Memory** (`~/.claude/projects/<hash>/memory/`)
+   - Referenced but not modified by `/context`
+   - Use Claude's built-in `/memory` for direct management
 
 ## Best Practices
 

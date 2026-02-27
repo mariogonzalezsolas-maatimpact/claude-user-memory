@@ -318,11 +318,10 @@ Pattern: Atomic design (atoms → molecules → organisms)
 
 ### Scope Levels
 
-**1. Conversation Scope** (current session)
-- Immediate task context
-- Recent tool outputs
-- Active file contents
-- Current problem being solved
+**1. Managed Policy Scope** (admin-managed)
+- Enterprise-wide rules enforced via MDM or admin tools
+- Cannot be overridden by lower levels
+- Highest priority in conflict resolution
 
 **2. Project Scope** (CLAUDE.md)
 - Project conventions
@@ -330,17 +329,28 @@ Pattern: Atomic design (atoms → molecules → organisms)
 - Environment setup
 - Team guidelines
 
-**3. Knowledge Scope** (knowledge-core.md)
-- Accumulated learnings
-- Historical patterns
-- Solved problems
-- Lessons learned
+**3. Project Rules Scope** (`.claude/rules/*.md`)
+- Path-specific instructions with glob patterns
+- YAML frontmatter with `paths` field
+- Loaded only when matching files are in context
+- Example: `rules/api-routes.md` with `paths: ["src/routes/**"]`
 
-**4. User Scope** (~/.claude/agentic-substrate-personal.md)
-- Personal preferences
-- Coding style
-- Common workflows
-- Individual shortcuts
+**4. User Scope** (`~/.claude/CLAUDE.md` + `~/.claude/rules/`)
+- Personal preferences across all projects
+- User-level rules for specific file patterns
+- Coding style and workflow preferences
+
+**5. Project Local Scope** (`CLAUDE.local.md`)
+- Personal project preferences (auto-gitignored by Claude Code)
+- Override project CLAUDE.md for local development
+- Use cases: local API keys path, personal test commands, IDE-specific settings
+- NOT deprecated — active and useful for personal project customization
+
+**6. Auto Memory Scope** (`~/.claude/projects/<hash>/memory/`)
+- `MEMORY.md` (first 200 lines loaded into context)
+- Additional topic files on demand
+- Toggle: Settings > "Auto Memory" or env var `CLAUDE_AUTO_MEMORY=false` to disable
+- Persists learnings across sessions automatically
 
 ### Managing Across Scopes
 
@@ -356,15 +366,98 @@ Pattern: Atomic design (atoms → molecules → organisms)
 **Reload** (Knowledge → Conversation):
 - Similar problem encountered → Load relevant knowledge
 
+## Rules Directory (`.claude/rules/`)
+
+Path-specific rules that activate only when matching files are in context.
+
+### How Rules Work
+
+1. Create `.md` files in `.claude/rules/` (project-level) or `~/.claude/rules/` (user-level)
+2. Add YAML frontmatter with `paths` field containing glob patterns
+3. Rules are loaded automatically when matching files are part of the conversation
+
+### Rule File Format
+
+```yaml
+---
+paths:
+  - "src/api/**"
+  - "src/routes/**"
+---
+
+# API Route Guidelines
+
+- All endpoints must validate input with Zod schemas
+- Use async/await, never raw Promises
+- Return consistent error format: { error: string, code: number }
+```
+
+### Path Pattern Examples
+
+| Pattern | Matches |
+|---------|---------|
+| `src/api/**` | All files under src/api/ |
+| `**/*.test.ts` | All TypeScript test files |
+| `src/components/*.tsx` | Direct children of components/ |
+| `*.md` | All markdown files in root |
+
+### Rules Behavior
+
+- **Project rules** (`.claude/rules/`): Shared via git, apply to all team members
+- **User rules** (`~/.claude/rules/`): Personal, not version-controlled
+- **Subdirectories**: Supported inside `rules/` for organization
+- **Symlinks**: Supported (resolve to target content)
+- **No frontmatter**: Rule applies to all files (always loaded)
+- **Glob matching**: Standard glob syntax via `paths` field
+
+## CLAUDE.local.md
+
+Personal project preferences that are NOT committed to version control.
+
+### Purpose
+
+- Override or extend `CLAUDE.md` for your local environment
+- Auto-added to `.gitignore` by Claude Code (never committed)
+- Same syntax as `CLAUDE.md` (markdown with instructions)
+
+### Use Cases
+
+- Local database connection paths
+- Personal test commands (`npm test -- --watch` vs `npm test`)
+- IDE-specific build commands
+- Custom API endpoint for local development
+- Debug-mode preferences
+
+### Example
+
+```markdown
+# My Local Preferences
+
+## Development
+- Use port 3001 for local API (I run the frontend on 3000)
+- Run tests with: `npm test -- --watch --coverage`
+
+## Personal Shortcuts
+- My test user: admin@localhost / test123
+- Local DB: postgresql://localhost:5433/mydb_dev
+```
+
+### Precedence
+
+`CLAUDE.local.md` loads at level 5 (after User, before Imports). It can override project-level instructions for your local environment without affecting teammates.
+
 ## Integration with Memory Hierarchy
 
 Context engineering integrates with Claude Code's memory system:
 
-**Memory Hierarchy** (4 levels):
-1. **Enterprise** (`/Library/Application Support/ClaudeCode/CLAUDE.md`) - Organization-wide
-2. **Project** (`./CLAUDE.md`) - Team-shared
-3. **User** (`~/.claude/CLAUDE.md`) - Personal preferences
-4. **Imports** (`@path/to/file.md`) - Modular organization
+**Memory Hierarchy** (6 levels + auto memory):
+1. **Managed Policy** (admin-managed, highest priority) - Organization-wide enforcement
+2. **Project** (`./CLAUDE.md` or `./.claude/CLAUDE.md`) - Team-shared instructions
+3. **Project Rules** (`.claude/rules/*.md`) - Path-specific rules with glob patterns
+4. **User** (`~/.claude/CLAUDE.md`) - Personal preferences (all projects)
+5. **Project Local** (`./CLAUDE.local.md`) - Personal project prefs (auto-gitignored)
+6. **Imports** (`@path/to/file.md`) - Modular organization (max 5 hops)
+7. **Auto Memory** (`~/.claude/projects/<hash>/memory/MEMORY.md`) - Session learnings
 
 **Import Syntax**:
 ```markdown

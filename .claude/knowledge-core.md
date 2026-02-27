@@ -62,11 +62,14 @@ Every change must be:
 
 Leverage Claude Code's native memory system for modular organization:
 
-**Memory Hierarchy** (4 levels):
-1. **Enterprise** (`/Library/Application Support/ClaudeCode/CLAUDE.md`) - Organization-wide policies
+**Memory Hierarchy** (6 levels + auto memory):
+1. **Managed Policy** (admin-managed) - Organization-wide enforcement, highest priority
 2. **Project** (`./CLAUDE.md` or `./.claude/CLAUDE.md`) - Team-shared instructions
-3. **User** (`~/.claude/CLAUDE.md`) - Personal preferences (all projects)
-4. **Project Local** (`./CLAUDE.local.md`) - Deprecated, use imports instead
+3. **Project Rules** (`.claude/rules/*.md`) - Path-specific rules with glob patterns
+4. **User** (`~/.claude/CLAUDE.md`) - Personal preferences (all projects)
+5. **Project Local** (`./CLAUDE.local.md`) - Personal project prefs (auto-gitignored, NOT deprecated)
+6. **Imports** (`@path/to/file.md`) - Modular organization (max 5 hops)
+7. **Auto Memory** (`~/.claude/projects/<hash>/memory/MEMORY.md`) - Session learnings
 
 **Import Syntax**: `@path/to/file.md` enables modular organization
 - Max depth: 5 hops for recursive imports
@@ -769,19 +772,28 @@ Command(
 
 **Solution**: Import syntax for modular organization leveraging native Claude Code memory system
 
-**Memory Hierarchy** (4 levels):
+**Memory Hierarchy** (6 levels + auto memory):
 ```
-1. Enterprise (/Library/Application Support/ClaudeCode/CLAUDE.md)
-   ↓ Organization-wide policies, compliance, security standards
+1. Managed Policy (admin-managed)
+   ↓ Organization-wide enforcement, highest priority
 
 2. Project (./CLAUDE.md or ./.claude/CLAUDE.md)
    ↓ Team-shared instructions, project conventions
 
-3. User (~/.claude/CLAUDE.md)
+3. Project Rules (.claude/rules/*.md)
+   ↓ Path-specific rules with glob patterns
+
+4. User (~/.claude/CLAUDE.md)
    ↓ Personal preferences across all projects
 
-4. Project Local (./CLAUDE.local.md)
-   ↓ DEPRECATED - Use imports instead
+5. Project Local (./CLAUDE.local.md)
+   ↓ Personal project prefs (auto-gitignored, NOT deprecated)
+
+6. Imports (@path/to/file.md)
+   ↓ Modular organization (max 5 hops)
+
+7. Auto Memory (~/.claude/projects/<hash>/memory/MEMORY.md)
+   ↓ Session learnings, persists across conversations
 ```
 
 **Import Syntax Pattern**:

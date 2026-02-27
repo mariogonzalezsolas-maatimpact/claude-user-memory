@@ -15,7 +15,7 @@
 | 7 | brahma-deployer | Production | sonnet | Deploy to production, release management |
 | 8 | brahma-monitor | Production | sonnet | Observability, SLI/SLO, alerting |
 | 9 | brahma-optimizer | Production | sonnet | Performance, scaling, cost optimization |
-| 10 | seo-strategist | Growth | haiku | Search visibility, organic traffic, Core Web Vitals |
+| 10 | seo-strategist | Growth | haiku | SEO audits (12 sub-commands), GEO, Core Web Vitals |
 | 11 | business-analyst | Growth | haiku | Requirements, ROI, process optimization |
 | 12 | content-strategist | Growth | haiku | Content marketing, brand voice, social media |
 | 13 | product-strategist | Growth | haiku | Market analysis, roadmaps, GTM strategy |
@@ -92,7 +92,7 @@ Performance profiling, scaling strategies, caching (Redis/CDN/app-level), DB que
 ## Tier 4: Growth & Strategy
 
 ### seo-strategist
-Technical SEO audits, meta tags, schema markup (JSON-LD), keyword strategy, Core Web Vitals. Output: SEO Score 0-100. **Tools**: Read, Write, Grep, Glob, WebFetch, WebSearch.
+Technical SEO audits with 12 sub-commands, GEO (AI search readiness), schema markup with deprecation tracking, programmatic SEO quality gates, industry-specific strategies. Output: SEO Score 0-100 (7 categories). **Tools**: Read, Write, Grep, Glob, WebFetch, WebSearch.
 
 ### business-analyst
 Requirements (MoSCoW), process mapping, SWOT/ROI analysis, KPI definition. Output: Business Analysis Report. **Tools**: Read, Write, Edit, Glob, Grep, WebFetch, WebSearch.
@@ -141,4 +141,4 @@ Full gate definitions: @.claude/templates/quality-gates.md
 
 ---
 
-**Updated**: 2026-02-24 | **Version**: 6.0.0 | **Agents**: 15 (3 Opus + 7 Sonnet + 5 Haiku)
+**Updated**: 2026-02-27 | **Version**: 6.0.0 | **Agents**: 15 (3 Opus + 7 Sonnet + 5 Haiku)

@@ -73,6 +73,7 @@ This repository is the **source** for the Agentic Substrate. Key directories:
 | `.claude/commands/` | 12 slash commands |
 | `.claude/hooks/` | 12 lifecycle hooks |
 | `.claude/templates/` | Shared templates + overview docs |
+| `.claude/rules/` | Path-specific rules (glob patterns) |
 | `.claude/validators/` | API matcher + circuit breaker |
 | `.claude/metrics/` | Workflow metrics tracker |
 | `.claude/data/` | MCP config template |
@@ -85,7 +86,10 @@ This repository is the **source** for the Agentic Substrate. Key directories:
 4. Run `install.sh --force` or `install.ps1 -Force` to test installation
 
 ## Memory Hierarchy
-1. **Enterprise** (`/Library/Application Support/ClaudeCode/CLAUDE.md`)
+1. **Managed Policy** (admin-managed, highest priority)
 2. **Project** (this file)
-3. **User** (`~/.claude/CLAUDE.md`)
-4. **Imports** via `@path/to/file.md` (max 5 hops)
+3. **Project Rules** (`.claude/rules/*.md`) — path-specific instructions
+4. **User** (`~/.claude/CLAUDE.md`)
+5. **Project Local** (`./CLAUDE.local.md`) — personal, auto-gitignored
+6. **Imports** via `@path/to/file.md` (max 5 hops)
+7. **Auto Memory** (`~/.claude/projects/<hash>/memory/MEMORY.md`)

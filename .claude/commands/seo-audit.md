@@ -1,6 +1,6 @@
 ---
 name: seo-audit
-description: Quick command to invoke seo-strategist for technical SEO audits, keyword strategy, schema markup, and Core Web Vitals analysis.
+description: SEO audit with 12 sub-commands including GEO (AI search readiness), schema deprecations, programmatic SEO, and industry-specific strategies.
 ---
 
 # /seo-audit Command
@@ -12,6 +12,23 @@ Perform a comprehensive SEO audit using the seo-strategist agent.
 ```
 /seo-audit [website or focus area]
 ```
+
+## Sub-Commands
+
+| Sub-Command | Example | Description |
+|---|---|---|
+| `audit` (default) | `/seo-audit` | Full SEO audit (all phases) |
+| `page [url]` | `/seo-audit page https://example.com` | Single page deep-dive |
+| `technical` | `/seo-audit technical` | Crawlability, speed, indexing |
+| `content` | `/seo-audit content` | Content quality + E-E-A-T |
+| `schema` | `/seo-audit schema` | Structured data audit |
+| `geo` | `/seo-audit geo` | AI search readiness (GEO) |
+| `plan [keyword]` | `/seo-audit plan "best crm"` | Content plan for keyword |
+| `programmatic` | `/seo-audit programmatic` | Programmatic SEO quality gates |
+| `images` | `/seo-audit images` | Image SEO audit |
+| `sitemap` | `/seo-audit sitemap` | XML sitemap audit |
+| `hreflang` | `/seo-audit hreflang` | International SEO audit |
+| `competitor-pages [urls]` | `/seo-audit competitor-pages url1 url2` | Head-to-head comparison |
 
 ## What This Does
 
@@ -35,12 +52,14 @@ Perform a comprehensive SEO audit using the seo-strategist agent.
 ## Output
 
 You'll receive an SEO Audit Report including:
-- SEO score (0-100) with breakdown
+- SEO score (0-100) with 7-category breakdown
 - Technical SEO findings (crawlability, indexing, site speed)
 - On-page optimization recommendations
-- Schema markup implementation plan (JSON-LD)
-- Keyword opportunities and content gaps
+- Schema markup plan (JSON-LD) with deprecation warnings
+- Content quality and E-E-A-T assessment
 - Core Web Vitals analysis with fix priorities
+- AI Search Readiness (GEO) score
+- Industry-specific recommendations
 
 ## Next Steps
 
