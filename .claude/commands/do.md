@@ -58,6 +58,16 @@ Analyze the request and assign exactly one route:
 | SEO | seo, search engine, rankings, meta tags, schema | `@seo-strategist` |
 | SECURITY | security, vulnerability, owasp, compliance, audit | `@security-auditor` |
 | UX | ux, usability, accessibility, wcag, a11y | `@ux-accessibility-reviewer` |
+| RESPONSIVE | responsive, mobile, breakpoints, touch, viewport, fluid | `@responsive-reviewer` |
+| THEME | dark mode, light mode, theme, tokens, color mode | `@theme-reviewer` |
+| I18N | i18n, translate, translations, locale, internationalization, rtl | `@i18n-reviewer` |
+| ARCHITECTURE | architecture, patterns, SOLID, DDD, modules, layers, ADR | `@software-architect` |
+| CODE | code, algorithm, prototype, script, pair program, write code | `@programmer` |
+| DATABASE | database, schema, migration, query, index, SQL, ORM | `@database-architect` |
+| API | api design, openapi, swagger, graphql, grpc, endpoints, rest design | `@api-designer` |
+| TESTING | test strategy, coverage, flaky, mocking, e2e, test architecture | `@testing-engineer` |
+| DEVOPS | ci/cd, pipeline, docker, kubernetes, terraform, infrastructure | `@devops-engineer` |
+| SECDEVOPS | sast, dast, supply chain, sbom, secret scanning, pipeline security | `@secdevops-engineer` |
 | BUSINESS | business, requirements, stakeholders, roi, process | `@business-analyst` |
 | CONTENT | content, blog, social media, marketing, brand | `@content-strategist` |
 | PRODUCT | product, roadmap, market, competitive, gtm, pricing | `@product-strategist` |

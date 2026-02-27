@@ -23,6 +23,16 @@ Just say what you want -- `/do` classifies, plans, confirms, then executes:
 | SEO | `@seo-strategist` | Audit Delivered |
 | SECURITY | `@security-auditor` | Audit Delivered |
 | UX | `@ux-accessibility-reviewer` | Audit Delivered |
+| RESPONSIVE | `@responsive-reviewer` | Audit Delivered |
+| THEME | `@theme-reviewer` | Audit Delivered |
+| I18N | `@i18n-reviewer` | Audit Delivered |
+| ARCHITECTURE | `@software-architect` | Architecture Review Delivered |
+| CODE | `@programmer` | Tests Pass (if applicable) |
+| DATABASE | `@database-architect` | Review/Migration Delivered |
+| API | `@api-designer` | API Spec Delivered |
+| TESTING | `@testing-engineer` | Tests Pass + Coverage Target |
+| DEVOPS | `@devops-engineer` | Pipeline Operational |
+| SECDEVOPS | `@secdevops-engineer` | Security Posture Delivered |
 | BUSINESS | `@business-analyst` | Analysis Delivered |
 | CONTENT | `@content-strategist` | Strategy Delivered |
 | PRODUCT | `@product-strategist` | Strategy Delivered |
@@ -84,15 +94,28 @@ If any gate FAILS, execution stops and the failure is reported with suggested fi
 
 ---
 
+## Engineering Patterns (NEW)
+
+**Architecture -> API -> Database -> Implement**:
+`@software-architect` -> `@api-designer` -> `@database-architect` -> `@code-implementer`
+
+**Full-Stack Feature**: `@software-architect` -> `@api-designer` + `@database-architect` (parallel) -> `@programmer` -> `@testing-engineer`
+
+**DevSecOps Pipeline**: `@devops-engineer` -> `@secdevops-engineer` -> `@brahma-deployer` -> `@brahma-monitor`
+
+**Quality Review Suite**: Run `@responsive-reviewer` + `@theme-reviewer` + `@i18n-reviewer` + `@ux-accessibility-reviewer` in parallel
+
+---
+
 ## Growth & Strategy Patterns
 
 **SEO + Content**: `@seo-strategist` -> `@content-strategist` -> `@code-implementer` (15-25 min)
 
 **Product Launch**: `@product-strategist` -> `@business-analyst` -> `@content-strategist` -> `@seo-strategist` (20-30 min)
 
-**Security-First Deploy**: `@security-auditor` -> `@code-implementer` -> `@brahma-deployer` -> `@brahma-monitor` (30-45 min)
+**Security-First Deploy**: `@security-auditor` -> `@secdevops-engineer` -> `@brahma-deployer` -> `@brahma-monitor` (30-45 min)
 
-**UX-Driven Dev**: `@ux-accessibility-reviewer` -> `@implementation-planner` -> `@code-implementer` (20-30 min)
+**UX-Driven Dev**: `@ux-accessibility-reviewer` + `@responsive-reviewer` + `@theme-reviewer` -> `@implementation-planner` -> `@code-implementer` (20-30 min)
 
 **Full Growth Audit**: Run `@seo-strategist` + `@ux-accessibility-reviewer` + `@security-auditor` + `@business-analyst` in parallel, then synthesize with `@product-strategist` (25-40 min)
 
@@ -104,4 +127,4 @@ Run `/context analyze` every 50 messages. `/context optimize` when switching tas
 
 ---
 
-**Updated**: 2026-02-24 | **Version**: 6.0.0 | **Routes**: 23
+**Updated**: 2026-02-27 | **Version**: 7.0.0 | **Routes**: 33

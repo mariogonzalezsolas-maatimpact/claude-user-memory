@@ -52,6 +52,16 @@ Standard quality gates for all workflow routes in the Agentic Substrate. Gates e
 | BUSINESS | 1 | Analysis Report Delivered |
 | CONTENT | 1 | Strategy Report Delivered |
 | PRODUCT | 1 | Strategy Report Delivered |
+| RESPONSIVE | 1 | Audit Score Delivered |
+| THEME | 1 | Audit Score Delivered |
+| I18N | 1 | Audit Score Delivered |
+| ARCHITECTURE | 1 | Architecture Review Delivered |
+| CODE | 1 | Tests Pass (if applicable) |
+| DATABASE | 1 | Review/Migration Delivered |
+| API | 1 | API Spec Delivered |
+| TESTING | 1 | Tests Pass + Coverage Target |
+| DEVOPS | 1 | Pipeline Operational |
+| SECDEVOPS | 1 | Security Posture Delivered |
 | CONTEXT | 0 | None (utility command) |
 | ORCHESTRATE | N | Per-phase gates (delegated to chief-architect) |
 | SIMPLE | 0 | None (direct answer) |
@@ -156,4 +166,4 @@ Checked before every implementation phase. If OPEN, `/do` refuses to start imple
 
 ---
 
-**Updated**: 2026-02-24 | **Version**: 6.0.0 | **Gates**: 4 defined, 23 routes covered
+**Updated**: 2026-02-27 | **Version**: 7.0.0 | **Gates**: 4 defined, 33 routes covered

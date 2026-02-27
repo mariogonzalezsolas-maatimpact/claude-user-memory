@@ -1,6 +1,6 @@
 # Agents Overview
 
-**15 agents** across 4 tiers. Models: Opus (3 critical) + Sonnet (7 analysis) + Haiku (5 checklist).
+**25 agents** across 5 tiers. Models: Opus (5 critical) + Sonnet (12 analysis) + Haiku (8 checklist).
 
 ## Quick Reference
 
@@ -12,23 +12,33 @@
 | 4 | brahma-analyzer | Core | sonnet | Pre-implementation consistency check |
 | 5 | code-implementer | Core | opus | Plan ready, TDD implementation needed |
 | 6 | brahma-investigator | Core | opus | Complex bugs, production incidents |
-| 7 | brahma-deployer | Production | sonnet | Deploy to production, release management |
-| 8 | brahma-monitor | Production | sonnet | Observability, SLI/SLO, alerting |
-| 9 | brahma-optimizer | Production | sonnet | Performance, scaling, cost optimization |
-| 10 | seo-strategist | Growth | haiku | SEO audits (12 sub-commands), GEO, Core Web Vitals |
-| 11 | business-analyst | Growth | haiku | Requirements, ROI, process optimization |
-| 12 | content-strategist | Growth | haiku | Content marketing, brand voice, social media |
-| 13 | product-strategist | Growth | haiku | Market analysis, roadmaps, GTM strategy |
-| 14 | security-auditor | Growth | sonnet | OWASP Top 10, compliance, vulnerability scanning |
-| 15 | ux-accessibility-reviewer | Growth | haiku | WCAG 2.2, usability heuristics, inclusive design |
+| 7 | software-architect | Engineering | opus | System design, patterns, ADRs, module boundaries |
+| 8 | programmer | Engineering | opus | Exploratory coding, prototyping, algorithms, pair programming |
+| 9 | database-architect | Engineering | sonnet | Schema design, migrations, query optimization, indexes |
+| 10 | api-designer | Engineering | sonnet | REST/GraphQL/gRPC design, OpenAPI specs, contracts |
+| 11 | testing-engineer | Engineering | sonnet | Test strategy, coverage gaps, TDD coaching, flaky tests |
+| 12 | devops-engineer | Infrastructure | sonnet | CI/CD pipelines, Docker, K8s, Terraform, IaC |
+| 13 | secdevops-engineer | Infrastructure | sonnet | SAST/DAST, secret scanning, supply chain, pipeline security |
+| 14 | brahma-deployer | Infrastructure | sonnet | Deploy to production, canary rollout |
+| 15 | brahma-monitor | Infrastructure | sonnet | Observability, SLI/SLO, alerting |
+| 16 | brahma-optimizer | Infrastructure | sonnet | Performance, scaling, cost optimization |
+| 17 | seo-strategist | Growth | haiku | SEO audits (12 sub-commands), GEO, Core Web Vitals |
+| 18 | business-analyst | Growth | haiku | Requirements, ROI, process optimization |
+| 19 | content-strategist | Growth | haiku | Content marketing, brand voice, social media |
+| 20 | product-strategist | Growth | haiku | Market analysis, roadmaps, GTM strategy |
+| 21 | security-auditor | Growth | sonnet | OWASP Top 10, compliance, vulnerability scanning |
+| 22 | ux-accessibility-reviewer | Quality | haiku | WCAG 2.2, usability heuristics, inclusive design |
+| 23 | responsive-reviewer | Quality | haiku | Breakpoints, mobile-first, touch targets, fluid layouts |
+| 24 | theme-reviewer | Quality | haiku | Dark/light mode, design tokens, contrast per theme |
+| 25 | i18n-reviewer | Quality | haiku | Translations, RTL, pluralization, locale handling |
 
 ## Model Distribution
 
 | Model | Count | Agents | Rationale |
 |-------|-------|--------|-----------|
-| Opus | 3 | chief-architect, code-implementer, brahma-investigator | Orchestration + deep reasoning |
-| Sonnet | 7 | docs-researcher, implementation-planner, brahma-analyzer, brahma-deployer, brahma-monitor, brahma-optimizer, security-auditor | Analysis + code generation |
-| Haiku | 5 | seo-strategist, business-analyst, content-strategist, product-strategist, ux-accessibility-reviewer | Checklist + content tasks |
+| Opus | 5 | chief-architect, code-implementer, brahma-investigator, software-architect, programmer | Orchestration + deep reasoning + complex coding |
+| Sonnet | 12 | docs-researcher, implementation-planner, brahma-analyzer, brahma-deployer, brahma-monitor, brahma-optimizer, security-auditor, database-architect, api-designer, testing-engineer, devops-engineer, secdevops-engineer | Analysis + code generation + infrastructure |
+| Haiku | 8 | seo-strategist, business-analyst, content-strategist, product-strategist, ux-accessibility-reviewer, responsive-reviewer, theme-reviewer, i18n-reviewer | Checklist + content + review tasks |
 
 ---
 
@@ -76,7 +86,32 @@ Systematic root cause analysis for complex bugs and production incidents. Progre
 
 ---
 
-## Tier 3: Production (Deploy -> Monitor -> Optimize)
+## Tier 3: Engineering (Architecture -> Code -> Database -> API -> Tests)
+
+### software-architect
+Designs system architecture, evaluates patterns (Clean, Hexagonal, Event-Driven, Microservices), creates C4 diagrams, writes ADRs, defines module boundaries, enforces SOLID/DDD. Output: Architecture Score 0-100. **Tools**: Read, Write, Edit, Grep, Glob, WebFetch, WebSearch.
+
+### programmer
+General-purpose coding specialist. Writes code from requirements without formal plans. Algorithms, data structures, prototyping, refactoring, pair programming. More flexible than code-implementer. **Tools**: Read, Write, Edit, Bash, Grep, Glob, WebFetch, WebSearch.
+
+### database-architect
+Schema design, migrations, query optimization, index strategies, SQL vs NoSQL evaluation, ORM anti-pattern detection (N+1). Output: Database Score 0-100. **Tools**: Read, Write, Edit, Bash, Grep, Glob, WebFetch, WebSearch.
+
+### api-designer
+REST, GraphQL, gRPC API design. OpenAPI specs, versioning strategies, rate limiting, pagination, error responses (RFC 7807). Output: API Design Score 0-100. **Tools**: Read, Write, Edit, Grep, Glob, WebFetch, WebSearch.
+
+### testing-engineer
+Test strategy, unit/integration/e2e test writing, mocking, coverage analysis, flaky test fixing, TDD coaching. Output: Testing Score 0-100. **Tools**: Read, Write, Edit, Bash, Grep, Glob, WebFetch, WebSearch.
+
+---
+
+## Tier 4: Infrastructure (DevOps -> SecDevOps -> Deploy -> Monitor -> Optimize)
+
+### devops-engineer
+CI/CD pipelines, Docker, Kubernetes, Terraform/Pulumi, environment management, GitOps. Builds the delivery pipeline. **Tools**: Read, Write, Edit, Bash, Grep, Glob, WebFetch, WebSearch.
+
+### secdevops-engineer
+SAST/DAST integration, secret scanning, container scanning, SBOM, artifact signing (Sigstore), policy-as-code, pipeline hardening. Secures the delivery pipeline. **Tools**: Read, Write, Edit, Bash, Grep, Glob, WebFetch, WebSearch.
 
 ### brahma-deployer
 Safe deployments with canary rollout (5%->25%->50%->100%). Auto-rollback on error rate >1% or latency >500ms. **Tools**: Bash, Read, Write, Grep, WebFetch.
@@ -89,7 +124,7 @@ Performance profiling, scaling strategies, caching (Redis/CDN/app-level), DB que
 
 ---
 
-## Tier 4: Growth & Strategy
+## Tier 5: Growth, Strategy & Quality
 
 ### seo-strategist
 Technical SEO audits with 12 sub-commands, GEO (AI search readiness), schema markup with deprecation tracking, programmatic SEO quality gates, industry-specific strategies. Output: SEO Score 0-100 (7 categories). **Tools**: Read, Write, Grep, Glob, WebFetch, WebSearch.
@@ -108,6 +143,15 @@ OWASP Top 10, code security patterns, dependency scanning, compliance (SOC2/GDPR
 
 ### ux-accessibility-reviewer
 Nielsen's 10 heuristics, WCAG 2.2 (A/AA/AAA), keyboard/screen reader testing, color contrast. Output: UX+A11y Score 0-100. **Tools**: Read, Write, Grep, Glob, WebFetch, WebSearch.
+
+### responsive-reviewer
+CSS breakpoint architecture, mobile-first patterns, touch target sizing, fluid typography, container queries, cross-device layout consistency. Output: Responsive Score 0-100. **Tools**: Read, Write, Grep, Glob, WebFetch, WebSearch.
+
+### theme-reviewer
+Dark/light mode implementation, design token systems, CSS custom properties, color contrast per theme variant, FOUC prevention, theme transitions. Output: Theme Score 0-100. **Tools**: Read, Write, Grep, Glob, WebFetch, WebSearch.
+
+### i18n-reviewer
+Hardcoded string detection, translation file structure, RTL support, ICU pluralization, Intl API formatting, locale routing, hreflang SEO. Output: i18n Readiness Score 0-100. **Tools**: Read, Write, Grep, Glob, WebFetch, WebSearch.
 
 ---
 
@@ -136,9 +180,15 @@ Full gate definitions: @.claude/templates/quality-gates.md
 # Direct
 @chief-architect [complex task]
 @docs-researcher [research topic]
-@security-auditor [audit scope]
+@software-architect [design task]
+@programmer [code task]
+@database-architect [schema review]
+@api-designer [API design]
+@testing-engineer [test strategy]
+@devops-engineer [pipeline task]
+@secdevops-engineer [security pipeline]
 ```
 
 ---
 
-**Updated**: 2026-02-27 | **Version**: 6.0.0 | **Agents**: 15 (3 Opus + 7 Sonnet + 5 Haiku)
+**Updated**: 2026-02-27 | **Version**: 7.0.0 | **Agents**: 25 (5 Opus + 12 Sonnet + 8 Haiku)

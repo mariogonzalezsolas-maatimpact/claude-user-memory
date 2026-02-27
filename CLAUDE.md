@@ -1,4 +1,4 @@
-# Agentic Substrate v6.0
+# Agentic Substrate v7.0
 
 Source repository for the Claude Code CLI enhancement system. Users install to `~/.claude/` via `install.sh` or `install.ps1`.
 
@@ -9,7 +9,7 @@ Source repository for the Claude Code CLI enhancement system. Users install to `
 - Quality gates: Research 80+, Plan 85+, Tests pass
 - Circuit breaker opens after 3 failures: /circuit-breaker reset
 
-## Commands (12)
+## Commands (21)
 - `/do [anything]` -- Universal router with mandatory planning (RECOMMENDED)
 - `/workflow [feature]` -- Full automation: research -> plan -> implement
 - `/research [topic]` -- Fetch version-accurate docs (<2 min)
@@ -22,17 +22,27 @@ Source repository for the Claude Code CLI enhancement system. Users install to `
 - `/security-audit [scope]` -- OWASP Top 10 + code security review
 - `/seo-audit [scope]` -- Technical SEO + Core Web Vitals audit
 - `/ux-review [scope]` -- WCAG 2.2 + usability heuristics audit
+- `/responsive-review [scope]` -- Mobile-first, breakpoints, touch targets
+- `/theme-review [scope]` -- Dark/light mode, design tokens, contrast
+- `/i18n-review [scope]` -- Translations, RTL, pluralization, locale
+- `/architecture [scope]` -- System design, patterns, ADRs, C4
+- `/database [scope]` -- Schema design, migrations, query optimization
+- `/api-design [scope]` -- REST/GraphQL/gRPC, OpenAPI specs
+- `/test-strategy [scope]` -- Test architecture, coverage, TDD coaching
+- `/devops [scope]` -- CI/CD, Docker, K8s, Terraform
+- `/secdevops [scope]` -- SAST/DAST, supply chain, pipeline security
 
-## 15 Agents (4 Tiers, 3 Models)
+## 25 Agents (5 Tiers, 3 Models)
 - **Orchestrator** (opus): chief-architect
 - **Core** (opus+sonnet): docs-researcher, implementation-planner, brahma-analyzer, code-implementer, brahma-investigator
-- **Production** (sonnet): brahma-deployer, brahma-monitor, brahma-optimizer
-- **Growth** (haiku+sonnet): seo-strategist, business-analyst, content-strategist, product-strategist, security-auditor, ux-accessibility-reviewer
+- **Engineering** (opus+sonnet): software-architect, programmer, database-architect, api-designer, testing-engineer
+- **Infrastructure** (sonnet): devops-engineer, secdevops-engineer, brahma-deployer, brahma-monitor, brahma-optimizer
+- **Growth & Quality** (haiku+sonnet): seo-strategist, business-analyst, content-strategist, product-strategist, security-auditor, ux-accessibility-reviewer, responsive-reviewer, theme-reviewer, i18n-reviewer
 
 ### Model Distribution
-- **Opus** (3): chief-architect, code-implementer, brahma-investigator -- orchestration + deep reasoning
-- **Sonnet** (7): docs-researcher, implementation-planner, brahma-analyzer, brahma-deployer, brahma-monitor, brahma-optimizer, security-auditor -- analysis + code
-- **Haiku** (5): seo-strategist, business-analyst, content-strategist, product-strategist, ux-accessibility-reviewer -- checklist + content
+- **Opus** (5): chief-architect, code-implementer, brahma-investigator, software-architect, programmer -- orchestration + deep reasoning + complex coding
+- **Sonnet** (12): docs-researcher, implementation-planner, brahma-analyzer, brahma-deployer, brahma-monitor, brahma-optimizer, security-auditor, database-architect, api-designer, testing-engineer, devops-engineer, secdevops-engineer -- analysis + code + infrastructure
+- **Haiku** (8): seo-strategist, business-analyst, content-strategist, product-strategist, ux-accessibility-reviewer, responsive-reviewer, theme-reviewer, i18n-reviewer -- checklist + content + review
 
 ## Quality Gates
 @.claude/templates/quality-gates.md
@@ -68,9 +78,9 @@ This repository is the **source** for the Agentic Substrate. Key directories:
 
 | Directory | Contents |
 |-----------|----------|
-| `.claude/agents/` | 15 agent definitions |
-| `.claude/skills/` | 5 auto-invoked skills |
-| `.claude/commands/` | 12 slash commands |
+| `.claude/agents/` | 25 agent definitions |
+| `.claude/skills/` | 8 auto-invoked skills |
+| `.claude/commands/` | 21 slash commands |
 | `.claude/hooks/` | 12 lifecycle hooks |
 | `.claude/templates/` | Shared templates + overview docs |
 | `.claude/rules/` | Path-specific rules (glob patterns) |
