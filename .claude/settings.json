@@ -186,14 +186,6 @@
             "timeout": 30
           }
         ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "prompt",
-            "prompt": "Before stopping, verify task completion. Check: (1) Was the user's original request fully addressed? (2) Are there any uncommitted changes that should be committed? (3) Were tests run if code was modified? (4) Are there any loose ends or TODO items mentioned but not completed? If everything is complete, output PASS. If something was missed, output WARN with what remains."
-          }
-        ]
       }
     ]
   },
