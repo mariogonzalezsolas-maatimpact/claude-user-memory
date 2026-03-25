@@ -1,17 +1,32 @@
-# Agentic Substrate v7.1
+# Agentic Substrate v7.2
 
 Source repository for the Claude Code CLI enhancement system. Users install to `~/.claude/` via `install.sh` or `install.ps1`.
+
+## Pyramid Orchestration (NEW in v7.2)
+
+All code-producing `/do` routes now use 3-tier pyramid orchestration by default:
+
+```
+Tier 1: Orchestrator (main thread) -- classifies, dispatches, synthesizes
+Tier 2: @plan-coordinator -> @code-coordinator -> @review-coordinator
+         (research+plan)     (TDD implement)     (code+browser review)
+```
+
+Review-coordinator triggers a **fix loop** back to plan-coordinator if issues found (max 3 iterations). Browser testing via Playwright MCP.
+
+@.claude/templates/pyramid-orchestration.md
 
 ## System Rules
 - Never code from memory -- use @docs-researcher or /research first
 - Every change: minimal, surgical, reversible
 - TDD mandatory: RED -> GREEN -> REFACTOR
-- Quality gates: Research 80+, Plan 85+, Tests pass
+- Quality gates: Plan 85+, Tests pass, Review 80+
+- Pyramid loop: plan -> code -> review -> fix (max 3 iterations)
 - Circuit breaker opens after 3 failures: /circuit-breaker reset
 - **CRITICAL: Error Self-Tracking** -- When you make a mistake, log it to `memory/errors.md` immediately. The auto-error-capture hook logs subagent failures automatically. Read errors.md at session start (auto-loaded by session-start hook). Check for patterns: 3+ similar errors = create a prevention rule. Never repeat a documented error. This is your feedback loop for continuous improvement.
 
 ## Commands (22)
-- `/do [anything]` -- Universal router with mandatory planning (RECOMMENDED)
+- `/do [anything]` -- Universal router with pyramid orchestration (RECOMMENDED)
 - `/workflow [feature]` -- Full automation: research -> plan -> implement
 - `/research [topic]` -- Fetch version-accurate docs (<2 min)
 - `/plan [feature]` -- Create minimal-change blueprint
@@ -34,7 +49,8 @@ Source repository for the Claude Code CLI enhancement system. Users install to `
 - `/secdevops [scope]` -- SAST/DAST, supply chain, pipeline security
 - `/tech-debt [scope]` -- Continuous tech debt reduction
 
-## 25 Agents (5 Tiers, 3 Models)
+## 28 Agents (5 Tiers + Pyramid Coordinators, 3 Models)
+- **Pyramid Coordinators** (opus+sonnet): plan-coordinator (opus), code-coordinator (opus), review-coordinator (sonnet)
 - **Orchestrator** (opus): chief-architect
 - **Core** (opus+sonnet): docs-researcher, implementation-planner, brahma-analyzer, code-implementer, brahma-investigator
 - **Engineering** (opus+sonnet): software-architect, programmer, database-architect, api-designer, testing-engineer
@@ -42,8 +58,8 @@ Source repository for the Claude Code CLI enhancement system. Users install to `
 - **Growth & Quality** (haiku+sonnet): seo-strategist, business-analyst, content-strategist, product-strategist, security-auditor, ux-accessibility-reviewer, responsive-reviewer, theme-reviewer, i18n-reviewer
 
 ### Model Distribution
-- **Opus** (5): chief-architect, code-implementer, brahma-investigator, software-architect, programmer -- orchestration + deep reasoning + complex coding
-- **Sonnet** (12): docs-researcher, implementation-planner, brahma-analyzer, brahma-deployer, brahma-monitor, brahma-optimizer, security-auditor, database-architect, api-designer, testing-engineer, devops-engineer, secdevops-engineer -- analysis + code + infrastructure
+- **Opus** (7): chief-architect, code-implementer, brahma-investigator, software-architect, programmer, plan-coordinator, code-coordinator -- orchestration + deep reasoning + complex coding
+- **Sonnet** (13): docs-researcher, implementation-planner, brahma-analyzer, brahma-deployer, brahma-monitor, brahma-optimizer, security-auditor, database-architect, api-designer, testing-engineer, devops-engineer, secdevops-engineer, review-coordinator -- analysis + code + infrastructure + review
 - **Haiku** (8): seo-strategist, business-analyst, content-strategist, product-strategist, ux-accessibility-reviewer, responsive-reviewer, theme-reviewer, i18n-reviewer -- checklist + content + review
 
 ## Quality Gates
@@ -60,6 +76,7 @@ Source repository for the Claude Code CLI enhancement system. Users install to `
 Add keyword: **think** (30-60s) | **think hard** (1-2min) | **think harder** (2-4min) | **ultrathink** (5-10min)
 
 ## Detailed Documentation
+@.claude/templates/pyramid-orchestration.md
 @.claude/templates/agents-overview.md
 @.claude/templates/skills-overview.md
 @.claude/templates/workflows-overview.md
@@ -80,8 +97,8 @@ This repository is the **source** for the Agentic Substrate. Key directories:
 
 | Directory | Contents |
 |-----------|----------|
-| `.claude/agents/` | 25 agent definitions |
-| `.claude/skills/` | 10 auto-invoked skills |
+| `.claude/agents/` | 28 agent definitions |
+| `.claude/skills/` | 11 auto-invoked skills |
 | `.claude/commands/` | 22 slash commands |
 | `.claude/hooks/` | 18 lifecycle hooks |
 | `.claude/templates/` | Shared templates + overview docs |

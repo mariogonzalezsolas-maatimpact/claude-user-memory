@@ -1,6 +1,16 @@
 # Agents Overview
 
-**25 agents** across 5 tiers. Models: Opus (5 critical) + Sonnet (12 analysis) + Haiku (8 checklist).
+**28 agents** across 5 tiers + pyramid coordinators. Models: Opus (7 critical) + Sonnet (13 analysis) + Haiku (8 checklist).
+
+## Pyramid Coordinators (NEW in v7.2)
+
+| # | Agent | Model | Use When |
+|---|-------|-------|----------|
+| P1 | plan-coordinator | opus | All pyramid routes: research + plan the implementation |
+| P2 | code-coordinator | opus | All pyramid routes: TDD implementation from plan |
+| P3 | review-coordinator | sonnet | All pyramid routes: code review + browser testing via Playwright |
+
+These 3 coordinators form the **default execution model** for all code-producing `/do` routes. See @.claude/templates/pyramid-orchestration.md
 
 ## Quick Reference
 
@@ -36,8 +46,8 @@
 
 | Model | Count | Agents | Rationale |
 |-------|-------|--------|-----------|
-| Opus | 5 | chief-architect, code-implementer, brahma-investigator, software-architect, programmer | Orchestration + deep reasoning + complex coding |
-| Sonnet | 12 | docs-researcher, implementation-planner, brahma-analyzer, brahma-deployer, brahma-monitor, brahma-optimizer, security-auditor, database-architect, api-designer, testing-engineer, devops-engineer, secdevops-engineer | Analysis + code generation + infrastructure |
+| Opus | 7 | chief-architect, code-implementer, brahma-investigator, software-architect, programmer, **plan-coordinator**, **code-coordinator** | Orchestration + deep reasoning + complex coding + pyramid planning/coding |
+| Sonnet | 13 | docs-researcher, implementation-planner, brahma-analyzer, brahma-deployer, brahma-monitor, brahma-optimizer, security-auditor, database-architect, api-designer, testing-engineer, devops-engineer, secdevops-engineer, **review-coordinator** | Analysis + code generation + infrastructure + pyramid review |
 | Haiku | 8 | seo-strategist, business-analyst, content-strategist, product-strategist, ux-accessibility-reviewer, responsive-reviewer, theme-reviewer, i18n-reviewer | Checklist + content + review tasks |
 
 ---
@@ -191,4 +201,4 @@ Full gate definitions: @.claude/templates/quality-gates.md
 
 ---
 
-**Updated**: 2026-03-10 | **Version**: 7.1.0 | **Agents**: 25 (5 Opus + 12 Sonnet + 8 Haiku)
+**Updated**: 2026-03-25 | **Version**: 7.2.0 | **Agents**: 28 (7 Opus + 13 Sonnet + 8 Haiku)

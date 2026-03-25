@@ -1,15 +1,15 @@
-# Project Knowledge Core - Agentic Substrate v7.1
+# Project Knowledge Core - Agentic Substrate v7.2
 
-**Last Updated**: 2026-03-10
-**Version**: 7.1.0 (25-Agent System with Quality Gates, Model Mixing & Error Learning)
+**Last Updated**: 2026-03-25
+**Version**: 7.2.0 (28-Agent System with Pyramid Orchestration, Quality Gates, Model Mixing & Error Learning)
 **Project**: Claude User Memory → Agentic Substrate
 
-**Purpose**: This document is the single source of truth for this project's architectural decisions, established patterns, and key learnings. It serves as the persistent memory for all AI agents working on the Agentic Substrate system.
+**Purpose**: Single source of truth for architectural decisions, established patterns, and key learnings. Persistent memory for all AI agents working on the Agentic Substrate system.
 
 **Agent Instructions**:
-1.  **READ FIRST**: Before starting any task, read this file to understand the project's context and history.
-2.  **ADHERE TO PATTERNS**: Your work must be consistent with the patterns and decisions documented here.
-3.  **SUGGEST UPDATES**: Upon completing a significant task, if you have established a new pattern or made a key architectural decision, you must suggest an addition to this file in your final report.
+1. **READ FIRST**: Before starting any task, read this file to understand the project's context and history.
+2. **ADHERE TO PATTERNS**: Your work must be consistent with the patterns and decisions documented here.
+3. **SUGGEST UPDATES**: Upon completing a significant task, suggest additions to this file in your final report.
 
 ---
 
@@ -17,9 +17,8 @@
 
 ### Principle 1: Agentic Substrate Philosophy
 **Established**: 2025-10-18
-**Applies to**: Entire system
 
-The Agentic Substrate is the **foundational layer that agents build upon** to achieve superintelligent capabilities. This system embraces:
+The Agentic Substrate is the **foundational layer that agents build upon** to achieve superintelligent capabilities:
 
 - **Agent autonomy first**: Minimal scaffolding, maximum model control (Anthropic pattern)
 - **Context engineering as first-class discipline**: What goes into context matters more than prompt wording
@@ -28,849 +27,293 @@ The Agentic Substrate is the **foundational layer that agents build upon** to ac
 - **Truth over speed**: Achieve both through systematic approach
 - **Synthesis over imitation**: Integrate best patterns from multiple sources (Philia Sophia)
 
-**Rationale**: "Substrate" captures foundational nature; "Agentic" emphasizes agent-centric design over engineer-centric design. Aligns with Anthropic's minimal scaffolding philosophy while honoring VAMFI's Brahma orchestration.
+### Principle 2: Research -> Plan -> Implement Workflow
+**Established**: 2024-07-30 (Enhanced 2025-10-18, Pyramid added 2026-03-25)
 
-### Principle 2: Research → Plan → Implement Workflow
-**Established**: 2024-07-30 (Enhanced 2025-10-18)
-**Applies to**: All feature development, bug fixes, enhancements
-
-All development follows strict three-phase workflow:
+All development follows strict workflow:
 1. **Research Phase**: Gather authoritative, version-accurate documentation (docs-researcher)
-2. **Planning Phase**: Create minimal-change, reversible implementation plans (implementation-planner)
-3. **Implementation Phase**: Execute with TDD and self-correction (code-implementer)
+2. **Planning Phase**: Create minimal-change, reversible implementation plans (plan-coordinator / implementation-planner)
+3. **Implementation Phase**: Execute with TDD and self-correction (code-coordinator / code-implementer)
+4. **Review Phase** (v7.2): Code review + browser testing with fix loop (review-coordinator)
 
-**Quality Gates**: Each phase has quality validation before proceeding to next phase.
-
-**Enhancement (2025-10-18)**: Added contextual retrieval for 49-67% better research accuracy.
+**Quality Gates**: Each phase has validation before proceeding. Review gate triggers fix loop (max 3 iterations).
 
 ### Principle 3: Minimal Changes, Maximum Safety
 **Established**: 2024-07-31
-**Applies to**: All code modifications
 
-Every change must be:
-- **Surgical**: Touch fewest files possible
-- **Reversible**: Include rollback procedure
-- **Incremental**: Each change independently valuable
-- **Tested**: TDD mandatory (Anthropic's favorite practice)
-- **Documented**: Git commits with co-author attribution
-
-**Rationale**: Reduces risk, enables quick rollback, maintains system stability.
+Every change must be: **Surgical** (fewest files), **Reversible** (include rollback), **Incremental** (independently valuable), **Tested** (TDD mandatory), **Documented** (git commits with co-author attribution).
 
 ### Principle 4: Memory Hierarchy and Import Syntax
 **Established**: 2025-10-18
-**Applies to**: All CLAUDE.md configuration, context management
 
-Leverage Claude Code's native memory system for modular organization:
-
-**Memory Hierarchy** (6 levels + auto memory):
-1. **Managed Policy** (admin-managed) - Organization-wide enforcement, highest priority
-2. **Project** (`./CLAUDE.md` or `./.claude/CLAUDE.md`) - Team-shared instructions
-3. **Project Rules** (`.claude/rules/*.md`) - Path-specific rules with glob patterns
-4. **User** (`~/.claude/CLAUDE.md`) - Personal preferences (all projects)
-5. **Project Local** (`./CLAUDE.local.md`) - Personal project prefs (auto-gitignored, NOT deprecated)
-6. **Imports** (`@path/to/file.md`) - Modular organization (max 5 hops)
-7. **Auto Memory** (`~/.claude/projects/<hash>/memory/MEMORY.md`) - Session learnings
-
-**Import Syntax**: `@path/to/file.md` enables modular organization
-- Max depth: 5 hops for recursive imports
-- Relative and absolute paths supported
-- User-specific imports: `@~/.claude/my-instructions.md`
-- Not evaluated in code spans/blocks (avoids collisions)
-
-**Rationale**: Prevents CLAUDE.md bloat, enables team sharing + personal customization, uses native Claude Code features.
+7-level memory hierarchy: Managed Policy > Project > Project Rules > User > Project Local > Imports (@path, max 5 hops) > Auto Memory.
 
 ### Principle 5: Quality Over Speed (But Achieve Both)
 **Established**: 2025-10-18
-**Applies to**: All agent operations
 
-- Never sacrifice quality for performance/demand (Anthropic transparency principle)
-- Use systematic approach to achieve both speed and accuracy
-- Real-world validation over synthetic benchmarks (SWE-bench 49% = state-of-the-art)
-- Multi-modal quality validation (API research vs Philosophy research vs Patterns)
+Never sacrifice quality for performance. Use systematic approach to achieve both. Real-world validation over synthetic benchmarks.
 
-**Rationale**: Long-term quality compounds; shortcuts create technical debt.
+### Principle 6: 28-Agent Architecture with Pyramid Orchestration
+**Established**: 2025-10-18 (Expanded: 9→15 in v5.2, 15→25 in v7.0, 25→28 in v7.2)
 
-### Principle 6: 15-Agent Architecture for Complete Coverage
-**Established**: 2025-10-18 (Expanded to 15 agents in v5.2)
-**Applies to**: All BUILD-FIX-SERVE-GROW workflows
+The complete agent system with 28 specialized agents organized in 5 tiers + pyramid coordinators:
 
-The complete agent system addresses all 15 LLM bottlenecks with 15 specialized agents organized in 4 tiers:
-
-**Architecture**:
+**Architecture (v7.2)**:
 ```
+Pyramid Coordinators (3 agents - DEFAULT EXECUTION MODEL)
+  ├─ plan-coordinator (opus): Research + plan
+  ├─ code-coordinator (opus): TDD implementation
+  └─ review-coordinator (sonnet): Code review + browser testing
+
 Tier 1: Orchestrator (1 agent)
-  └─ chief-architect: Multi-agent coordination, parallel execution
+  └─ chief-architect (opus): Multi-agent coordination, parallel execution
 
 Tier 2: Core Workflow (5 agents - BUILD + FIX)
-  ├─ docs-researcher: Fetch version-accurate docs
-  ├─ implementation-planner: Minimal-change blueprints
-  ├─ brahma-analyzer: Quality gate (80+ score)
-  ├─ code-implementer: TDD + 3-retry self-correction
-  └─ brahma-investigator: Root-cause analysis (3-retry think protocol)
+  ├─ docs-researcher (sonnet): Fetch version-accurate docs
+  ├─ implementation-planner (sonnet): Minimal-change blueprints
+  ├─ brahma-analyzer (sonnet): Quality gate (80+ score)
+  ├─ code-implementer (opus): TDD + 3-retry self-correction
+  └─ brahma-investigator (opus): Root-cause analysis
 
-Tier 3: Production (3 agents - SERVE)
-  ├─ brahma-deployer: Canary deployment + auto-rollback
-  ├─ brahma-monitor: Metrics, Logs, Traces (three pillars)
-  └─ brahma-optimizer: Profiling, optimization, scaling
+Tier 3: Engineering (5 agents)
+  ├─ software-architect (opus): System design, C4, ADRs, SOLID/DDD
+  ├─ programmer (opus): General-purpose coding, algorithms, prototyping
+  ├─ database-architect (sonnet): Schema design, migrations, query optimization
+  ├─ api-designer (sonnet): REST/GraphQL/gRPC, OpenAPI specs
+  └─ testing-engineer (sonnet): Test strategy, coverage, TDD coaching
 
-Tier 4: Growth & Strategy (6 agents - GROW)
-  ├─ seo-strategist: Technical SEO, Core Web Vitals, schema markup
-  ├─ business-analyst: Requirements, ROI, process optimization
-  ├─ content-strategist: Brand voice, content marketing, social media
-  ├─ product-strategist: Market analysis, roadmaps, GTM strategy
-  ├─ security-auditor: OWASP Top 10, compliance, vulnerability scanning
-  └─ ux-accessibility-reviewer: WCAG 2.2, usability heuristics, inclusive design
+Tier 4: Infrastructure (5 agents - SERVE)
+  ├─ devops-engineer (sonnet): CI/CD, Docker, K8s, Terraform
+  ├─ secdevops-engineer (sonnet): SAST/DAST, supply chain security
+  ├─ brahma-deployer (sonnet): Canary deployment + auto-rollback
+  ├─ brahma-monitor (sonnet): Metrics, Logs, Traces
+  └─ brahma-optimizer (sonnet): Profiling, optimization, scaling
+
+Tier 5: Growth & Quality (9 agents - GROW)
+  ├─ seo-strategist (haiku): Technical SEO, Core Web Vitals
+  ├─ business-analyst (haiku): Requirements, ROI
+  ├─ content-strategist (haiku): Brand voice, content marketing
+  ├─ product-strategist (haiku): Market analysis, roadmaps
+  ├─ security-auditor (sonnet): OWASP Top 10, compliance
+  ├─ ux-accessibility-reviewer (haiku): WCAG 2.2, usability
+  ├─ responsive-reviewer (haiku): Breakpoints, mobile-first
+  ├─ theme-reviewer (haiku): Dark/light mode, design tokens
+  └─ i18n-reviewer (haiku): Translations, RTL, pluralization
 ```
 
-**15 LLM Bottlenecks Addressed**:
-1. Context rot → context-engineering skill (39% improvement)
-2. API hallucination → docs-researcher + ResearchPack validation
-3. No quality gates → brahma-analyzer (80+ score requirement)
-4. Random debugging → brahma-investigator (systematic hypothesis testing)
-5. Symptom treatment → brahma-investigator (root cause proof)
-6. Inconsistency → brahma-analyzer (cross-artifact validation)
-7. Economic unawareness → Pre-agent-spawn hook (15x warning)
-8. Sequential execution → chief-architect (parallel multi-agent)
-9. No specialization → 15 specialized agents (vs jack-of-all-trades)
-10. Amnesia → knowledge-core.md + pattern-recognition skill
-11. Premature implementation → Research → Plan → Implement workflow
-12. Give up after failure → 3-retry strategy (investigator, implementer)
-13. No verification → TDD enforcement, quality gates
-14. Deployment blindness → brahma-deployer (production awareness)
-15. No observability → brahma-monitor (three pillars)
-
-**Why 15 Agents in 4 Tiers?**:
-- Research-based: Analyzed ALL 15 Claude Code tools + ALL software workflows
-- v5.2 expanded from 9 to 15 with Growth & Strategy tier (SEO, Business, Content, Product, Security, UX)
-- Complete coverage: Addresses BUILD + FIX + SERVE + GROW lifecycle
-- Economic viability: Growth agents (Tier 4) only used when needed
-- Models: 3 Opus (chief-architect, code-implementer, brahma-investigator) + 12 Sonnet
-
-**Performance Gains** (from Anthropic research):
-- Multi-agent parallel: 90.2% performance improvement, 90% time reduction
-- Token cost: 15x higher (requires economic viability check)
-- Quality gates: brahma-analyzer prevents implementation conflicts
-- Self-correction: 3-retry reduces manual intervention
-
-**Rationale**: Based on deep web research and analysis of Claude Code capabilities, 15 agents provide complete coverage of BUILD-FIX-SERVE-GROW lifecycle while maintaining cognitive manageable complexity.
+**Model Distribution**: 7 Opus (orchestration + deep reasoning + complex coding) + 13 Sonnet (analysis + code + infrastructure) + 8 Haiku (checklist + content + review)
 
 ---
 
 ## Established Patterns
 
-### Pattern 1: Think Tool Protocol for Complex Decisions
+### Pattern 1: Pyramid Orchestration (v7.2)
 
-**Context**: When agents face complex decisions, novel problems, or high-stakes choices
-**Problem**: Without structured thinking, agents may make suboptimal decisions or miss important considerations
-**Established**: 2025-10-18 (Project Brahma Demo8)
+**Context**: All code-producing tasks need planning, coding, and review
+**Problem**: Sequential single-agent execution misses bugs, lacks review discipline
+**Established**: 2026-03-25
 
-**Solution**: Extended thinking modes for progressively deeper reasoning
+**Solution**: 3-tier pyramid with automatic fix loop
 
-**Implementation**:
-```markdown
-## Think Protocol
-
-**Think Tool Usage**:
-- **"think"**: Standard reasoning (30-60 seconds)
-  - Use for: Routine planning, standard API selection
-
-- **"think hard"**: Deep reasoning (1-2 minutes)
-  - Use for: Multi-option architecture decisions, complex debugging
-
-- **"think harder"**: Very deep reasoning (2-4 minutes)
-  - Use for: Novel problems, high-stakes decisions, policy-heavy environments
-
-- **"ultrathink"**: Maximum reasoning (5-10 minutes)
-  - Use for: ResearchPack analysis, multi-agent coordination strategy, critical architecture
-
-**Automatic Triggers**:
-- Calling tools with irreversible effects
-- Analyzing tool outputs in long chains
-- Sequential decisions where mistakes are costly
-- Multiple valid approaches with unclear tradeoffs
+```
+Tier 1: Orchestrator (main thread) -- classifies, dispatches, synthesizes
+Tier 2: plan-coordinator -> code-coordinator -> review-coordinator
+Tier 3: Coordinators handle specialties internally
 ```
 
-**Performance** (Anthropic Research):
-- 54% relative improvement on complex tasks
-- 1.6% SWE-bench improvement from think tool alone
-- TAU-bench retail: 62.6% → 69.2%
-- TAU-bench airline: 36.0% → 46.0%
+**Loop**: Plan -> Code -> Review -> Fix (max 3 iterations). Review FAIL triggers plan-coordinator re-plan.
 
-**Files Demonstrating Pattern**:
-- `.claude/agents/chief-architect.md` - Think protocol for multi-agent decomposition
-- `.claude/agents/docs-researcher.md` - Think protocol for source evaluation
-- `.claude/agents/implementation-planner.md` - Think protocol for architecture decisions
-- `.claude/agents/code-implementer.md` - Think protocol for debugging and error analysis
+**Key Constraint**: Sub-agents cannot spawn other sub-agents. Orchestrator manages all dispatching.
 
-**Related Patterns**: Context Engineering, Multi-Agent Economics
+**Cost**: 3 agent calls (happy path), 6 (1 fix loop), 9 (max fix loops)
 
-**Trade-offs**:
-- ✅ Benefits: 54% improvement on complex tasks, fewer costly mistakes, better decision quality
-- ⚠️ Costs: Additional latency (30 seconds to 10 minutes), slightly higher token usage
-
-**Sources**:
-- Anthropic: "The think tool" (Mar 20, 2025)
-- Anthropic: "Claude Code best practices" (Apr 18, 2025)
+**Files**: `.claude/agents/plan-coordinator.md`, `.claude/agents/code-coordinator.md`, `.claude/agents/review-coordinator.md`, `.claude/skills/pyramid-loop/skill.md`, `.claude/templates/pyramid-orchestration.md`
 
 ---
 
-### Pattern 2: Context Engineering and Active Curation
+### Pattern 2: Think Tool Protocol for Complex Decisions
 
-**Context**: Long-running agent sessions accumulate stale information ("context rot")
-**Problem**: Information overload in limited context window degrades performance
-**Established**: 2025-10-18 (Project Brahma Demo8)
+**Established**: 2025-10-18
 
-**Solution**: Active context curation as first-class discipline
+Extended thinking modes for progressively deeper reasoning:
+- **"think"** (30-60s): Routine decisions
+- **"think hard"** (1-2min): Multiple valid approaches
+- **"think harder"** (2-4min): Novel problems, high-stakes
+- **"ultrathink"** (5-10min): Critical architecture, multi-agent coordination
 
-**Definition** (Anthropic): "The art and science of curating what goes into the limited context window from the constantly evolving universe of possible information"
+**Performance**: 54% improvement on complex tasks (Anthropic research)
 
-**Implementation**:
-```markdown
-## Context Engineering Protocol
-
-**Curation Triggers**:
-1. Conversation exceeds 50 messages → Review and prune context
-2. Switching tasks → Archive old task context, load new task context
-3. Before complex operations → Ensure context optimized for upcoming task
-4. After major learnings → Update knowledge-core.md, remove superseded info
-
-**Curation Actions**:
-1. Identify stale information (no longer relevant)
-2. Archive to knowledge-core.md (preserve for future sessions)
-3. Remove from active context (reduce token count)
-4. Verify context quality (all info high-signal)
-
-**CLAUDE.md Optimization**:
-- Project-specific guidelines only (not generic advice)
-- Use import syntax for modular organization
-- Repository etiquette and conventions
-- Environment setup (tools, dependencies)
-```
-
-**Performance** (Anthropic Research):
-- 39% improvement in agent-based search performance
-- 84% token reduction in 100-round web search
-- Higher signal-to-noise ratio in context
-
-**Files Demonstrating Pattern**:
-- `.claude/skills/context-engineering/skill.md` - Full context engineering methodology
-- `.claude/hooks/suggest-context-edits.sh` - Post-tool-use context optimization
-- `.claude/templates/CLAUDE.md.template` - Import syntax for modular organization
-- `.claude/commands/context.md` - /context command for context analysis
-
-**Related Patterns**: Memory Hierarchy, Import Syntax, Think Tool Protocol
-
-**Trade-offs**:
-- ✅ Benefits: 39% improvement, 84% token reduction, clearer focus
-- ⚠️ Costs: Requires active management, periodic review
-
-**Anti-Pattern**: Context Hoarding
-- ❌ Don't: Keep all information in context "just in case"
-- ✅ Do: Archive to knowledge-core.md, reload when needed
-
-**Sources**:
-- Anthropic: "Effective context engineering for AI agents" (Sep 29, 2025)
-- Anthropic: "Building Effective Agents" (2025)
+**Files**: `.claude/templates/think-protocol.md`, all 28 agents include Think Protocol section
 
 ---
 
-### Pattern 3: Multi-Agent Parallel Spawning with Economic Viability Gates
+### Pattern 3: Context Engineering and Active Curation
 
-**Context**: Complex tasks with 3+ independent sub-tasks
-**Problem**: Sequential agent execution is slow; wasteful multi-agent spawning is expensive
-**Established**: 2025-10-18 (Project Brahma Demo8)
+**Established**: 2025-10-18
 
-**Solution**: Lead agent spawns 3-5 subagents in parallel, with economic viability check
+Active context curation as first-class discipline. Triggers: >50 messages, task switch, before complex ops, after major learnings.
 
-**Architecture**:
-```
-chief-architect (Lead Agent - Opus 4.6)
-    ├─ subagent-1 (Sonnet 4.6 - e.g., docs-researcher for API docs)
-    ├─ subagent-2 (Sonnet 4.6 - e.g., docs-researcher for deployment docs)
-    ├─ subagent-3 (Sonnet 4.6 - e.g., brahma-analyzer for codebase patterns)
-    └─ Synthesize results from all subagents
-```
+**Performance**: 39% improvement, 84% token reduction
 
-**Implementation**:
-```markdown
-## Multi-Agent Protocol
-
-**Economic Viability Check** (MANDATORY):
-- Multi-agent costs 15x more tokens than single agent
-- Pre-agent-spawn hook asks: "Is 15x cost worth it?"
-- Only proceed if task complexity justifies cost
-
-**When to Use**:
-- Task has 3+ independent sub-tasks
-- Sub-tasks don't depend on each other
-- High-value outcome justifies 15x cost
-- User explicitly requests parallel execution
-
-**Protocol**:
-1. ultrathink mode for task decomposition
-2. Identify 3-5 independent sub-tasks
-3. Assign each to specialized subagent
-4. Execute in parallel (not sequential)
-5. Monitor progress independently
-6. Synthesize coherent final output
-
-**Early Failure Patterns** (from Anthropic):
-- ❌ Spawning 50 subagents for simple query → ✅ Better prompt engineering
-- ❌ Scouring web endlessly → ✅ Termination conditions in prompts
-- ❌ Agents distracting each other → ✅ Controlled communication patterns
-```
-
-**Performance** (Anthropic Research):
-- 90.2% performance improvement over single agent
-- Up to 90% time reduction for complex queries
-- Cost: 15x more tokens (economic viability required)
-
-**Files Demonstrating Pattern**:
-- `.claude/agents/chief-architect.md` - Parallel multi-agent mode implementation
-- `.claude/hooks/check-agent-economics.sh` - Economic viability gate (pre-agent-spawn hook)
-- `.claude/settings.json` - PreAgentSpawn hook configuration
-
-**Related Patterns**: Think Tool Protocol, Context Engineering
-
-**Trade-offs**:
-- ✅ Benefits: 90.2% performance gain, 90% time reduction, parallel execution
-- ⚠️ Costs: 15x token usage, requires economic justification, more complex coordination
-
-**Alternatives Considered**:
-1. **Sequential multi-agent** - Rejected because loses 90% time reduction benefit
-2. **Always parallel** - Rejected because wasteful for simple tasks (15x cost unjustified)
-
-**Sources**:
-- Anthropic: "How we built our multi-agent research system" (Jun 13, 2025)
+**Files**: `.claude/skills/context-engineering/skill.md`, `.claude/commands/context.md`
 
 ---
 
-### Pattern 4: Contextual Retrieval for Research
+### Pattern 4: Multi-Agent Parallel Spawning with Economic Viability Gates
 
-**Context**: Documentation research with chunked content
-**Problem**: When chunking documents, context is lost (what company? which quarter? what baseline?)
-**Established**: 2025-10-18 (Project Brahma Demo8)
+**Established**: 2025-10-18
 
-**Solution**: Prepend chunk-specific explanatory context before embedding/indexing
+Lead agent spawns 3-5 subagents in parallel. Economic viability check mandatory (15x cost).
 
-**Example Transformation**:
-```
-Original Chunk:
-"The company's revenue grew by 3% over the previous quarter."
+**Performance**: 90.2% performance gain, up to 90% time reduction
 
-Contextualized Chunk:
-"This chunk is from ACME Corp's Q2 2023 SEC filing. The previous quarter's
-revenue was $314 million. The company's revenue grew by 3% over the previous quarter."
-```
-
-**Implementation**:
-```markdown
-## Contextual Retrieval Protocol
-
-**Step 1: Fetch Documentation**
-- Use WebFetch to retrieve official docs
-- Parse into logical chunks (sections, subsections)
-
-**Step 2: Add Contextual Prefix**
-For each chunk, prepend context:
-```
-This chunk is from [source] on [topic]. [Additional context].
-
-[Original chunk content]
-```
-
-**Step 3: Index with Context**
-- Use contextualized chunks for embedding/search
-- When citing in ResearchPack, include full context
-- Improves accuracy when assembling final research
-```
-
-**Performance** (Anthropic Research):
-- 49% reduction in failed retrievals (standalone)
-- 67% reduction in failed retrievals (with reranking)
-
-**Files Demonstrating Pattern**:
-- `.claude/agents/docs-researcher.md` - Contextual retrieval protocol implementation
-- `ResearchPack-Anthropic-Engineering-Philosophy.md` - Demonstrates contextual retrieval in practice
-
-**Related Patterns**: Context Engineering, Research Methodology
-
-**Trade-offs**:
-- ✅ Benefits: 49-67% better accuracy, better context preservation, clearer citations
-- ⚠️ Costs: Slightly larger chunks, requires context inference per chunk
-
-**Sources**:
-- Anthropic: "Introducing Contextual Retrieval" (Sep 2024)
-- Anthropic Cookbook: Implementation details
+**Files**: `.claude/agents/chief-architect.md`, `.claude/hooks/check-agent-economics.sh`
 
 ---
 
-### Pattern 5: TDD Enforcement (Test-Driven Development)
+### Pattern 5: TDD Enforcement (Mandatory)
 
-**Context**: All code changes requiring verification
-**Problem**: Tests are optional, reducing quality guarantees
-**Established**: 2025-10-18 (Enhanced from permissive to mandatory)
+**Established**: 2025-10-18
 
-**Solution**: Mandatory test-first workflow (Red → Green → Refactor)
+Red -> Green -> Refactor cycle. Cycle time: 6-10 min per feature unit. Tests must be written BEFORE implementation. All tests must pass before commit.
 
-**Implementation**:
-```markdown
-## TDD Protocol (MANDATORY)
-
-For each file change in plan:
-
-**Step 1: Write Test First**
-1. Create/update test file
-2. Write failing test for new functionality
-3. Run test - verify it fails (RED)
-4. Estimated: 2-3 min per test
-
-**Step 2: Implement Minimal Code**
-1. Write simplest code to pass test
-2. Run test - verify it passes (GREEN)
-3. Estimated: 3-5 min per implementation
-
-**Step 3: Refactor**
-1. Improve code quality
-2. Run test - verify still passes
-3. Estimated: 1-2 min per refactor
-
-**Cycle time**: 6-10 minutes per feature unit
-
-**Enforcement**:
-- Code changes without tests will be rejected
-- Tests must be written BEFORE implementation
-- All tests must pass before commit
-```
-
-**Why TDD** (Anthropic Philosophy):
-- Anthropic's favorite practice for verifiable changes
-- "Even more powerful with agentic coding"
-- Ensures all code is verifiable
-- Prevents regression bugs
-- Forces clear interface design
-
-**Files Demonstrating Pattern**:
-- `.claude/agents/code-implementer.md` - TDD protocol enforcement
-- `.claude/hooks/run-tests.sh` - Continuous test validation
-
-**Related Patterns**: Git Automation, Quality Gates
-
-**Trade-offs**:
-- ✅ Benefits: Higher code quality, regression prevention, clear interfaces, verifiable changes
-- ⚠️ Costs: Initial development ~20% slower, requires test design thinking
-
-**Sources**:
-- Anthropic: "Claude Code best practices" (Apr 18, 2025)
+**Files**: `.claude/agents/code-implementer.md`, `.claude/agents/code-coordinator.md`
 
 ---
 
 ### Pattern 6: Git Automation with Co-Author Attribution
 
-**Context**: Code implementation completed successfully
-**Problem**: Manual git commits break workflow continuity
-**Established**: 2025-10-18 (Project Brahma Demo8)
+**Established**: 2025-10-18
 
-**Solution**: Automated git operations with Claude co-author attribution
-
-**Implementation**:
-```markdown
-## Git Operations Protocol
-
-After implementation succeeds:
-
-**Step 1: Check Status**
-`git status` - Review changed files
-
-**Step 2: Stage Files**
-`git add [files modified/created]` - Stage relevant files only
-
-**Step 3: Create Commit**
-```
-[type]: [1-line summary]
-
-[2-3 lines describing why, not what]
-
-Implemented from ImplementationPlan.md
-
-🤖 Generated with Claude Code
-
-Co-Authored-By: Claude <noreply@anthropic.com>
-```
-
-**Commit Types**:
-- `feat`: New feature
-- `fix`: Bug fix
-- `refactor`: Code restructuring
-- `test`: Adding tests
-- `docs`: Documentation
-- `perf`: Performance improvement
-
-**Safety**:
-- Only commit if all tests pass
-- Never commit .env, credentials, secrets
-- User can review with `git diff HEAD~1`
-- Rollback: `git reset --soft HEAD~1`
-```
-
-**Why** (Anthropic Practice):
-- Anthropic engineers use Claude for **90%+ of git interactions**
-- Agent-assisted version control is production-ready
-- Maintains workflow continuity (no manual intervention)
-
-**Files Demonstrating Pattern**:
-- `.claude/agents/code-implementer.md` - Git operations phase (Phase 5)
-
-**Related Patterns**: TDD Enforcement, Minimal Changes
-
-**Trade-offs**:
-- ✅ Benefits: Workflow continuity, consistent commit messages, proper attribution, 90%+ automation
-- ⚠️ Costs: User must review commits, requires git safety awareness
-
-**Sources**:
-- Anthropic: "Claude Code best practices" (Apr 18, 2025)
+Automated git operations. Co-author: `Co-Authored-By: Claude <noreply@anthropic.com>`. Only commit if tests pass. Never commit secrets.
 
 ---
 
-### Pattern 7: .mcpb Packaging for Desktop Extensions
+### Pattern 7: Multi-Modal Quality Validation
 
-**Context**: Distribution and installation of MCP servers
-**Problem**: Complex manual installation (bash scripts, path configuration, dependencies)
-**Established**: 2025-10-18 (Project Brahma Demo8)
+**Established**: 2025-10-18
 
-**Solution**: .mcpb format for one-click installation
+Research type detection with specialized scoring rubrics:
+- API/Library Research: 80+ pass threshold
+- Philosophy Research: 70+ pass threshold
+- Pattern Research: 75+ pass threshold
+- Methodology Research: 75+ pass threshold
 
-**Format**: Zip archives with manifest.json (similar to Chrome .crx, VS Code .vsix)
-
-**Implementation**:
-```json
-// manifest.json
-{
-  "name": "agentic-substrate",
-  "version": "3.0.0",
-  "description": "Foundational layer for Claude Code superintelligence",
-  "main": "install.sh",
-  "dependencies": [
-    "bash >= 4.0",
-    "git >= 2.0"
-  ],
-  "contents": [
-    ".claude/agents/",
-    ".claude/skills/",
-    ".claude/commands/",
-    ".claude/hooks/",
-    ".claude/templates/"
-  ]
-}
-```
-
-**Installation Methods**:
-1. **Extension Directory**: Browse → Click Install (Anthropic-reviewed)
-2. **Custom .mcpb**: Install file directly from filesystem
-3. **Desktop Integration**: Settings > Extensions > Install
-
-**Distribution**:
-- Submit to Anthropic Extension Directory for review
-- Share .mcpb file directly for custom distributions
-- Open source specification: github.com/anthropics/mcpb
-
-**Files Demonstrating Pattern**:
-- `manifest.json` - Extension manifest
-- `build-mcpb.sh` - Build script for .mcpb package
-- `install.sh` - Installation script (backward compatible)
-
-**Related Patterns**: Memory Hierarchy, Import Syntax
-
-**Trade-offs**:
-- ✅ Benefits: One-click install, dependency management, version control, distribution ease
-- ⚠️ Costs: Requires manifest maintenance, packaging step
-
-**Sources**:
-- Anthropic: "Desktop Extensions: One-click MCP server installation" (Jun 26, 2025)
+**Files**: `.claude/skills/quality-validation/skill.md`
 
 ---
 
-### Pattern 8: Multi-Modal Quality Validation
+### Pattern 8: Error Self-Learning (v7.1)
 
-**Context**: Different research types require different validation criteria
-**Problem**: API-focused validator scored philosophy research too strictly (50/100)
-**Established**: 2025-10-18 (Project Brahma Demo8 - Lesson Learned)
+**Established**: 2026-03-10
 
-**Solution**: Research type detection with specialized scoring rubrics
+Auto-captures errors to `memory/errors.md`. 6 categories. Pattern detection: 3+ similar errors escalate to prevention rules.
 
-**Research Types**:
-
-**1. API/Library Research** (Original rubric, 80+ pass threshold):
-- Version accuracy (25 points)
-- Installation commands (20 points)
-- Code examples (25 points)
-- Complete coverage (15 points)
-- Official sources (15 points)
-
-**2. Philosophy Research** (NEW rubric, 70+ pass threshold):
-- Thematic organization (30 points)
-- Source quality (20 points)
-- Actionable insights (30 points)
-- Depth & coverage (20 points)
-
-**3. Pattern Research** (NEW rubric, 75+ pass threshold):
-- Pattern identification (25 points)
-- Implementation examples (25 points)
-- When to use / not use (20 points)
-- Real-world validation (15 points)
-- Trade-offs documented (15 points)
-
-**4. Methodology Research** (NEW rubric, 75+ pass threshold):
-- Process steps clear (25 points)
-- Success criteria defined (20 points)
-- Examples provided (25 points)
-- Quality gates specified (15 points)
-- Rollback procedures (15 points)
-
-**Implementation**:
-```markdown
-## Research Type Detection
-
-**Step 1: Analyze ResearchPack Title and Content**
-- Contains "API", "library", "package" → API Research
-- Contains "philosophy", "principles", "patterns" → Philosophy Research
-- Contains "pattern", "architecture", "design" → Pattern Research
-- Contains "methodology", "workflow", "process" → Methodology Research
-
-**Step 2: Apply Appropriate Rubric**
-- Use matching rubric for scoring
-- Adjust pass threshold per type
-- Validate against type-specific criteria
-
-**Step 3: Report with Context**
-- "This is [type] research, scored using [rubric]"
-- Clear explanation of scoring
-- Suggest improvements specific to type
-```
-
-**Lesson Learned**:
-- Philosophy research (Anthropic Engineering articles) scored 50/100 with API rubric
-- Validator blocked valid research because it expected API patterns
-- Multi-modal validation solves false negatives
-- Different research types serve different purposes
-
-**Files Demonstrating Pattern**:
-- `.claude/skills/quality-validation/skill.md` - Multi-modal validation rubrics
-- `ResearchPack-Anthropic-Engineering-Philosophy.md` - Passed with Philosophy rubric (85/100)
-
-**Related Patterns**: Quality Gates, Research Methodology
-
-**Trade-offs**:
-- ✅ Benefits: Prevents false negatives, validates diverse research types, appropriate thresholds
-- ⚠️ Costs: More complex validation logic, requires type detection
+**Files**: `.claude/skills/error-learning/skill.md`, `.claude/hooks/auto-error-capture.sh`
 
 ---
 
-### Pattern 9: DeepWiki-First Research (v4.1)
+### Pattern 9: Hawk Oversight (v7.1)
 
-**Context**: Preventing API hallucinations from stale training data
-**When to use**: Always when writing code that uses libraries or frameworks
-**Implementation**: Query DeepWiki MCP before writing any code
+**Established**: 2026-03-10
 
-**Implementation Pattern**:
-```markdown
-1. Identify library/framework (e.g., Redis, React, Stripe)
-2. Map to GitHub repository (redis/redis, facebook/react, stripe/stripe-node)
-3. Query DeepWiki:
-   mcp__deepwiki__ask_question(repoName, "How do I [task]? Show API usage.")
-4. Use response as primary source for implementation
-5. Fall back to WebSearch only if DeepWiki unavailable
-```
+Real-time PostToolUse hook detecting chaotic oscillation, reward hacking, destructive ops, error swallowing.
 
-**Quality Gate**:
-- ResearchPack without DeepWiki attempt = INVALID for code tasks
-- Implementation without DeepWiki verification = WARNING
-- All agents enforce this requirement (v4.1)
-
-**Results**:
-- API hallucination rate: 15-30% → <2%
-- Implementation accuracy: 70-85% → 95-100%
-- Debugging time: 20-40% → 5-10%
-
-**Files Demonstrating Pattern**:
-- `.claude/agents/docs-researcher.md` - DeepWiki as Phase 1.5
-- `.claude/agents/code-implementer.md` - Quality gate for DeepWiki
-- `install.sh` - Automatic DeepWiki MCP installation
+**Files**: `.claude/hooks/hawk.sh`, `.claude/templates/hawk-pattern.md`
 
 ---
 
-### Pattern 10: Token Optimization via Reference (v4.1)
+### Pattern 10: Anti-Reward-Hacking Rules (v7.1)
 
-**Context**: Reducing agent prompt token usage without losing functionality
-**When to use**: When agent prompts become verbose with repeated explanations
-**Implementation**: Replace verbose sections with references to knowledge-core
+**Established**: 2026-03-10
 
-**Implementation Pattern**:
-```markdown
-BEFORE (30 lines):
-## Deployment Safety
-[Detailed explanation of canary deployments...]
-[Success criteria details...]
-[Rollback procedures...]
+Prevents: test.skip abuse, generic error swallowing, mock abuse, force-installing, evidence deletion.
 
-AFTER (2 lines):
-## Deployment Safety
-See knowledge-core.md#deployment-safety for canary pattern details
-```
-
-**Results**:
-- Token reduction: 20-30% in SERVE agents
-- Maintained functionality: 100%
-- Improved clarity: Focused prompts
-
-**Files Demonstrating Pattern**:
-- `.claude/agents/brahma-deployer.md` - Condensed tool descriptions
-- `.claude/agents/brahma-monitor.md` - Reference to three pillars
-- `.claude/agents/brahma-optimizer.md` - Bullet points vs paragraphs
+**Files**: `.claude/rules/anti-reward-hacking.md`
 
 ---
 
-### Pattern 11: Agent Handoff Protocol Design (v4.1 Design, v4.2 Implementation)
+### Pattern 11: Linked Chunks (v7.1)
 
-**Context**: Enabling agents to coordinate and hand off tasks
-**When to use**: Complex workflows requiring multiple specialist agents
-**Status**: DESIGNED in v4.1, implementation deferred to v4.2
+**Established**: 2026-03-10
 
-**Design Pattern** (Swarm Architecture):
-```python
-Command(
-  goto="target_agent",
-  update={
-    "context": preserved_state,
-    "artifacts": ["ResearchPack.md", "Plan.md"],
-    "completed_steps": ["research", "planning"]
-  }
-)
-```
+`@linked` references create explicit dependency graphs. Read all linked files before editing. Update linked docs if behavior changes.
 
-**Key Features**:
-- Swarm pattern: 1.5x token overhead (vs 2-3x for supervisor)
-- Circuit breaker: Prevents infinite handoff loops
-- Economic controls: Max 5 handoffs for complex tasks
-- Deadlock detection: Same agent + same state = deadlock
-
-**Files Demonstrating Pattern**:
-- `AgentHandoffProtocol-DESIGN.md` - Complete design document
-- Will be implemented in `.claude/agents/*.md` in v4.2
-
-**Trade-offs**:
-- ✅ Benefits: Better coordination, state preservation, lower latency
-- ⚠️ Deferred: Complexity of implementation pushed to v4.2
+**Files**: `.claude/rules/linked-chunks.md`
 
 ---
 
-### Pattern 12: Memory Hierarchy and Modular Organization
+### Pattern 12: Agent Report Protocol (v7.0, enhanced v7.2)
 
-**Context**: Managing configuration across enterprise, team, and individual preferences
-**Problem**: Single CLAUDE.md becomes massive, mixing concerns
-**Established**: 2025-10-18 (Project Brahma Demo8)
+**Established**: 2026-02-27 (Pyramid-aware v1.2: 2026-03-25)
 
-**Solution**: Import syntax for modular organization leveraging native Claude Code memory system
+Compact report format (<800 tokens) for all agents. Pyramid coordinators use specialized formats (<500 tokens each). Lead processes ~1500 tokens per iteration.
 
-**Memory Hierarchy** (6 levels + auto memory):
-```
-1. Managed Policy (admin-managed)
-   ↓ Organization-wide enforcement, highest priority
+**Files**: `.claude/templates/AGENT-REPORT-PROTOCOL.md`
 
-2. Project (./CLAUDE.md or ./.claude/CLAUDE.md)
-   ↓ Team-shared instructions, project conventions
+---
 
-3. Project Rules (.claude/rules/*.md)
-   ↓ Path-specific rules with glob patterns
+### Pattern 13: Memory Hierarchy and Modular Organization
 
-4. User (~/.claude/CLAUDE.md)
-   ↓ Personal preferences across all projects
+**Established**: 2025-10-18
 
-5. Project Local (./CLAUDE.local.md)
-   ↓ Personal project prefs (auto-gitignored, NOT deprecated)
+Import syntax (`@path/to/file.md`, max 5 hops) for modular CLAUDE.md organization. Prevents bloat, enables team + individual preferences.
 
-6. Imports (@path/to/file.md)
-   ↓ Modular organization (max 5 hops)
+---
 
-7. Auto Memory (~/.claude/projects/<hash>/memory/MEMORY.md)
-   ↓ Session learnings, persists across conversations
-```
+### Pattern 14: Contextual Retrieval for Research
 
-**Import Syntax Pattern**:
-```markdown
-# Project CLAUDE.md
+**Established**: 2025-10-18
 
-## Core System
-@.claude/templates/agents-overview.md
-@.claude/templates/skills-overview.md
-@.claude/templates/workflows-overview.md
+Prepend chunk-specific explanatory context before embedding/indexing.
 
-## Personal Preferences
-@~/.claude/agentic-substrate-personal.md
-
-## Team Conventions
-@.claude/team-coding-standards.md
-```
-
-**Benefits**:
-- **Modularity**: Separate concerns into focused files
-- **Customization**: Users add `@~/.claude/` imports for personal preferences
-- **Team Sharing**: Project CLAUDE.md shared via git
-- **Enterprise Control**: Enterprise-level policies enforced globally
-- **No Bloat**: Main CLAUDE.md stays concise, imports provide depth
-
-**Quick Commands**:
-- `#` - Add memory quickly (prompts for location)
-- `/memory` - Edit memory files in system editor
-- `/init` - Bootstrap CLAUDE.md for project
-
-**Files Demonstrating Pattern**:
-- `.claude/CLAUDE.md` - Uses import syntax for modular organization
-- `.claude/templates/CLAUDE.md.template` - Template with import examples
-- `.claude/templates/agents-overview.md` - Imported agent catalog
-- `.claude/templates/skills-overview.md` - Imported skills catalog
-- `.claude/templates/agentic-substrate-personal.md.example` - User-specific template
-
-**Related Patterns**: Context Engineering, .mcpb Packaging
-
-**Trade-offs**:
-- ✅ Benefits: Prevents bloat, enables customization, team + individual preferences coexist, uses native features
-- ⚠️ Costs: Requires understanding import syntax, max 5 hop depth limit
-
-**Sources**:
-- Claude Code Documentation: Memory system
-- Anthropic: "Effective context engineering" (Sep 29, 2025)
+**Performance**: 49% reduction in failed retrievals (standalone), 67% with reranking
 
 ---
 
 ## Key Decisions & Learnings
 
-### (2025-10-18) Revolutionary Term: "Agentic Substrate"
+### (2026-03-25) Pyramid Orchestration as Default Execution Model
 
-**Decision**: Adopt "Agentic Substrate" as the revolutionary term positioning this system
+**Decision**: All code-producing `/do` routes use 3-tier pyramid by default (plan -> code -> review -> fix loop)
 
-**Context**: Needed term to describe system-wide Claude Code CLI enhancement (Project Brahma Demo8)
+**Rationale**: Catches bugs before production, prevents repeated user back-and-forth, browser testing catches UI issues that code review misses
 
-**Alternatives Considered**:
-1. **Agentic Runtime** - Rejected: Too generic, doesn't capture orchestration
-2. **Cognitive Mesh** - Rejected: Too abstract, may sound futuristic
-3. **Context Fabric** - Rejected: Emphasizes context over agents
-4. **Orchestration Substrate** - Rejected: Less approachable for users
-5. **Brahma Engine** - Rejected: Sanskrit-specific, less universal appeal
-6. **Agent Nexus** - Rejected: May sound too futuristic
+**Impact**: 3 new agents (plan-coordinator, code-coordinator, review-coordinator), 1 new skill (pyramid-loop), agents 25→28, skills 10→11
 
-**Rationale**:
-- **"Substrate"** captures foundational, infrastructural nature
-- **"Agentic"** emphasizes agent-centric design over human-centric design
-- Aligns with Anthropic's "minimal scaffolding, maximum agent control" philosophy
-- Technical precision: suggests enabling foundation, not constraining framework
-- Universal appeal: works for VAMFI Brahma users and general Claude Code community
+---
+
+### (2026-03-10) Error Self-Tracking and Hawk Oversight
+
+**Decision**: Auto-capture errors, detect anti-patterns in real-time
+
+**Impact**: 4 new hooks (auto-error-capture, hawk, session-start update, Stop hook), 1 new skill (error-learning), 3 new rules, 3 new templates
+
+---
+
+### (2026-02-27) 10 New Engineering + Quality Agents
+
+**Decision**: Expand from 15 to 25 agents with Engineering tier (5 agents) + expanded Infrastructure and Quality tiers
+
+**Impact**: 9 new commands, 4 new skills, Agent Report Protocol standardized
+
+---
+
+### (2025-10-25) Adaptive Learning Integration
+
+**Decision**: Hybrid architecture for pattern learning (human-readable knowledge-core.md + machine-readable pattern-index.json)
+
+**Bayesian Confidence**: `confidence = base_confidence x time_decay x evidence_factor`
+
+**Expected**: 30-40% faster implementations on 5th+ similar feature
+
+---
+
+### (2025-10-18) "Agentic Substrate" as Project Identity
+
+**Decision**: Adopt "Agentic Substrate" term. Repository stays `claude-user-memory` for SEO, README uses "Agentic Substrate"
 
 **Tagline**: "The foundational layer for Claude Code superintelligence"
-
-**Implementation**: See `ImplementationPlan-Agentic-Substrate.md` (in project root or docs/)
-
-**Status**: Active - Repository remains `claude-user-memory` for SEO, README title uses "Agentic Substrate"
 
 ---
 
@@ -878,527 +321,48 @@ Command(
 
 **Decision**: Synthesize Anthropic + VAMFI patterns (not imitate, integrate)
 
-**Context**: Project Brahma Demo8 - Integrating 11 Anthropic engineering articles with existing VAMFI system
-
-**Philosophy**: **Philia Sophia** (Greek: "love of wisdom") - Creating something greater than the sum
-
-**From Anthropic Engineering**:
-- Agent autonomy (minimal scaffolding, maximum model control)
-- Context engineering (39% improvement, 84% token reduction)
-- Think before act (54% improvement)
-- Multi-agent economics (90% improvement, 15x cost requires viability check)
-- Truth over speed (achieve both through systematic approach)
-- Transparency (public postmortems, honest about failures)
-- Real-world quality bar (SWE-bench 49% = state-of-the-art)
-
-**From VAMFI Innovations**:
-- Brahma Orchestration (18-agent system, build-fix-serve workflows)
-- Autonomous operation ("work until complete" philosophy)
-- Quality gates (deterministic hooks guarantee integrity)
-- Knowledge preservation (persistent memory via knowledge-core.md)
-- Surgical changes (minimal-change, reversible planning)
-- Self-correction (intelligent retry loops with error categorization)
-- Circuit breaker protection (prevents infinite loops)
-
-**The Synthesis**:
-- Anthropic's patterns + VAMFI's orchestration = Agentic Substrate
-- Not imitation, but **integration** and **innovation**
-- Honors both philosophies without compromising either
-- Serves Project Brahma, VAMFI Inc., and broader Claude Code community
-
-**Positioning**: "The Agentic Substrate is to Claude Code what a modern OS kernel is to applications - invisible infrastructure that makes everything more powerful."
-
-**Implementation**: See `ResearchPack-Anthropic-Engineering-Philosophy.md` and `ImplementationPlan-Agentic-Substrate.md`
-
-**Status**: Active - Core philosophy of Agentic Substrate v6.0
+From Anthropic: agent autonomy, context engineering, think-before-act, multi-agent economics, truth over speed
+From VAMFI: Brahma orchestration, autonomous operation, quality gates, knowledge preservation, surgical changes, self-correction, circuit breaker
 
 ---
 
-### (2025-10-18) ultrathink Keyword is Official Anthropic Pattern
+### Anti-Pattern: Documentation-Implementation Mismatch
 
-**Decision**: Use "ultrathink" keyword for deepest reasoning mode (5-10 minutes)
+**Identified**: 2025-11-06 | **Severity**: CRITICAL
 
-**Context**: Implementing think tool protocol, discovered "ultrathink" in Anthropic documentation
+Documentation must match reality. Automated validation (agent count matches files). Regular reviews with each major version. Score of 32/100 is unacceptable -- must be 90+.
 
-**Documentation**: Anthropic "Claude Code best practices" (Apr 18, 2025)
-
-**Think Tool Hierarchy**:
-- "think" - Standard reasoning (30-60 seconds)
-- "think hard" - Deep reasoning (1-2 minutes)
-- "think harder" - Very deep reasoning (2-4 minutes)
-- **"ultrathink"** - Maximum reasoning (5-10 minutes)
-
-**Use Cases for ultrathink**:
-- ResearchPack analysis (11+ articles, thematic synthesis)
-- Multi-agent coordination strategy (complex decomposition)
-- Critical architecture decisions (high-stakes, irreversible)
-- Novel problems without established patterns
-
-**Rationale**: Official Anthropic keyword, not invented terminology
-
-**Implementation**: Added to all agents in "Think Protocol" section
-
-**Status**: Active - Used in chief-architect, docs-researcher, implementation-planner, code-implementer
+**Fixed**: Ongoing enforcement via version bumps and CHANGELOG
 
 ---
 
-### (2025-10-25) Adaptive Learning Integration (Adaptation Pattern)
+### Anti-Pattern: Soft Quality Gates Pretending to be Hard
 
-**Decision**: Integrate Adaptation Pattern from Chapter 9 into pattern-recognition skill using Hybrid Architecture
+**Identified**: 2025-11-06
 
-**Context**: Transform agents from pattern-consumers to pattern-learners by implementing 3-phase learning loop
-
-**Problem**: Agents couldn't learn from implementation outcomes. Same pattern suggested repeatedly regardless of success rate.
-
-**Solution**: Hybrid Architecture
-- **Human-readable**: `knowledge-core.md` (existing patterns, descriptions, rationale)
-- **Machine-readable**: `~/.claude/data/pattern-index.json` (metrics, confidence scores, context tags)
-
-**Alternatives Considered**:
-1. **Append-only log** - Rejected: No efficient querying, file grows indefinitely
-2. **SQLite database** - Rejected: Too heavyweight, requires Python dependencies
-3. **Enhanced knowledge-core.md** - Rejected: YAML frontmatter pollutes readability
-4. **Hybrid (Selected)**: Best of both - human docs + machine metrics
-
-**3-Phase Learning Loop**:
-- **Phase 1 (Before)**: Suggest patterns with ≥60% context similarity, HIGH confidence (≥0.80)
-- **Phase 2 (During)**: Track metrics (duration, retries, pattern acceptance)
-- **Phase 3 (After)**: Update confidence using Bayesian algorithm
-
-**Bayesian Confidence Formula**:
-```
-confidence = base_confidence × time_decay_factor × evidence_factor
-
-where:
-  base_confidence = successes / total_uses
-  time_decay = 0.5 (180+ days) | 0.75 (90-180 days) | 1.0 (<90 days)
-  evidence = 0.5 (<3 uses) | 0.75 (3-4 uses) | 1.0 (5+ uses)
-```
-
-**Confidence Levels**:
-- **HIGH** (≥80%): Suggest proactively
-- **MEDIUM** (50-79%): Mention if relevant
-- **LOW** (<50%): Don't suggest
-
-**Agent Enhancements**:
-- `chief-architect.md`: Added Phase 3.5 pattern suggestion workflow (+103 lines)
-- `code-implementer.md`: Added metrics tracking capabilities (+63 lines)
-- `pattern-recognition/skill.md`: Transformed to adaptive learning (+391 lines)
-
-**New Files**:
-- `~/.claude/data/pattern-index.json` - 9 patterns migrated with conservative defaults
-- `~/.claude/scripts/calculate-confidence.sh` - Standalone Bayesian calculator
-- `~/.claude/scripts/validate-pattern-index.sh` - JSON validation
-- `.vamfi/tests/test_adaptation_pattern.sh` - 12 automated tests (all passing)
-
-**Graceful Degradation**: System continues working if pattern-index.json missing/corrupted
-
-**Expected Performance**:
-- 30-40% faster implementations on 5th+ similar feature
-- 80%+ pattern suggestion accuracy
-- 70%+ user acceptance rate
-- Zero breaking changes (100% backward compatible)
-
-**Implementation**: See `ResearchPack-Adaptation-Pattern-Integration.md` (888 lines, 100/100) and `ImplementationPlan-Adaptation-Pattern-Integration.md` (1,900 lines, 100/100)
-
-**Status**: Active - Agentic Substrate v3.1 (2025-10-25)
-
-**Branch**: `feature/adaptation-pattern-phase3-implementation`
-
-**Tests**: 12/12 passing (6 automated + 6 file existence + 4 manual documented)
-
----
-
-### (2025-10-18) Quality Validator Needs Multi-Modal Support
-
-**Decision**: Enhance quality-validation skill with multiple research type rubrics
-
-**Context**: Philosophy ResearchPack (Anthropic articles) scored 50/100, blocked workflow
-
-**Problem**:
-- quality-validation calibrated for API/library research only
-- Expected: Version numbers, installation commands, code examples
-- Philosophy research: Thematic analysis, principles, patterns (different structure)
-- Validator had false negative: Valid research blocked by wrong rubric
-
-**Solution**: Research type detection with specialized scoring rubrics
-- API Research: 80+ pass threshold (version accuracy critical)
-- Philosophy Research: 70+ pass threshold (thematic organization critical)
-- Pattern Research: 75+ pass threshold (implementation examples critical)
-- Methodology Research: 75+ pass threshold (process steps critical)
-
-**Lesson Learned**:
-- Different research types serve different purposes
-- One-size-fits-all validation causes false negatives
-- Multi-modal validation essential for diverse research
-- Lower threshold for philosophy (70+) vs API (80+) is appropriate
-
-**Implementation**: See `.claude/skills/quality-validation/skill.md` enhancement plan
-
-**Status**: Planned for Phase 1, Enhancement 1.4
-
----
-
-### (2025-10-18) .mcpb Packaging for Effortless Distribution
-
-**Decision**: Create .mcpb Desktop Extension for one-click installation
-
-**Context**: Current `install.sh` script requires manual bash execution, path configuration
-
-**Anthropic Pattern**: .mcpb format (zip with manifest.json) enables:
-- One-click installation from Claude Desktop (Settings > Extensions)
-- Dependency management and version control
-- Distribution via Extension Directory (Anthropic-reviewed) or custom files
-- Similar to Chrome .crx, VS Code .vsix
-
-**Benefits**:
-- **Frictionless install**: Click instead of bash script
-- **Desktop integration**: Native Claude Desktop support
-- **Distribution**: Submit to Extension Directory for discoverability
-- **Version management**: manifest.json tracks dependencies, versions
-- **Backward compatible**: install.sh remains for advanced users
-
-**Implementation**: See Phase 3, Enhancement 3.1 in ImplementationPlan
-
-**Status**: Planned for Phase 3
-
----
-
-### (2025-10-18) Economic Viability Gates for Multi-Agent
-
-**Decision**: Implement pre-agent-spawn hook to check if 15x cost is justified
-
-**Context**: Multi-agent systems use 15x more tokens than single agent (Anthropic research)
-
-**Economic Reality**:
-- Single agent: 1x token cost
-- Multi-agent (1 lead + 3-5 subagents): 4x token cost
-- Multi-agent with parallel tools: **15x token cost**
-
-**Problem**: Wasteful spawning for simple tasks (early Anthropic failure: 50 subagents for simple query)
-
-**Solution**: Pre-agent-spawn hook with economic viability check
-
-**Implementation**:
-```bash
-# check-agent-economics.sh
-case "$TASK_COMPLEXITY" in
-  simple)
-    echo "❌ Task too simple for multi-agent (use single agent)"
-    exit 1
-    ;;
-  medium)
-    echo "⚠️  Multi-agent costs 15x tokens. Consider single agent."
-    read -p "Proceed? (y/n): " CONFIRM
-    ;;
-  complex|very-complex)
-    echo "✅ Multi-agent viable (15x cost justified)"
-    ;;
-esac
-```
-
-**Lesson Learned**:
-- 90% performance improvement is amazing...
-- ...but 15x cost requires high-value tasks to justify
-- Economic viability check prevents waste
-- User should consciously approve 15x cost
-
-**Implementation**: See `.claude/hooks/check-agent-economics.sh` in Phase 1, Enhancement 1.7
-
-**Status**: Planned for Phase 1
-
----
-
-### (2025-10-18) Git Automation is Production-Ready
-
-**Decision**: Automate git operations in code-implementer (90%+ automation)
-
-**Context**: Anthropic engineers use Claude for 90%+ of git interactions
-
-**Implication**: Agent-assisted version control is production-ready, not experimental
-
-**Implementation**:
-- Auto-stage relevant files after successful implementation
-- Generate descriptive commit message (why, not what)
-- Co-author attribution: `Co-Authored-By: Claude <noreply@anthropic.com>`
-- Safety: Only commit if tests pass, never commit secrets
-- Rollback: `git reset --soft HEAD~1` documented
-
-**Commit Message Format**:
-```
-[type]: [1-line summary]
-
-[2-3 lines describing why, not what]
-
-Implemented from ImplementationPlan.md
-
-🤖 Generated with Claude Code
-
-Co-Authored-By: Claude <noreply@anthropic.com>
-```
-
-**Why Production-Ready**:
-- Anthropic engineers trust Claude for 90%+ of git (not just demos)
-- Maintains workflow continuity (no manual intervention)
-- Proper attribution (co-author pattern)
-- Safety mechanisms (test validation, secret detection)
-
-**Implementation**: See `.claude/agents/code-implementer.md` Phase 5
-
-**Status**: Planned for Phase 1, Enhancement 1.5
-
----
-
-### (2025-10-18) TDD is Anthropic's Favorite Practice
-
-**Decision**: Make TDD mandatory (not optional) in code-implementer
-
-**Context**: Anthropic article: "TDD becomes even more powerful with agentic coding"
-
-**Why Anthropic Loves TDD**:
-- Ensures all code is verifiable (not subjective quality)
-- Prevents regression bugs (tests catch breaks)
-- Forces clear interface design (testability requires good design)
-- Even more powerful with agents (agents excel at systematic processes)
-
-**Change**:
-- **Before**: Tests suggested but optional
-- **After**: TDD mandatory (write test first, then implementation)
-
-**Red → Green → Refactor Cycle**:
-1. Write failing test (RED) - 2-3 min
-2. Implement minimal code to pass (GREEN) - 3-5 min
-3. Refactor for quality (still GREEN) - 1-2 min
-4. Cycle time: 6-10 min per feature unit
-
-**Enforcement**:
-- Code changes without tests will be rejected
-- Tests must be written BEFORE implementation
-- All tests must pass before git commit
-
-**Implementation**: See `.claude/agents/code-implementer.md` TDD Protocol
-
-**Status**: Planned for Phase 1, Enhancement 1.6
-
----
-
-### (2025-10-18) SWE-bench 49% = State-of-the-Art
-
-**Decision**: Use SWE-bench patterns as quality bar for implementation validation
-
-**Context**: Claude 3.5 Sonnet scored 49% on SWE-bench Verified (previous SOTA: 45%)
-
-**What is SWE-bench**:
-- Real-world GitHub issues from open-source Python repos
-- 500-problem subset reviewed by humans for solvability (SWE-bench Verified)
-- Not synthetic benchmarks, actual software engineering tasks
-- Measures: Can agent resolve issue like a human engineer?
-
-**Quality Standards**:
-- 49% = state-of-the-art performance
-- Human verification (not just automated metrics)
-- Real-world tasks (not toy problems)
-
-**Lesson Learned**:
-- Real-world validation > synthetic benchmarks
-- Human verification catches issues automated tests miss
-- 49% shows significant progress, not perfection (improvement ongoing)
-
-**Application to Agentic Substrate**:
-- Use real-world validation for quality gates
-- Human review important for complex changes
-- Continuous improvement mindset (not claiming perfection)
-
-**Sources**:
-- Anthropic: "Raising the bar on SWE-bench Verified" (Oct 2024)
-
-**Status**: Active - Informs quality-validation philosophy
-
----
-
-### (2025-10-18) Memory Management Uses Native Claude Code Features
-
-**Decision**: Leverage Claude Code's native memory system (not reinvent)
-
-**Context**: Could build custom memory system OR use native Claude Code features
-
-**Native Features Available**:
-- Memory hierarchy (Enterprise → Project → User → Local)
-- Import syntax (`@path/to/file.md`, max 5 hops)
-- Quick commands (`#`, `/memory`, `/init`)
-- Recursive CLAUDE.md discovery (from cwd to root)
-- Not evaluated in code spans (avoids collisions)
-
-**Why Use Native**:
-- ✅ Zero maintenance (Anthropic maintains)
-- ✅ Desktop integration (Settings > Memory)
-- ✅ User familiar (same UX across all Claude Code projects)
-- ✅ Future-proof (Anthropic will enhance)
-- ✅ No parallel system confusion
-
-**Why NOT Reinvent**:
-- ❌ Maintenance burden (keep in sync with Anthropic)
-- ❌ User confusion (two memory systems)
-- ❌ Desktop integration effort
-- ❌ Duplication of effort
-
-**Implementation**: Use import syntax for modular organization, leverage memory hierarchy
-
-**Status**: Active - Core architecture decision
+Quality gates must use `exit 1` (not `exit 0` with warnings). Add `--force` override for prototyping. Clear error messages.
 
 ---
 
 ## Performance Metrics & Benchmarks
 
-### Anthropic Research Findings (Validated)
+### Anthropic Research Findings
 
-**Think Tool Performance**:
-- **54% relative improvement** on complex tasks (airline domain)
-- **1.6% SWE-bench improvement** from think tool alone
-- TAU-bench retail: 62.6% → **69.2%** (+6.6 points)
-- TAU-bench airline: 36.0% → **46.0%** (+10 points)
+| Metric | Result |
+|--------|--------|
+| Think Tool | 54% improvement on complex tasks |
+| Context Engineering | 39% improvement, 84% token reduction |
+| Multi-Agent Parallel | 90.2% performance gain, 90% time reduction |
+| Contextual Retrieval | 49-67% reduction in failed retrievals |
+| Git Automation | 90%+ of git interactions via Claude |
 
-**Context Engineering Performance**:
-- **39% improvement** in agent-based search performance
-- **84% token reduction** in 100-round web search
-- Higher signal-to-noise ratio in context
+### Agentic Substrate Performance
 
-**Multi-Agent Performance**:
-- **90.2% performance gain** over single agent (Opus 4.6 lead + Sonnet 4.6 subagents vs single Opus 4.6)
-- **Up to 90% time reduction** for complex queries
-- Cost: **4x tokens** (agents vs chat), **15x tokens** (multi-agent vs single agent)
-
-**Contextual Retrieval Performance**:
-- **49% reduction** in failed retrievals (standalone)
-- **67% reduction** in failed retrievals (with reranking)
-
-**SWE-bench Performance**:
-- Claude 3.5 Sonnet: **49.0%** (previous SOTA: 45%)
-- Earlier: 33.4% → 49.0% improvement
-- 500-problem subset, human-verified
-
-**Git Automation**:
-- Anthropic engineers: **90%+ of git interactions** via Claude
-
-### Agentic Substrate Performance (Pre-Enhancement)
-
-**From README** (claude-user-memory v2.0):
-- API Integration: 55 min → **10 min** (5.5x faster)
-- Feature Implementation: 120 min → **25 min** (4.8x faster)
-- Code Quality: Variable → **Consistent (95%+ accuracy)**
-
-### Expected Performance (Post-Enhancement v3.0)
-
-**With Think Tool** (+54%):
-- Complex architecture decisions: **54% better** outcomes
-- Debugging complex issues: **54% faster** resolution
-
-**With Context Engineering** (+39%, -84% tokens):
-- Long sessions: **39% better** performance
-- Token usage in 100-round sessions: **84% reduction**
-
-**With Multi-Agent** (+90%, when justified):
-- Complex multi-domain tasks: **90% faster**
-- Cost: **15x tokens** (economic viability required)
-
-**With Contextual Retrieval** (+49-67%):
-- Research accuracy: **49-67% better**
-- Failed retrievals: **49-67% fewer**
-
-**Combined Impact** (estimated):
-- Overall workflow: **2-3x improvement** over current v2.0
-- System-wide: **10-15x improvement** over baseline (no agents)
-
----
-
-## Integration Insights
-
-### From Anthropic Engineering Philosophy
-
-**Core Patterns Integrated**:
-1. **Minimal scaffolding, maximum agent control** - Agentic Substrate foundation
-2. **Context engineering as first-class discipline** - New skill, hooks, /context command
-3. **Think before act** - Think tool protocol for all agents
-4. **Multi-agent economics** - Economic viability gates (15x cost awareness)
-5. **Truth over speed** - Quality gates, multi-modal validation
-6. **Transparency** - Public documentation, honest about limitations
-7. **Real-world validation** - SWE-bench patterns, not toy benchmarks
-
-**Anthropic System Design Philosophy**:
-- Low-level primitives over high-level frameworks
-- Flexibility over convenience
-- Agent-centric over engineer-centric
-- Non-deterministic design patterns
-- Minimal scaffolding, maximal model control
-
-### From VAMFI Brahma System
-
-**Core Patterns Preserved**:
-1. **Brahma Orchestration** - 18-agent system, build-fix-serve workflows
-2. **Autonomous operation** - "Work until complete" philosophy
-3. **Quality gates** - Deterministic hooks guarantee integrity
-4. **Knowledge preservation** - knowledge-core.md pattern
-5. **Surgical changes** - Minimal-change, reversible planning
-6. **Self-correction** - Intelligent retry loops (3 max)
-7. **Circuit breaker** - Prevents infinite loops
-
-### The Synthesis (Philia Sophia)
-
-**Integration Strategy**:
-- ✅ Enhance existing agents with Anthropic patterns (think tool, contextual retrieval)
-- ✅ Add new capabilities (context engineering skill, economic viability gates)
-- ✅ Preserve VAMFI innovations (autonomous operation, quality gates, knowledge preservation)
-- ✅ Leverage native Claude Code features (memory hierarchy, import syntax)
-- ✅ Maintain backward compatibility (existing users unaffected)
-
-**Result**: Something greater than the sum
-- Anthropic's cutting-edge patterns + VAMFI's proven orchestration
-- Not imitation, but integration and innovation
-- Serves Project Brahma, VAMFI Inc., and broader Claude Code community
-
----
-
-## Future Enhancements
-
-### Planned (ImplementationPlan-Agentic-Substrate.md)
-
-**Phase 1: Core Foundations** (8 enhancements):
-1. Think tool protocol for agents ✅ Planned
-2. Context engineering skill ✅ Planned
-3. Context editing hook (post-tool-use) ✅ Planned
-4. Multi-modal quality validation ✅ Planned
-5. Git automation in code-implementer ✅ Planned
-6. TDD enforcement ✅ Planned
-7. Economic viability hook (pre-agent-spawn) ✅ Planned
-8. Memory management integration ✅ Planned
-
-**Phase 2: Advanced Patterns** (4 enhancements):
-1. Multi-agent parallel spawning in chief-architect ✅ Planned
-2. Contextual retrieval in docs-researcher ✅ Planned
-3. /context command ✅ Planned
-4. Enhanced BRAHMA orchestration ✅ Planned
-
-**Phase 3: Distribution** (3 enhancements):
-1. .mcpb packaging ✅ Planned
-2. Desktop Extension manifest ✅ Planned
-3. Documentation and marketing ✅ Planned
-
-### Under Consideration
-
-**Advanced Context Engineering**:
-- Automatic context pruning (ML-based relevance detection)
-- Context versioning (rollback to previous context state)
-- Context A/B testing (which context configuration performs better?)
-
-**Enhanced Multi-Agent**:
-- Dynamic subagent selection (choose best agent for sub-task)
-- Subagent specialization (learn from past performance)
-- Agent marketplace (community-contributed specialists)
-
-**Quality Validation**:
-- Benchmark suite (like SWE-bench but for our domain)
-- Automated regression detection (performance degradation alerts)
-- Quality trend analysis (are we improving over time?)
+| Metric | Before | After |
+|--------|--------|-------|
+| API Integration | 55 min | 10 min (5.5x) |
+| Feature Implementation | 120 min | 25 min (4.8x) |
+| Code Quality | Variable | 95%+ accuracy |
 
 ---
 
@@ -1406,312 +370,20 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 ### Anthropic Official Sources
 
-1. **Building agents with the Claude Agent SDK** (Sep 29, 2025)
-   - https://www.anthropic.com/engineering/building-agents-with-the-claude-agent-sdk
-
-2. **Building effective agents** (2025)
-   - https://www.anthropic.com/engineering/building-effective-agents
-
-3. **Effective context engineering for AI agents** (Sep 29, 2025)
-   - https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents
-
-4. **A postmortem of three recent issues** (Sep 17, 2025)
-   - https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues
-
-5. **Writing effective tools for agents — with agents** (Sep 11, 2025)
-   - https://www.anthropic.com/engineering/writing-tools-for-agents
-
-6. **Desktop Extensions: One-click MCP server installation** (Jun 26, 2025)
-   - https://www.anthropic.com/engineering/desktop-extensions
-
-7. **How we built our multi-agent research system** (Jun 13, 2025)
-   - https://www.anthropic.com/engineering/multi-agent-research-system
-
-8. **Claude Code: Best practices for agentic coding** (Apr 18, 2025)
-   - https://www.anthropic.com/engineering/claude-code-best-practices
-
-9. **The "think" tool: Enabling Claude to stop and think** (Mar 20, 2025)
-   - https://www.anthropic.com/engineering/claude-think-tool
-
-10. **Raising the bar on SWE-bench Verified with Claude 3.5 Sonnet** (Oct 2024)
-    - https://www.anthropic.com/engineering/swe-bench-sonnet
-
-11. **Introducing Contextual Retrieval** (Sep 2024)
-    - https://www.anthropic.com/news/contextual-retrieval
-    - https://www.anthropic.com/engineering/contextual-retrieval
-
-### Project Documentation
-
-- **ResearchPack**: `ResearchPack-Anthropic-Engineering-Philosophy.md`
-- **ImplementationPlan**: `ImplementationPlan-Agentic-Substrate.md`
-- **README**: `README.md`
-- **CLAUDE.md**: `CLAUDE.md`
+1. Building agents with the Claude Agent SDK (Sep 29, 2025)
+2. Building effective agents (2025)
+3. Effective context engineering for AI agents (Sep 29, 2025)
+4. A postmortem of three recent issues (Sep 17, 2025)
+5. Writing effective tools for agents (Sep 11, 2025)
+6. Desktop Extensions: One-click MCP server installation (Jun 26, 2025)
+7. How we built our multi-agent research system (Jun 13, 2025)
+8. Claude Code: Best practices for agentic coding (Apr 18, 2025)
+9. The "think" tool: Enabling Claude to stop and think (Mar 20, 2025)
+10. Raising the bar on SWE-bench Verified (Oct 2024)
+11. Introducing Contextual Retrieval (Sep 2024)
 
 ---
 
-**Last updated**: 2026-02-20 by pattern-recognition skill
+**Last updated**: 2026-03-25 by Agentic Substrate v7.2 upgrade
+**Major enhancement**: v7.2 - Pyramid Orchestration, 28 agents (7 Opus + 13 Sonnet + 8 Haiku), Review Gate, fix loop
 **Next review**: Ongoing (review with each major version)
-**Maintainer**: Jaykumar Jayesh Bhailal Devji Lala Amtha Patel, VAMFI Inc.
-
----
-
-## V4.0 Enhancement: OSS Framework Integration Research (2025-11-06)
-
-### Pattern: Multi-Agent Orchestration (Anthropic Research 2024-2025)
-
-**Research Finding**: 90.2% performance improvement on complex tasks using parallel multi-agent architecture
-
-**Architecture Pattern**:
-- **Lead Orchestrator**: Claude Opus 4.6 (plans and coordinates)
-- **Parallel Workers**: Claude Sonnet 4.6 (execute specialized tasks)
-- **Swarm Pattern**: Direct agent-to-agent communication (flat token usage)
-- **Supervisor Pattern**: Central coordinator (higher overhead, use only when necessary)
-
-**Critical Success Factor**: Detailed task descriptions prevent work duplication and gaps
-
-**Application**:
-- Use for complex multi-step tasks (3+ independent subtasks)
-- Spawn parallel researchers for different domains
-- chief-architect should use swarm pattern for coordination
-
-**Source**: https://www.anthropic.com/engineering/multi-agent-research-system
-
-### Pattern: Extended Thinking Protocols
-
-**Research Finding**: 54% improvement on complex tasks using extended thinking
-
-**Token Budgets**:
-- **"think"** (4K tokens, 30-60s): Routine planning, standard decisions
-- **"think hard"** (10K tokens, 1-2min): Multiple approaches, unclear tradeoffs
-- **"think harder"** (32K tokens, 2-4min): Novel problems, high-stakes decisions
-- **"ultrathink"** (64K+ tokens, 5-10min): Critical architecture, multi-agent coordination
-
-**Auto-Triggered For**:
-- Complex tool operations (irreversible effects)
-- Long chains of tool outputs
-- Sequential decisions where mistakes costly
-- Multiple valid approaches with unclear tradeoffs
-
-**Cost Consideration**: Billed for full thinking process (use judiciously)
-
-**Source**: https://www.anthropic.com/engineering/claude-think-tool
-
-### Pattern: LangGraph State Management (Production Best Practices)
-
-**Framework**: LangGraph v0.4+ (95/100 fit score for Agentic Substrate)
-
-**Best Practices**:
-1. **Keep state minimal, explicit, and typed** (TypedDict/Pydantic)
-2. **Use reducers only where needed** (e.g., add_messages for message lists)
-3. **Bounded cycles** (prevent unbounded growth)
-4. **PostgreSQL for production** (SQLite for dev only)
-5. **Checkpointing enables pause/resume** (fault tolerance)
-
-**Performance**: Lowest latency and token usage (benchmarks 2024)
-
-**State Structure Example**:
-```python
-class BrahmaState(TypedDict):
-    messages: Annotated[list, add_messages]
-    current_phase: Literal["research", "plan", "analyze", "implement"]
-    research_pack: Optional[dict]  # Score >= 80
-    implementation_plan: Optional[dict]  # Score >= 85
-    test_results: Optional[dict]
-    circuit_breaker_state: Literal["closed", "open"]
-```
-
-**Quality Gates as Conditional Edges**: Route based on artifact scores
-
-**Sources**:
-- https://www.swarnendu.de/blog/langgraph-best-practices/
-- https://blog.langchain.com/langgraph-v0-2/
-- https://blog.langchain.com/benchmarking-multi-agent-architectures/
-
-### Pattern: Deep Agents for Long-Running Tasks
-
-**Framework**: Deep Agents v0.2.4 (92/100 fit score for code-implementer)
-
-**Core Capabilities**:
-1. **Task Decomposition**: Built-in `write_todos` tool (inspired by Claude Code!)
-2. **Subagent Spawning**: Context isolation via `task` tool
-3. **File System**: Prevents context overflow (ls, read, write, edit, glob, grep)
-4. **Extended Time Horizon**: Built for 10-60 minute implementations
-
-**Perfect For**:
-- Complex coding tasks (multi-file changes)
-- Large codebases (>10K LOC)
-- Need parallel execution (test-runner, linter, security subagents)
-
-**Implementation Pattern**:
-```python
-from deepagents import create_deep_agent
-
-enhanced_implementer = create_deep_agent(
-    model="claude-sonnet-4-5-20250929",
-    tools=[read_file, edit_file, bash_execute],
-    system_prompt="TDD mandatory: RED-GREEN-REFACTOR...",
-    subagents=[
-        {"name": "test_runner", "prompt": "Execute tests..."},
-        {"name": "linter", "prompt": "Check quality..."},
-        {"name": "security", "prompt": "Scan vulnerabilities..."}
-    ]
-)
-```
-
-**Sources**:
-- https://blog.langchain.com/deep-agents/
-- https://github.com/langchain-ai/deepagents
-- https://docs.langchain.com/oss/python/deepagents/overview
-
-### Pattern: DSPy Prompt Optimization
-
-**Framework**: DSPy v2.4+ (88/100 fit score for systematic optimization)
-
-**Paradigm Shift**: "Code over prompts" - treat prompts as compilation targets
-
-**Performance**: 20-40% accuracy improvement (empirical results)
-
-**When to Use**:
-- Agent accuracy too low (need systematic improvement)
-- Have training data (10-20 examples minimum)
-- Need model portability (swap Claude ↔ GPT-4 ↔ Gemini)
-
-**Optimization Pattern**:
-```python
-import dspy
-
-class ResearchQuestionGenerator(dspy.Module):
-    def __init__(self):
-        self.generate = dspy.ChainOfThought(
-            "library, version, use_case -> research_questions"
-        )
-
-# Compile with optimizer
-optimizer = dspy.BootstrapFewShot(metric=coverage_metric)
-optimized = optimizer.compile(module, trainset=examples)
-```
-
-**Top 5 Agents to Optimize**:
-1. docs-researcher (question generation, API extraction)
-2. chief-architect (requirement decomposition and orchestration)
-3. implementation-planner (plan quality scoring)
-4. brahma-analyzer (conflict detection)
-5. brahma-investigator (root cause hypothesis)
-
-**Sources**:
-- https://dspy.ai/
-- https://arxiv.org/abs/2310.03714
-- https://hai.stanford.edu/research/dspy-compiling-declarative-language-model-calls-into-state-of-the-art-pipelines
-
-### Anti-Pattern: Documentation-Implementation Mismatch
-
-**Identified**: 2025-11-06 (V4.0 gap analysis)
-**Severity**: CRITICAL (32/100 documentation integrity score)
-
-**Problem**:
-- agents-overview.md documented only 4 agents (actual: 15 as of v6.0)
-- CLAUDE.md claimed "4 specialists" (actual: 15 across 4 tiers)
-- False claims about features (circuit breaker state file, Brahma commands)
-
-**Impact**: Users can't trust documentation, waste time on non-existent features
-
-**Solution**:
-- Comprehensive documentation audit (ALL agents documented)
-- Version control for docs (git track CLAUDE.md, agents-overview.md)
-- Automated validation (agent count matches files in .claude/agents/)
-- Regular documentation reviews (quarterly)
-
-**Lesson**: Documentation accuracy is CRITICAL for user trust. Score of 32/100 is unacceptable - must be 90+.
-
-**Fixed**: 2025-11-06 (documentation integrity now 95/100)
-
-### Anti-Pattern: Soft Quality Gates Pretending to be Hard
-
-**Identified**: 2025-11-06 (V4.0 gap analysis)
-
-**Problem**:
-- Validation scripts use `exit 0` with warnings (soft gates)
-- Documentation claims "⛔ Blocks planning if research incomplete" (hard gates)
-- Quality gates don't actually enforce quality
-
-**Impact**: Bad work proceeds to next phase (garbage-in-garbage-out)
-
-**Solution**:
-- Change exit codes: `exit 1` when quality threshold not met
-- Add `--force` override for prototyping
-- Clear error messages explaining why blocked and how to fix
-- Graduated responses (warn at 70-79, suggest at 60-69, block <60)
-
-**Lesson**: Quality gates must enforce quality or be renamed to "validation suggestions"
-
-### Decision: Hybrid OSS Framework Integration Strategy
-
-**Date**: 2025-11-06
-**Context**: V4.0 enhancement - enable LangGraph, Deep Agents, DSPy, CrewAI integration
-
-**Decision**: Use all 4 frameworks for different purposes (not exclusive choice)
-
-**Rationale**:
-1. **LangGraph** (orchestration): Best performance (benchmarks), state management
-2. **Deep Agents** (long tasks): Perfect for code-implementer (10-60 min tasks)
-3. **DSPy** (optimization): 20-40% accuracy improvement for all agents
-4. **CrewAI** (prototyping): 3-5x faster development for new capabilities
-
-**Architecture**:
-```
-LangGraph (orchestration layer)
-├── Deep Agents (complex implementations)
-├── CrewAI (rapid prototypes)
-└── DSPy (optimize all prompts)
-```
-
-**Alternatives Considered**:
-- Single framework approach (rejected - no one framework does everything)
-- Semantic Kernel (rejected for MVP - enterprise deployment later)
-- AutoGen (rejected - migrating to Agent Framework)
-
-**Implementation Timeline**:
-- Phase 1 (Weeks 1-3): LangGraph foundation
-- Phase 2 (Weeks 4-5): Deep Agents integration
-- Phase 3 (Weeks 6-8): DSPy optimization
-- Phase 4 (Weeks 9-10): CrewAI prototyping
-
-**Expected ROI**:
-- Task completion: 65-75% → 85-95% (+20-30 points)
-- Time to completion: 10-25 min → 7-18 min (-25-35%)
-- Error rate: 35-40% → 15-25% (-40-60%)
-- Context efficiency: +30-50% (file system offloading)
-
-**Sources**: See FRAMEWORK-COMPARISON.md (comprehensive 8-framework analysis)
-
-### Decision: Tier-Based Agent Organization
-
-**Date**: 2025-11-06 (expanded to 15 agents / 4 tiers in v5.2)
-**Context**: Documentation rewrite for all agents
-
-**Decision**: Organize agents into 4 tiers (Orchestration, Core Workflow, Production, Growth & Strategy)
-
-**Tier Structure**:
-- **Tier 1 - Orchestration** (1 agent): chief-architect
-- **Tier 2 - Core Workflow** (5 agents): docs-researcher, implementation-planner, brahma-analyzer, code-implementer, brahma-investigator
-- **Tier 3 - Production** (3 agents): brahma-deployer, brahma-monitor, brahma-optimizer
-- **Tier 4 - Growth & Strategy** (6 agents): seo-strategist, business-analyst, content-strategist, product-strategist, security-auditor, ux-accessibility-reviewer
-
-**Rationale**:
-- Clearer mental model than flat list of 15 agents
-- Groups by lifecycle phase (plan, build, deploy, monitor, optimize, grow)
-- Matches software development lifecycle
-- Easier to find right agent for task
-
-**Alternatives Considered**:
-- Alphabetical (rejected - no semantic meaning)
-- By creation date (rejected - not user-centric)
-- By frequency of use (rejected - changes over time)
-
----
-
-**Last updated**: 2026-02-24 by Agentic Substrate v6.0 upgrade workflow
-**Major enhancement**: V6.0 - 15 agents (3 Opus + 7 Sonnet + 5 Haiku), mandatory plan mode, quality gates, agent report protocol
-**Research method**: Ultrathink multi-agent parallel research (50+ sources, HIGH confidence)
-**Next review**: Ongoing (review with each major version)
-**Maintainer**: Jaykumar Jayesh Bhailal Devji Lala Amtha Patel, VAMFI Inc.

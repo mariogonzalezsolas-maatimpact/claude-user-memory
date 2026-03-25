@@ -26,13 +26,19 @@ Standard quality gates for all workflow routes in the Agentic Substrate. Gates e
 - **Evaluator**: Test runner + circuit breaker state
 - **Blocks**: Cannot mark task complete with failing tests
 
+### Review Gate (NEW - Pyramid v7.2)
+- **Threshold**: Review score >= 80/100, no critical findings
+- **Evaluator**: review-coordinator (code + browser testing)
+- **Blocks**: Cannot mark task complete until review passes
+- **Fix Loop**: If FAIL, triggers plan-coordinator -> code-coordinator -> review again (max 3 iterations)
+
 ---
 
 ## Gates Per Route
 
 | Route | Gates | Gate Sequence |
 |-------|-------|---------------|
-| FEATURE | 3 | Research (80+) -> Plan (85+) -> Tests Pass |
+| FEATURE | 4 | Plan (85+) -> Tests Pass -> Review (80+) -> Fix Loop (max 3) |
 | REFACTOR | 1 | Tests Pass (no regressions) |
 | TEST | 1 | Tests Pass (coverage target met) |
 | DEBUG | 2 | Investigation Complete -> Fix Verified |
@@ -167,4 +173,4 @@ Checked before every implementation phase. If OPEN, `/do` refuses to start imple
 
 ---
 
-**Updated**: 2026-03-10 | **Version**: 7.1.0 | **Gates**: 4 defined, 34 routes covered
+**Updated**: 2026-03-25 | **Version**: 7.2.0 | **Gates**: 5 defined (incl. Review Gate), 34 routes covered

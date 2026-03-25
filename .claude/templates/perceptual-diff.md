@@ -64,4 +64,4 @@ When modifying UI components:
 ---
 
 **Source**: Alejandro Vidal, "Agentic Engineering" (Perceptual Diffs + Locality Test) - HACKNIGHT Valencia 2026
-**Updated**: 2026-03-10 | **Version**: 7.1.0
+**Updated**: 2026-03-25 | **Version**: 7.2.0

@@ -1,11 +1,11 @@
 ---
 name: do
-description: Intelligent command router with mandatory planning. Analyzes your request, shows a plan, waits for confirmation, then executes. Auto-gathers context on first use.
+description: Intelligent command router with mandatory planning. Analyzes your request, shows a plan, waits for confirmation, then executes using 3-tier pyramid orchestration (plan -> code -> review -> fix loop).
 ---
 
 # /do Command
 
-**The Universal Command** - Just say what you want. I classify, plan, confirm, then execute.
+**The Universal Command** - Just say what you want. I classify, plan, confirm, then execute through the 3-tier pyramid.
 
 ## Usage
 
@@ -13,9 +13,28 @@ description: Intelligent command router with mandatory planning. Analyzes your r
 /do [anything you want]
 ```
 
-## Flow: CLASSIFY -> PLAN -> CONFIRM -> EXECUTE -> REPORT
+## Flow: CLASSIFY -> PLAN -> CONFIRM -> PYRAMID EXECUTE -> REPORT
 
 Every `/do` invocation follows this mandatory flow. No step is skipped.
+
+---
+
+## Pyramid Orchestration (Default)
+
+All code-producing routes use the 3-tier pyramid by default:
+
+@.claude/templates/pyramid-orchestration.md
+
+```
+Tier 1: Orchestrator (this thread) -- classifies, dispatches, synthesizes
+Tier 2: plan-coordinator -> code-coordinator -> review-coordinator
+Tier 3: Coordinators handle their specialties internally
+```
+
+The review-coordinator can trigger a **fix loop** back to plan-coordinator (max 3 iterations).
+
+**Opt-out keywords** (use direct agent dispatch instead):
+- "simple", "sequential", "sin equipo", "no pyramid", "directo", "solo", "single agent"
 
 ---
 
@@ -41,19 +60,19 @@ Analyze the request and assign exactly one route:
 
 | Route | Keywords / Signals | Executes |
 |-------|-------------------|----------|
-| FEATURE | add, create, build, make, develop, new feature | `/workflow` (research -> plan -> implement) |
-| REFACTOR | refactor, clean up code, simplify, restructure, rename | `@code-implementer` (refactor mode) |
-| TEST | write tests, add tests, test coverage, unit test, e2e | `@code-implementer` (TDD mode) |
-| RESEARCH | research, learn, understand, how does, what is, docs | `@docs-researcher` |
-| PLAN | plan, design, architect, strategy, approach | `@implementation-planner` |
-| IMPLEMENT | implement the plan, execute, code this, finish | `@code-implementer` |
-| DEBUG | why, debug, investigate, broken, error, bug | `@brahma-investigator` |
-| MIGRATE | migrate, convert, switch from X to Y, upgrade dependency | `/workflow` (migration mode) |
+| FEATURE | add, create, build, make, develop, new feature | Pyramid (plan -> code -> review) |
+| REFACTOR | refactor, clean up code, simplify, restructure, rename | Pyramid (plan -> code -> review) |
+| TEST | write tests, add tests, test coverage, unit test, e2e | Pyramid (plan -> code -> review) |
+| RESEARCH | research, learn, understand, how does, what is, docs | `@docs-researcher` (no pyramid) |
+| PLAN | plan, design, architect, strategy, approach | `@plan-coordinator` (plan only) |
+| IMPLEMENT | implement the plan, execute, code this, finish | Pyramid (plan -> code -> review) |
+| DEBUG | why, debug, investigate, broken, error, bug | Pyramid (plan -> code -> review) |
+| MIGRATE | migrate, convert, switch from X to Y, upgrade dependency | Pyramid (plan -> code -> review) |
 | DEPLOY | deploy, release, ship, push to production, rollout | `@brahma-deployer` |
-| OPTIMIZE | optimize, performance, slow, faster, scale | `@brahma-optimizer` |
+| OPTIMIZE | optimize, performance, slow, faster, scale | Pyramid (plan -> code -> review) |
 | MONITOR | monitor, observe, metrics, logs, alerts, dashboard | `@brahma-monitor` |
 | INCIDENT | production down, outage, emergency, users can't, P0/P1 | `@brahma-investigator` + `@brahma-monitor` |
-| REVIEW | review, code review, PR, pull request, audit code | `/review` |
+| REVIEW | review, code review, PR, pull request, audit code | `@review-coordinator` (review only) |
 | ROLLBACK | revert, undo, rollback, go back, restore previous | Direct (git revert + verification) |
 | SEO | seo, search engine, rankings, meta tags, schema | `@seo-strategist` |
 | SECURITY | security, vulnerability, owasp, compliance, audit | `@security-auditor` |
@@ -62,19 +81,27 @@ Analyze the request and assign exactly one route:
 | THEME | dark mode, light mode, theme, tokens, color mode | `@theme-reviewer` |
 | I18N | i18n, translate, translations, locale, internationalization, rtl | `@i18n-reviewer` |
 | ARCHITECTURE | architecture, patterns, SOLID, DDD, modules, layers, ADR | `@software-architect` |
-| CODE | code, algorithm, prototype, script, pair program, write code | `@programmer` |
-| DATABASE | database, schema, migration, query, index, SQL, ORM | `@database-architect` |
+| CODE | code, algorithm, prototype, script, pair program, write code | Pyramid (plan -> code -> review) |
+| DATABASE | database, schema, migration, query, index, SQL, ORM | Pyramid (plan -> code -> review) |
 | API | api design, openapi, swagger, graphql, grpc, endpoints, rest design | `@api-designer` |
 | TESTING | test strategy, coverage, flaky, mocking, e2e, test architecture | `@testing-engineer` |
-| TECH_DEBT | tech debt, clean up code, anti-patterns, slop, agent debt | `@programmer` (tech debt mode) |
+| TECH_DEBT | tech debt, clean up code, anti-patterns, slop, agent debt | Pyramid (plan -> code -> review) |
 | DEVOPS | ci/cd, pipeline, docker, kubernetes, terraform, infrastructure | `@devops-engineer` |
 | SECDEVOPS | sast, dast, supply chain, sbom, secret scanning, pipeline security | `@secdevops-engineer` |
 | BUSINESS | business, requirements, stakeholders, roi, process | `@business-analyst` |
 | CONTENT | content, blog, social media, marketing, brand | `@content-strategist` |
 | PRODUCT | product, roadmap, market, competitive, gtm, pricing | `@product-strategist` |
 | CONTEXT | context, memory, tokens, too long, clean up | `/context analyze` |
-| ORCHESTRATE | complete, full, entire, end-to-end, multi-domain | `@chief-architect` |
+| ORCHESTRATE | complete, full, entire, end-to-end, multi-domain | Pyramid with `@chief-architect` pre-decomposition |
 | SIMPLE | direct question, no action needed | Direct answer |
+
+### Pyramid Routes (code-producing)
+
+These routes ALWAYS use the pyramid: **FEATURE, REFACTOR, TEST, IMPLEMENT, DEBUG, MIGRATE, OPTIMIZE, CODE, DATABASE, TECH_DEBT**
+
+### Direct Routes (no pyramid)
+
+These routes dispatch to a specialist directly: **RESEARCH, PLAN, DEPLOY, MONITOR, INCIDENT, REVIEW, ROLLBACK, SEO, SECURITY, UX, RESPONSIVE, THEME, I18N, ARCHITECTURE, API, TESTING, DEVOPS, SECDEVOPS, BUSINESS, CONTENT, PRODUCT, CONTEXT, SIMPLE**
 
 ### Disambiguation Priority
 
@@ -86,96 +113,60 @@ When keywords match multiple routes, use this priority:
 5. **ROLLBACK** takes priority over DEBUG (user wants to undo, not investigate)
 6. **"fix"** routes to DEBUG (not IMPLEMENT) unless preceded by "implement the fix"
 
-### Skill-to-Route Mapping
-
-| Route | Agent | Auto-Invoked Skills |
-|-------|-------|-------------------|
-| FEATURE | `/workflow` | research-methodology, planning-methodology, quality-validation, pattern-recognition |
-| RESEARCH | `@docs-researcher` | research-methodology, quality-validation |
-| PLAN | `@implementation-planner` | planning-methodology, quality-validation |
-| IMPLEMENT | `@code-implementer` | pattern-recognition (on success) |
-| DEBUG | `@brahma-investigator` | quality-validation |
-| REFACTOR | `@code-implementer` | pattern-recognition (on success) |
-| TEST | `@code-implementer` | (none) |
-| MIGRATE | `/workflow` | research-methodology, planning-methodology, quality-validation |
-
-### Complexity Detection
-- **Simple** (1-2 files): Direct execution, minimal plan
-- **Medium** (3-5 files): Agent Team (default) or sequential workflow
-- **Complex** (6+ files, multi-domain): Agent Team with `@chief-architect` orchestration
-
-### Agent Teams (Default for FEATURE/IMPLEMENT/ORCHESTRATE)
-
-**Agent Teams is ON by default.** For FEATURE, IMPLEMENT, and ORCHESTRATE routes, `/do` automatically plans with Agent Team teammates unless the user opts out.
-
-**Opt-out keywords** (use sequential sub-agents instead):
-- "simple", "sequential", "sin equipo", "no team", "solo", "single agent"
-
-**Default behavior** (no opt-out keyword detected):
-```
-Route: FEATURE
-Agent Team: 3 teammates
-
-1. Backend Teammate: [scope]
-2. Frontend Teammate: [scope]
-3. Tests Teammate: [scope]
-
-File ownership and dependencies defined per teammate.
-Proceed? (yes / modify / cancel)
-```
-
-**Opted-out behavior** (`/do add auth, simple`):
-```
-Route: FEATURE
-Agent: /workflow (sequential, single agent)
-...
-```
-
-Agent Teams still require user confirmation before spawning.
-
 ---
 
 ## Step 2: PLAN (Mandatory)
 
 **Always show a plan before executing. No exceptions.**
 
-Based on the classified route, present:
+### For Pyramid Routes:
 
 ```
 Route: [ROUTE NAME]
-Agent: [agent or command to execute]
-Quality Gates: [gates from quality-gates.md for this route]
+Execution: Pyramid (plan -> code -> review)
+Coordinators:
+  - @plan-coordinator: Research + plan the implementation
+  - @code-coordinator: Implement with TDD
+  - @review-coordinator: Code review + browser testing
+Quality Gates: Plan (85+) -> Tests Pass -> Review (80+)
+Fix Loop: Up to 3 iterations if reviewer finds issues
+
+Plan Preview:
+1. Plan Coordinator: [what will be planned]
+2. Code Coordinator: [what will be implemented]
+3. Review Coordinator: [what will be reviewed + browser tested]
+
+Proceed? (yes / modify / cancel)
+```
+
+### For Direct Routes:
+
+```
+Route: [ROUTE NAME]
+Agent: [specialist agent]
+Quality Gates: [gates for this route]
 
 Plan:
 1. [First action]
 2. [Second action]
 3. [Expected deliverable]
 
-Estimated time: [X] minutes
-
 Proceed? (yes / modify / cancel)
 ```
 
 ### Agentic Interviewing (Complex Tasks)
 
-For FEATURE and ORCHESTRATE routes with ambiguous requirements, use structured multi-choice questions to enhance the specification before planning:
+For FEATURE and ORCHESTRATE routes with ambiguous requirements, use structured multi-choice questions before planning:
 
 1. Identify ambiguities in the request
 2. Present 2-3 focused questions with concrete options
 3. Use answers to refine the plan
 4. Then present the refined plan for confirmation
 
-This prevents misalignment early -- before any code is written.
-
-### Quality Gates Reference
-@.claude/templates/quality-gates.md
-
-The plan must show which gates apply to this route (from the gates-per-route table).
-
 ### Smart Shortcuts
-- If ResearchPack already exists -> skip research, note in plan
-- If Implementation Plan exists -> skip planning, note in plan
-- If circuit breaker OPEN -> refuse implementation, suggest diagnostics
+- If ResearchPack already exists -> plan-coordinator skips research
+- If Implementation Plan exists -> skip to code-coordinator
+- If circuit breaker OPEN -> refuse pyramid, suggest diagnostics
 
 ---
 
@@ -189,19 +180,52 @@ Wait for user confirmation before executing:
 
 ---
 
-## Step 4: EXECUTE
+## Step 4: EXECUTE (Pyramid)
 
-Run the classified route with the confirmed plan:
+For pyramid routes, use the pyramid-loop skill:
 
-1. Dispatch to the selected agent or command
-2. Evaluate quality gates between phases (if multi-phase route)
-3. If a gate FAILS: stop, report the failure, suggest fixes
-4. If circuit breaker trips: stop, report state
+### 4.1: Dispatch Plan Coordinator
+```
+Spawn @plan-coordinator with:
+  TASK: [user's request]
+  CONTEXT: [project info, relevant files]
+  ITERATION: 1
+```
+Receive Plan Coordinator Report. Verify plan score >= 85.
 
-### Execution Rules
-- Follow the plan exactly as confirmed
-- Report progress at natural milestones
-- If blocked, report immediately (don't spin)
+### 4.2: Dispatch Code Coordinator
+```
+Spawn @code-coordinator with:
+  PLAN: [full plan from plan-coordinator]
+  CONTEXT: [project conventions]
+  ITERATION: 1
+```
+Receive Code Coordinator Report. Verify tests pass.
+
+### 4.3: Dispatch Review Coordinator
+```
+Spawn @review-coordinator with:
+  CHANGES: [changed files]
+  PLAN: [original plan summary]
+  COMMIT: [git hash]
+  PROJECT TYPE: [stack]
+  ITERATION: 1
+```
+Receive Review Coordinator Report.
+
+### 4.4: Evaluate Review Verdict
+
+**PASS** -> Go to Step 5.
+
+**FAIL (iteration < 3)** -> Send review findings to @plan-coordinator as fix request -> repeat 4.2 -> 4.3 -> 4.4.
+
+**FAIL (iteration = 3)** -> Report all findings to user, suggest manual intervention.
+
+---
+
+## Step 4-ALT: EXECUTE (Direct Routes)
+
+For non-pyramid routes, dispatch directly to the specialist agent and wait for their Agent Report.
 
 ---
 
@@ -209,18 +233,31 @@ Run the classified route with the confirmed plan:
 
 After execution completes, present results:
 
-1. Receive Agent Report from dispatched agent
-2. Check status: COMPLETE / PARTIAL / BLOCKED / FAILED
-3. Present summary to user:
-   - Key findings (top 3)
-   - Changes made (file list)
-   - Quality gate results
-   - Any blockers or risks
-4. Offer drill-down: "Want details on [specific finding]?"
-5. If BLOCKED/FAILED: Report issue and suggest next steps
+### For Pyramid Routes:
+```
+## Pyramid Execution Report
 
-### Agent Report Protocol
-@.claude/templates/AGENT-REPORT-PROTOCOL.md
+Task: [original request]
+Iterations: [1-3]
+Final Verdict: [PASS | FAIL (escalated)]
+
+Plan: [score/100] | Code: [tests pass] | Review: [score/100]
+
+Changes Made:
+- file1.ext: [summary]
+- file2.ext: [summary]
+
+Commit: [hash] | Rollback: `git revert [hash]`
+
+Want details on any phase? (plan / code / review)
+```
+
+### For Direct Routes:
+Present the specialist agent's report with:
+- Key findings (top 3)
+- Changes made (file list)
+- Quality gate results
+- Offer drill-down
 
 ---
 
@@ -229,37 +266,34 @@ After execution completes, present results:
 **User**: `/do add authentication to my API`
 ```
 Route: FEATURE
-Agent: /workflow (research -> plan -> implement)
-Gates: Research (80+) -> Plan (85+) -> Tests Pass
+Execution: Pyramid (plan -> code -> review)
+Coordinators:
+  - @plan-coordinator: Research auth options, plan middleware + routes
+  - @code-coordinator: Implement auth with TDD
+  - @review-coordinator: Security review + test auth flow in browser
+Quality Gates: Plan (85+) -> Tests Pass -> Review (80+)
+Fix Loop: Up to 3 iterations
 
-Plan:
-1. @docs-researcher: Research auth library options
-2. @implementation-planner: Create implementation blueprint
-3. @code-implementer: Implement with TDD
-
-Estimated time: 10-15 minutes
 Proceed?
 ```
 
 **User**: `/do why is the login failing?`
 ```
 Route: DEBUG
-Agent: @brahma-investigator
-Gates: Investigation Complete -> Fix Verified
+Execution: Pyramid (plan -> code -> review)
+Coordinators:
+  - @plan-coordinator: Investigate root cause, plan the fix
+  - @code-coordinator: Implement fix with regression test
+  - @review-coordinator: Verify fix + test login flow in browser
+Quality Gates: Plan (85+) -> Tests Pass -> Review (80+)
 
-Plan:
-1. Investigate login failure with 3-retry strategy
-2. Identify root cause with evidence
-3. Create regression test
-
-Estimated time: 5-10 minutes
 Proceed?
 ```
 
 **User**: `/do research Redis caching`
 ```
 Route: RESEARCH
-Agent: @docs-researcher
+Agent: @docs-researcher (direct, no pyramid)
 Gates: ResearchPack (80+)
 
 Plan:
@@ -267,22 +301,6 @@ Plan:
 2. Extract key APIs, setup, gotchas
 3. Deliver ResearchPack
 
-Estimated time: 2 minutes
-Proceed?
-```
-
-**User**: `/do deploy v2.0`
-```
-Route: DEPLOY
-Agent: @brahma-deployer
-Gates: Pre-deploy Checks -> Post-deploy Validation
-
-Plan:
-1. Pre-deployment validation (tests, staging, config)
-2. Canary deployment (5% -> 25% -> 50% -> 100%)
-3. Post-deployment monitoring
-
-Estimated time: 45-60 minutes
 Proceed?
 ```
 

@@ -1,7 +1,7 @@
 #Requires -Version 5.1
 <#
 .SYNOPSIS
-    Agentic Substrate v7.1.0 - PowerShell Installer for Windows
+    Agentic Substrate v7.2.0 - PowerShell Installer for Windows
 
 .DESCRIPTION
     Native Windows installer for the Agentic Substrate system.
@@ -34,7 +34,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$VERSION = "7.1.0"
+$VERSION = "7.2.0"
 $CLAUDE_TARGET = Join-Path $env:USERPROFILE ".claude"
 $SCRIPT_DIR = Split-Path -Parent $MyInvocation.MyCommand.Path
 # Resolve repo root: scripts/windows/install.ps1 -> repo root is ../../
@@ -609,7 +609,7 @@ function Show-Summary {
     Write-Host "  Location: $CLAUDE_TARGET"
     Write-Host "  Version: $VERSION"
     Write-Host "  Platform: Windows (PowerShell)"
-    Write-Host "  Agents: 15 | Skills: 5 | Commands: 12"
+    Write-Host "  Agents: 28 | Skills: 11 | Commands: 22 | Pyramid: plan->code->review"
     Write-Host ""
 
     if ($BACKUP_LOCATION) {

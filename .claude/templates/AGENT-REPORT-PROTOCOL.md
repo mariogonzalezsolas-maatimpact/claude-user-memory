@@ -124,4 +124,80 @@ Lead requests: Full artifact (ResearchPack, Plan, Audit Report, etc.)
 
 ---
 
-**Updated**: 2026-03-10 | **Version**: 7.1.0 | **Protocol**: Agent Report v1.1
+## Pyramid Coordinator Reports
+
+In the 3-tier pyramid orchestration, each Tier 2 coordinator uses a specialized compact report format optimized for the orchestrator to process quickly.
+
+### Plan Coordinator Report (<500 tokens)
+```markdown
+## Plan Coordinator Report
+**Task**: [1-line]
+**Status**: [COMPLETE | BLOCKED]
+**Plan Score**: [X/100]
+**Research Done**: [Yes/No]
+
+### Implementation Plan Summary
+**Files**: [N] | **Steps**: [N] | **Est. Time**: [X min]
+- `file1`: [change]
+- `file2`: [change]
+
+### Detailed Plan
+[Full plan with code snippets]
+
+### Blockers
+- [Any, or "None"]
+```
+
+### Code Coordinator Report (<500 tokens)
+```markdown
+## Code Coordinator Report
+**Task**: [1-line]
+**Status**: [COMPLETE | PARTIAL | BLOCKED]
+**Duration**: [X min]
+**Self-Corrections**: [0-3]
+
+### Changes Made
+- `file1`: [change]
+
+### Test Results
+| Tests written | Tests passing | Regressions | Build |
+|[N]|[N/N]|[0]|[PASS]|
+
+### Git Commit
+- Hash: [abc1234] | Rollback: `git revert [hash]`
+```
+
+### Review Coordinator Report (<600 tokens)
+```markdown
+## Review Coordinator Report
+**Task**: Review of [feature]
+**Status**: [PASS | FAIL]
+**Review Score**: [X/100]
+**Iteration**: [1/2/3]
+
+### Scores
+| Correctness | Security | Performance | Quality | Tests |
+|[X]|[X]|[X]|[X]|[X]|
+
+### Findings
+1. **[severity]** `file:line` -- [issue] -> [fix]
+
+### Browser Testing
+| Page loads | Feature flow | Console errors |
+|[result]|[result]|[result]|
+
+### Verdict
+[PASS or FAIL with fix request]
+```
+
+### Why Separate Formats?
+
+The orchestrator processes 3 coordinator reports per iteration (up to 9 for 3 iterations). Compact, typed reports allow:
+- **Instant status scan**: Read 3 status lines in <5 sec
+- **Targeted drill-down**: Only expand the report that needs attention
+- **Fix loop efficiency**: Review FAIL report maps directly to plan-coordinator input
+- **Total overhead**: ~1500 tokens per iteration (3 x ~500 tokens)
+
+---
+
+**Updated**: 2026-03-25 | **Version**: 7.2.0 | **Protocol**: Agent Report v1.2 (Pyramid-aware)

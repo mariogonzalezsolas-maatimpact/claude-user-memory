@@ -1,9 +1,10 @@
 # Skills Overview
 
-10 skills that enhance agent capabilities:
+11 skills that enhance agent capabilities:
 
 | Skill | Triggers When | Key Function |
 |-------|--------------|--------------|
+| **pyramid-loop** | **Any code-producing /do route** | **Manages plan->code->review loop with fix iterations (max 3)** |
 | research-methodology | Library/API implementation needed | Fetches version-accurate docs, assembles ResearchPack (<2 min) |
 | planning-methodology | Research -> plan transformation | Minimal-change blueprints with rollback procedures |
 | quality-validation | ResearchPack or Plan completed | Scores and gates: Research 80+, Plan 85+ |
@@ -17,6 +18,19 @@
 
 ## How They Work Together
 
+### Pyramid Flow (Default for code-producing tasks)
+```
+User: "/do Add Redis caching"
+  1. pyramid-loop -> activates 3-tier orchestration
+  2. @plan-coordinator: research-methodology + planning-methodology + quality-validation (85+)
+  3. @code-coordinator: TDD implementation from plan
+  4. @review-coordinator: code review + browser testing + quality-validation (80+)
+  5. IF review FAILS -> fix loop: plan-coordinator re-plans -> code-coordinator fixes -> review again
+  6. IF review PASSES -> pattern-recognition -> knowledge-core.md
+  7. context-engineering -> Archives completed, loads next task
+```
+
+### Legacy Flow (Direct agent dispatch)
 ```
 User: "Add Redis caching"
   1. research-methodology -> ResearchPack
@@ -54,4 +68,4 @@ User: "Organize this codebase for AI agents"
 
 ---
 
-**Updated**: 2026-03-10 | **Version**: 7.1.0
+**Updated**: 2026-03-25 | **Version**: 7.2.0

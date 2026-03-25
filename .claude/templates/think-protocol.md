@@ -29,3 +29,7 @@ Extended thinking is automatically invoked for:
 2. **Don't overthink simple tasks**: If the path is clear, execute directly
 3. **Document reasoning**: When using extended thinking, summarize the key decision and rationale
 4. **Progressive escalation**: Start with "think", escalate if initial analysis reveals unexpected complexity
+
+---
+
+**Updated**: 2026-03-25 | **Version**: 7.2.0

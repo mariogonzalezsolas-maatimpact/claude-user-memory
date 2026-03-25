@@ -1,16 +1,20 @@
-# Agentic Substrate v7.1
+# Agentic Substrate v7.2
 # --- AGENTIC SUBSTRATE START ---
+
+## Pyramid Orchestration (Default)
+All code-producing `/do` routes use 3-tier pyramid: orchestrator -> plan-coordinator -> code-coordinator -> review-coordinator. Review triggers fix loop (max 3 iterations). Browser testing via Playwright MCP.
 
 ## System Rules
 - Never code from memory -- use @docs-researcher or /research first
 - Every change: minimal, surgical, reversible
 - TDD mandatory: RED -> GREEN -> REFACTOR
-- Quality gates: Research 80+, Plan 85+, Tests pass
+- Quality gates: Plan 85+, Tests pass, Review 80+
+- Pyramid loop: plan -> code -> review -> fix (max 3 iterations)
 - Circuit breaker opens after 3 failures: /circuit-breaker reset
 - **CRITICAL: Error Self-Tracking** -- When you make a mistake, log it to `memory/errors.md` immediately. The auto-error-capture hook logs subagent failures automatically. Read errors.md at session start (auto-loaded by session-start hook). Check for patterns: 3+ similar errors = create a prevention rule. Never repeat a documented error. This is your feedback loop for continuous improvement.
 
 ## Commands (22)
-- `/do [anything]` -- Universal router with mandatory planning (RECOMMENDED)
+- `/do [anything]` -- Universal router with pyramid orchestration (RECOMMENDED)
 - `/workflow [feature]` -- Full automation: research -> plan -> implement
 - `/research [topic]` -- Fetch version-accurate docs (<2 min)
 - `/plan [feature]` -- Create minimal-change blueprint
@@ -33,7 +37,8 @@
 - `/secdevops [scope]` -- SAST/DAST, supply chain, pipeline security
 - `/tech-debt [scope]` -- Continuous tech debt reduction
 
-## 25 Agents (5 Tiers, 3 Models)
+## 28 Agents (5 Tiers + Pyramid, 3 Models)
+- **Pyramid Coordinators** (opus+sonnet): plan-coordinator, code-coordinator, review-coordinator
 - **Orchestrator** (opus): chief-architect
 - **Core** (opus+sonnet): docs-researcher, implementation-planner, brahma-analyzer, code-implementer, brahma-investigator
 - **Engineering** (opus+sonnet): software-architect, programmer, database-architect, api-designer, testing-engineer
@@ -44,12 +49,13 @@
 Add keyword: **think** (30-60s) | **think hard** (1-2min) | **think harder** (2-4min) | **ultrathink** (5-10min)
 
 ## Quick Fixes
-- Research <80 -> specify library version explicitly
 - Plan <85 -> add rollback procedure + complete file list
+- Review <80 -> address critical findings first
 - Circuit breaker open -> `/circuit-breaker reset`
 - Context too large -> `/context optimize`
 
 ## Detailed Documentation
+@.claude/templates/pyramid-orchestration.md
 @.claude/templates/agents-overview.md
 @.claude/templates/skills-overview.md
 @.claude/templates/workflows-overview.md

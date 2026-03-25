@@ -59,4 +59,4 @@ Without learnings capture, agents **re-explore dead ends every time**. They have
 ---
 
 **Source**: Alejandro Vidal, "Agentic Engineering" (Rollback + Learnings) - HACKNIGHT Valencia 2026
-**Updated**: 2026-03-10 | **Version**: 7.1.0
+**Updated**: 2026-03-25 | **Version**: 7.2.0

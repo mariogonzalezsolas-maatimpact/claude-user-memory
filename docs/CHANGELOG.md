@@ -5,6 +5,57 @@ All notable changes to Agentic Substrate will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [7.2.0] - 2026-03-25
+
+### Added
+
+#### Pyramid Orchestration (3-Tier Execution Model)
+- **@plan-coordinator** (opus) - Tier 2 planning coordinator: research + analysis + implementation plan
+- **@code-coordinator** (opus) - Tier 2 coding coordinator: TDD implementation from plan with self-correction (3 retries)
+- **@review-coordinator** (sonnet) - Tier 2 review coordinator: code review + browser testing via Playwright MCP
+- **pyramid-loop** skill - Manages plan -> code -> review loop with automatic fix iterations (max 3)
+- **pyramid-orchestration.md** template - Full protocol documentation for the 3-tier pyramid
+- **Review Gate** - New quality gate: review score >= 80, no critical findings, triggers fix loop on FAIL
+
+#### Agent Report Protocol v1.2
+- Pyramid-specific compact report formats for plan/code/review coordinators (<500 tokens each)
+- Orchestrator processes ~1500 tokens per iteration (3 x ~500 tokens) for efficient coordination
+
+### Changed
+- **Version**: 7.1.0 -> 7.2.0
+- **Agents**: 25 -> 28 (3 new pyramid coordinators)
+- **Skills**: 10 -> 11 (added pyramid-loop)
+- **Model distribution**: 5 Opus -> 7 Opus (plan-coordinator + code-coordinator), 12 Sonnet -> 13 Sonnet (review-coordinator)
+- **Routes**: 34 total (10 pyramid + 24 direct) - all code-producing routes now use pyramid by default
+- **`/do` command**: Rewritten for pyramid orchestration with plan -> code -> review -> fix loop
+- **CLAUDE.md**: Updated directory counts (28 agents, 11 skills)
+- **agents-overview.md**: Added Pyramid Coordinators section, updated model distribution table
+- **workflows-overview.md**: Added pyramid routes table, updated core workflow documentation
+- **quality-gates.md**: Added Review Gate with fix loop specification
+- **skills-overview.md**: Added pyramid-loop to skill list, updated flow diagram
+- **AGENT-REPORT-PROTOCOL.md**: Added pyramid coordinator report formats
+- **CLAUDE.md.user-level**: Updated for pyramid orchestration references
+- **mcp-config-template.json**: Updated with pyramid coordinator mappings
+- **manifest-template.json**: Updated to 99 managed files with new pyramid assets
+- **install.sh / install.ps1**: Updated version to 7.2.0, added pyramid coordinator files
+- **7 templates**: Version bumped from 7.1.0 to 7.2.0 (adr-template, api-spec-template, hawk-pattern, learnings-template, perceptual-diff, scratchpad, think-protocol)
+- **knowledge-core.md**: Full refresh from v6.0 to v7.2 (28 agents, 5 tiers + pyramid)
+
+### Architecture
+- **3-Tier Pyramid** (default execution model):
+  - Tier 1: Orchestrator (main thread) - classifies, dispatches, synthesizes
+  - Tier 2: plan-coordinator -> code-coordinator -> review-coordinator
+  - Tier 3: Coordinators handle specialties internally (research, TDD, Playwright)
+- **Fix Loop**: Review FAIL triggers plan-coordinator re-plan -> code-coordinator fix -> review again (max 3 iterations)
+- **Key Constraint**: Sub-agents cannot spawn other sub-agents; orchestrator manages all dispatching
+
+### Cost Considerations
+- 1 iteration (happy path): 3 agent calls
+- 2 iterations (1 fix loop): 6 agent calls
+- 3 iterations (max fix loops): 9 agent calls
+
+---
+
 ## [7.1.0] - 2026-03-10
 
 ### Added

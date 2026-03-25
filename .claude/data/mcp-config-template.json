@@ -55,9 +55,28 @@
       "installation_note": "Enable after installing context7 MCP server"
     },
 
-    "gsc": {
+    "playwright": {
       "enabled": true,
       "priority": 5,
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"],
+      "description": "Browser automation for testing UI flows, taking screenshots, and verifying web applications",
+      "required_for": ["review-coordinator"],
+      "tools": [
+        "browser_navigate", "browser_click", "browser_type",
+        "browser_snapshot", "browser_take_screenshot",
+        "browser_assert_contains_text", "browser_go_back",
+        "browser_go_forward", "browser_select_option",
+        "browser_hover", "browser_scroll", "browser_press_key",
+        "browser_wait_for_navigation", "browser_close"
+      ],
+      "installation_note": "Requires Node.js. Install browsers: npx playwright install chromium"
+    },
+
+    "gsc": {
+      "enabled": true,
+      "priority": 6,
       "type": "stdio",
       "command": "python",
       "args": ["gsc_server.py"],
@@ -151,6 +170,21 @@
     "ux-accessibility-reviewer": {
       "mcps": ["memory"],
       "description": "UX reviewer uses memory for accessibility baselines and heuristic scores"
+    },
+
+    "plan-coordinator": {
+      "mcps": ["memory", "deepwiki"],
+      "description": "Plan coordinator needs memory for patterns and DeepWiki for API research"
+    },
+
+    "code-coordinator": {
+      "mcps": ["memory", "deepwiki"],
+      "description": "Code coordinator needs memory for patterns and DeepWiki for accurate APIs"
+    },
+
+    "review-coordinator": {
+      "mcps": ["memory", "playwright"],
+      "description": "Review coordinator needs memory for quality baselines and Playwright for browser testing"
     }
   },
 
