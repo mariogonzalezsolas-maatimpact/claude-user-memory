@@ -5,7 +5,7 @@ All notable changes to Agentic Substrate will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [7.2.0] - 2026-03-25
+## [7.2.1] - 2026-03-30
 
 ### Added
 
@@ -22,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Orchestrator processes ~1500 tokens per iteration (3 x ~500 tokens) for efficient coordination
 
 ### Changed
-- **Version**: 7.1.0 -> 7.2.0
+- **Version**: 7.1.0 -> 7.2.1
 - **Agents**: 25 -> 32 (3 new pyramid coordinators + 4 new specialists: mcp-builder, data-engineer, incident-commander, technical-writer)
 - **Skills**: 10 -> 23 (added pyramid-loop, 5 frontend/design skills, 3 process/quality skills, generate-docs, auto-memory-capture, nextjs-firebase-gcp, django-patterns)
 - **Model distribution**: 5 Opus -> 8 Opus (plan-coordinator + code-coordinator + mcp-builder), 12 Sonnet -> 16 Sonnet (review-coordinator + technical-writer + data-engineer + incident-commander)
@@ -37,8 +37,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **CLAUDE.md.user-level**: Updated for pyramid orchestration references
 - **mcp-config-template.json**: Updated with pyramid coordinator mappings
 - **manifest-template.json**: Updated to 99 managed files with new pyramid assets
-- **install.sh / install.ps1**: Updated version to 7.2.0, added pyramid coordinator files
-- **7 templates**: Version bumped from 7.1.0 to 7.2.0 (adr-template, api-spec-template, hawk-pattern, learnings-template, perceptual-diff, scratchpad, think-protocol)
+- **install.sh / install.ps1**: Updated version to 7.2.1, added pyramid coordinator files
+- **7 templates**: Version bumped from 7.1.0 to 7.2.1 (adr-template, api-spec-template, hawk-pattern, learnings-template, perceptual-diff, scratchpad, think-protocol)
 - **knowledge-core.md**: Full refresh from v6.0 to v7.2 (32 agents, 5 tiers + pyramid)
 
 ### Architecture

@@ -32,4 +32,4 @@ Extended thinking is automatically invoked for:
 
 ---
 
-**Updated**: 2026-03-25 | **Version**: 7.2.0
+**Updated**: 2026-03-30 | **Version**: 7.2.1

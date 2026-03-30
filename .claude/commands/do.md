@@ -23,8 +23,6 @@ Every `/do` invocation follows this mandatory flow. No step is skipped.
 
 All code-producing routes use the 3-tier pyramid by default:
 
-@.claude/templates/pyramid-orchestration.md
-
 ```
 Tier 1: Orchestrator (this thread) -- classifies, dispatches, synthesizes
 Tier 2: plan-coordinator -> code-coordinator -> review-coordinator

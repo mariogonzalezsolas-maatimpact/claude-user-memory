@@ -1,20 +1,23 @@
 ---
 name: pyramid-loop
-description: Manages the 3-tier pyramid orchestration loop (plan -> code -> review -> fix). Auto-invoked by /do for all routes that involve code changes. Enforces the coordinator sequence and fix loop with max 3 iterations.
+description: Manages code-producing routes with two modes — Full Pyramid (plan-coordinator -> code-coordinator -> review-coordinator with fix loop) for FEATURE/IMPLEMENT/MIGRATE/ORCHESTRATE, and Lightweight (@programmer direct) for REFACTOR/TEST/DEBUG/OPTIMIZE/CODE/DATABASE/TECH_DEBT. Auto-invoked by /do.
 auto_invoke: true
-tags: [orchestration, pyramid, loop, quality]
+tags: [orchestration, pyramid, loop, quality, lightweight]
 ---
 
 # Pyramid Loop Skill
 
-This skill manages the 3-tier pyramid orchestration loop. It ensures every code-producing task goes through the plan-coordinator -> code-coordinator -> review-coordinator sequence, with automatic fix loops when the reviewer finds issues.
+This skill manages code-producing routes with two execution modes:
+
+- **Full Pyramid**: 3-coordinator chain (plan -> code -> review) with fix loop (max 3 iterations)
+- **Lightweight**: Direct dispatch to @programmer with a simpler plan -> implement -> done flow
 
 ## When Claude Should Use This Skill
 
 Claude will automatically invoke this skill when:
-- `/do` classifies a route that involves code changes (FEATURE, REFACTOR, TEST, IMPLEMENT, MIGRATE, DEBUG, CODE, TECH_DEBT)
+- `/do` classifies a route that involves code changes
 - `/workflow` is invoked
-- Any task requires planning + coding + review
+- Any task requires planning + coding
 
 **Do NOT invoke when:**
 - Route is SIMPLE (direct answer)
@@ -23,7 +26,88 @@ Claude will automatically invoke this skill when:
 - Route is CONTEXT (utility command)
 - User explicitly opts out: "simple", "sequential", "sin equipo", "no pyramid", "directo"
 
-## Core Protocol
+## Route Classification
+
+### Full Pyramid Routes
+**FEATURE, IMPLEMENT, MIGRATE, ORCHESTRATE**
+
+These routes use the full 3-coordinator chain with fix loop:
+- @plan-coordinator -> @code-coordinator -> @review-coordinator
+- Fix loop: max 3 iterations if review fails
+- Quality gates: Plan (85+), Tests pass, Review (80+)
+
+### Lightweight Routes
+**REFACTOR, TEST, DEBUG, OPTIMIZE, CODE, DATABASE, TECH_DEBT**
+
+These routes dispatch directly to @programmer:
+- Plan (brief) -> @programmer implements -> done
+- No coordinator chain, no fix loop
+- Quality gate: Tests pass
+
+### Upgrade to Full Pyramid
+
+If the user adds **"con review"** or **"with review"** to a Lightweight route, upgrade it to the Full Pyramid flow. Examples:
+- `/do refactor auth module, con review` -> Full Pyramid
+- `/do fix login bug, with review` -> Full Pyramid
+- `/do optimize queries` -> Lightweight (default)
+
+## Lightweight Protocol
+
+For Lightweight routes (REFACTOR, TEST, DEBUG, OPTIMIZE, CODE, DATABASE, TECH_DEBT):
+
+```
+1. Analyze the task and create a brief plan (inline, no coordinator)
+2. Dispatch to @programmer with task + context + plan
+3. Read @programmer report -> verify tests pass
+4. IF tests pass: DONE -> synthesize final report
+5. IF tests fail: @programmer self-corrects (up to 3 retries via circuit breaker)
+```
+
+### Dispatch to @programmer (Lightweight)
+```
+You are the programmer for this task.
+
+TASK: {user_request}
+ROUTE: {route} (Lightweight)
+
+CONTEXT:
+- Project: {project_name}
+- Type: {project_type}
+- Key files: {relevant_files}
+- Conventions: {coding_conventions}
+- Constraints: {user_constraints}
+
+PLAN:
+{brief_plan}
+
+Implement with TDD discipline. Run tests and verify they pass.
+Report back with your Agent Report format.
+```
+
+### Lightweight Final Report
+
+```markdown
+## Lightweight Execution Complete
+
+**Task**: {original_request}
+**Route**: {route} (Lightweight)
+**Executor**: @programmer
+
+### Changes Made
+{file list from @programmer}
+
+### Test Results
+| Tests written | Tests passing | Build |
+|{N}|{N/N}|{PASS}|
+
+### Commit
+- Hash: {hash}
+- Rollback: `git revert {hash}`
+```
+
+## Full Pyramid Protocol
+
+For Full Pyramid routes (FEATURE, IMPLEMENT, MIGRATE, ORCHESTRATE):
 
 ### The Pyramid Sequence
 
@@ -206,4 +290,4 @@ The pyramid loop enforces quality gates at each transition:
 
 ---
 
-**This skill ensures that every code change is planned, implemented with TDD, and reviewed before being considered complete. The fix loop drives quality convergence.**
+**This skill ensures that every code change follows the appropriate execution path. Full Pyramid routes get planned, implemented, and reviewed with fix loops. Lightweight routes get fast @programmer execution with TDD. Both paths drive quality convergence.**

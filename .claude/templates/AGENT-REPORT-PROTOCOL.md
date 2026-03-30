@@ -201,4 +201,4 @@ The orchestrator processes 3 coordinator reports per iteration (up to 9 for 3 it
 
 ---
 
-**Updated**: 2026-03-25 | **Version**: 7.2.0 | **Protocol**: Agent Report v1.2 (Pyramid-aware)
+**Updated**: 2026-03-30 | **Version**: 7.2.1 | **Protocol**: Agent Report v1.2 (Pyramid-aware)

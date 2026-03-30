@@ -634,4 +634,4 @@ MIT License - Ver [LICENSE](LICENSE)
 
 ---
 
-**Version:** 7.2.0 | **Fecha:** 2026-03-25 | **Agentes:** 32 (8 Opus + 16 Sonnet + 8 Haiku) | **Comandos:** 26 | **Skills:** 23 | **Hooks:** 18
+**Version:** 7.2.1 | **Fecha:** 2026-03-25 | **Agentes:** 32 (8 Opus + 16 Sonnet + 8 Haiku) | **Comandos:** 26 | **Skills:** 23 | **Hooks:** 18

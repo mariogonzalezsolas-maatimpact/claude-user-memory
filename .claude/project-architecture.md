@@ -44,4 +44,4 @@ Review triggers fix loop (max 3 iterations). See `.claude/templates/pyramid-orch
 
 ---
 
-**Updated**: 2026-03-25 | **Version**: 7.2.0
+**Updated**: 2026-03-30 | **Version**: 7.2.1
