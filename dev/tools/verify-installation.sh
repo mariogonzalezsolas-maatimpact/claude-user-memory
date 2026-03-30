@@ -39,11 +39,11 @@ echo ""
 # Check agents
 echo "🤖 Checking agents..."
 AGENT_COUNT=$(find "$CLAUDE_DIR/agents" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
-if [ "$AGENT_COUNT" -eq 25 ]; then
-    check_pass "All 25 agents installed"
+if [ "$AGENT_COUNT" -eq 32 ]; then
+    check_pass "All 32 agents installed"
     check_info "$(ls "$CLAUDE_DIR"/agents/*.md | xargs -n1 basename | sed 's/^/    - /')"
 else
-    check_fail "Expected 25 agents, found $AGENT_COUNT"
+    check_fail "Expected 32 agents, found $AGENT_COUNT"
 fi
 echo ""
 
@@ -61,11 +61,11 @@ echo ""
 # Check commands
 echo "⚡ Checking commands..."
 COMMAND_COUNT=$(find "$CLAUDE_DIR/commands" -name "*.md" 2>/dev/null | wc -l | tr -d ' ')
-if [ "$COMMAND_COUNT" -eq 22 ]; then
-    check_pass "All 22 commands installed"
+if [ "$COMMAND_COUNT" -eq 26 ]; then
+    check_pass "All 26 commands installed"
     check_info "$(ls "$CLAUDE_DIR"/commands/*.md | xargs -n1 basename | sed 's/\.md$//' | sed 's/^/    \/ /')"
 else
-    check_fail "Expected 22 commands, found $COMMAND_COUNT"
+    check_fail "Expected 26 commands, found $COMMAND_COUNT"
 fi
 echo ""
 

@@ -196,6 +196,94 @@ xl (1280px+):       Max-width container, larger spacing
 
 **Touch targets**: Minimum 44x44px (WCAG), recommended 48x48px.
 
+## Industry Design Reference
+
+When designing for a specific product type, use this reference to select appropriate styles, colors, and typography.
+
+### Style Guide by Industry
+
+| Industry | Recommended Styles | Color Mood | Typography Mood | Anti-Patterns |
+|----------|-------------------|------------|-----------------|---------------|
+| **SaaS / B2B** | Glassmorphism + Flat Design | Trust blue + Accent contrast | Professional + Clean hierarchy | Heavy skeuomorphism, clip art icons |
+| **Micro SaaS** | Minimalism + Flat Design | Indigo primary + Emerald CTA | Modern + Friendly | Overdesigned, complex layouts |
+| **E-commerce** | Vibrant + Block-based | Success green + Urgency orange | Clear + Scannable | Low contrast CTAs, hidden prices |
+| **E-commerce Luxury** | Liquid Glass + Glassmorphism | Premium dark + Gold accent | Serif elegant + Minimal | Vibrant/cheap aesthetics, cluttered layouts |
+| **Fintech / Crypto** | Dark Mode + Glassmorphism | Gold trust + Purple tech | Monospace data + Sans UI | Playful fonts, bright pastels |
+| **Financial Dashboard** | Minimalism + Accessible | Dark bg + Green/Red indicators | Tabular + High density | Decorative elements, low data density |
+| **Healthcare** | Neumorphism + Accessible | Calm cyan + Health green | Rounded + Calm + Readable | Neon colors, motion-heavy animations |
+| **Mental Health** | Soft UI + Organic | Warm pastels + Nature tones | Gentle serif + Rounded sans | Clinical/cold aesthetics, harsh contrasts |
+| **Gaming** | 3D + Retro-Futurism | Vibrant neon + Immersive dark | Bold display + Impact | Corporate blues, minimal/flat |
+| **Creative Agency** | Neubrutalism + Bold | High contrast + Saturated | Display + Expressive | Conservative, template-looking |
+| **Portfolio** | Minimalism + Motion-Driven | Monochrome + Single accent | Swiss + Clean | Cluttered, over-animated |
+| **Restaurant / Food** | Organic + Warm | Warm earth tones + Appetite colors | Elegant serif + Friendly sans | Cold/clinical, blue tones |
+| **Hotel / Booking** | Glassmorphism + Elegant | Warm neutral + Gold accent | Refined serif + Light sans | Cheap-looking, cluttered |
+| **Education** | Accessible + Friendly | Trustworthy blue + Warm accent | Readable + Clear hierarchy | Complex layouts, tiny text |
+| **AI / Chatbot** | AI-Native UI + Glassmorphism | Indigo/Purple AI + Subtle gradients | Modern geometric sans | Skeuomorphic, retro |
+| **Government** | Accessible + Minimalism | Professional blue + High contrast | System fonts + Maximum readability | Low contrast, decorative effects |
+| **NFT / Web3** | Cyberpunk + Gradient Mesh | Neon + Dark + Chromatic | Bold futuristic + Mono | Corporate/traditional |
+| **Kids / Education** | Playful + Claymorphism | Bright primary colors + Rounded | Rounded + Large + Friendly | Small text, dark themes, complex nav |
+
+### UI Style Quick Reference
+
+| Style | Key CSS | Best For | Avoid For |
+|-------|---------|----------|-----------|
+| **Glassmorphism** | `backdrop-filter: blur(15px); background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2)` | Modern SaaS, fintech, modals | Low-perf devices, accessibility-critical |
+| **Neumorphism** | `box-shadow: -5px -5px 15px rgba(0,0,0,0.1), 5px 5px 15px rgba(255,255,255,0.8)` | Wellness, meditation, fitness | Data-heavy, high contrast needs |
+| **Neubrutalism** | `border: 3px solid black; box-shadow: 5px 5px 0px black; border-radius: 0` | Gen Z brands, startups, creative | Finance, healthcare, luxury |
+| **Minimalism** | No decoration, grid 12-16 cols, single accent color, generous whitespace | Enterprise, dashboards, docs | Entertainment, gaming, kids |
+| **Dark Mode (OLED)** | `background: #000; color: #E5E5E5; --accent: high-saturation` | Dev tools, gaming, fintech | Healthcare, education (primary) |
+| **Liquid Glass** | Chromatic aberration, fluid animations 400-600ms, translucent layers | Luxury, premium apps | Performance-sensitive, accessibility |
+| **Bento Box Grid** | CSS Grid with varied cell sizes, rounded corners, self-contained cards | Feature showcases, portfolios | Text-heavy, data tables |
+| **Cyberpunk** | Neon glows, scanline effects, mono fonts, dark bg | Gaming, NFT, entertainment | Professional services, healthcare |
+
+### Color Palette Reference
+
+For each product type, use these as starting points (compatible with shadcn/ui CSS variables):
+
+| Product Type | Primary | Accent | Background | Card | Destructive |
+|-------------|---------|--------|------------|------|-------------|
+| SaaS | `#2563EB` | `#EA580C` | `#F8FAFC` | `#FFFFFF` | `#DC2626` |
+| Micro SaaS | `#6366F1` | `#059669` | `#F5F3FF` | `#FFFFFF` | `#DC2626` |
+| E-commerce | `#059669` | `#EA580C` | `#ECFDF5` | `#FFFFFF` | `#DC2626` |
+| Luxury | `#1C1917` | `#A16207` | `#FAFAF9` | `#FFFFFF` | `#991B1B` |
+| B2B Service | `#0F172A` | `#0369A1` | `#F8FAFC` | `#FFFFFF` | `#DC2626` |
+| Financial | `#0F172A` | `#22C55E` | `#020617` | `#0F172A` | `#EF4444` |
+| Healthcare | `#0891B2` | `#059669` | `#ECFEFF` | `#FFFFFF` | `#DC2626` |
+| Gaming | `#7C3AED` | `#F43F5E` | `#0F0F23` | `#1A1A2E` | `#F43F5E` |
+| Fintech | `#F59E0B` | `#8B5CF6` | `#0F172A` | `#1E293B` | `#EF4444` |
+| AI Platform | `#6366F1` | `#8B5CF6` | `#F5F3FF` | `#FFFFFF` | `#DC2626` |
+| Restaurant | `#92400E` | `#DC2626` | `#FFFBEB` | `#FFFFFF` | `#DC2626` |
+| Portfolio | `#0F172A` | `#2563EB` | `#FFFFFF` | `#F8FAFC` | `#DC2626` |
+
+### Font Pairing Reference
+
+| Pairing | Heading | Body | Best For | Google Fonts Import |
+|---------|---------|------|----------|-------------------|
+| **Modern Professional** | Poppins | Open Sans | SaaS, business, professional | `@import url('fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@500;600;700')` |
+| **Tech Startup** | Space Grotesk | DM Sans | Tech, startups, AI products | `@import url('fonts.googleapis.com/css2?family=DM+Sans&family=Space+Grotesk:wght@500;700')` |
+| **Classic Elegant** | Playfair Display | Inter | Luxury, fashion, editorial | `@import url('fonts.googleapis.com/css2?family=Inter&family=Playfair+Display:wght@600;700')` |
+| **Minimal Swiss** | Inter | Inter | Dashboards, admin, enterprise | `@import url('fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700')` |
+| **Friendly SaaS** | Plus Jakarta Sans | Plus Jakarta Sans | Web apps, B2B, dashboards | `@import url('fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700')` |
+| **Developer** | JetBrains Mono | IBM Plex Sans | Dev tools, docs, CLIs | `@import url('fonts.googleapis.com/css2?family=IBM+Plex+Sans&family=JetBrains+Mono')` |
+| **Wellness** | Lora | Raleway | Health, meditation, spa | `@import url('fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Raleway')` |
+| **Bold Statement** | Bebas Neue | Source Sans 3 | Marketing, portfolios, sports | `@import url('fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Sans+3')` |
+| **Playful** | Fredoka | Nunito | Kids, education, gaming | `@import url('fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito')` |
+| **News Editorial** | Newsreader | Roboto | News, blogs, journalism | `@import url('fonts.googleapis.com/css2?family=Newsreader&family=Roboto')` |
+
+### Design System Generation Protocol
+
+When building a new project's design system:
+
+1. **Identify product type** from the Industry table above
+2. **Select primary style** from the recommended styles column
+3. **Apply palette** from the Color Palette Reference (adjust brand colors as needed)
+4. **Choose font pairing** that matches the typography mood
+5. **Check anti-patterns** -- verify your design avoids the listed anti-patterns for that industry
+6. **Apply style CSS** from the UI Style Quick Reference
+7. **Validate UX rules**: SVG icons (no emojis), cursor-pointer on clickables, transitions 150-300ms, text contrast 4.5:1+, focus states visible, `prefers-reduced-motion` respected
+
+Enriched with industry data from nextlevelbuilder/ui-ux-pro-max-skill (161 rules, 67 styles, 161 palettes, 73 font pairings).
+
 ## Quality Checklist
 
 Before completing any UI/UX task, verify:

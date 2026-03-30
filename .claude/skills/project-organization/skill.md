@@ -24,7 +24,7 @@ Claude will invoke this skill when:
 - Mid-implementation (would interrupt workflow)
 - Single-file tasks that don't need structural changes
 
-## The 6 Pillars
+## The 7 Pillars
 
 ### Pillar 1: CLAUDE.md as Navigation Map
 
@@ -181,6 +181,30 @@ What to do differently. Concrete, actionable rules.
 - The fix was non-obvious and took significant debugging
 - A pattern violation caused cascading failures
 
+### Pillar 7: .claude/ AI Configuration Structure
+
+When organizing a project for AI-assisted development, ensure the `.claude/` directory follows the standard structure:
+
+```
+.claude/
+├── settings.json           -> permisos + configuracion
+├── settings.local.json     -> permisos personales (gitignored)
+├── commands/               -> comandos slash personalizados
+├── rules/                  -> instrucciones modulares
+├── skills/                 -> flujos automaticos
+│   └── [skill-name]/
+│       └── skill.md
+└── agents/                 -> personas subagentes
+```
+
+**Check for**:
+- Missing CLAUDE.md at project root -> suggest `/generate-docs`
+- Missing .claude/settings.json -> generate with safe defaults
+- Non-standard .claude/ structure -> suggest `/generate-docs` for full migration
+- CLAUDE.local.md not in .gitignore -> add it
+
+**Note**: For full .claude/ generation with agentic interview, use `/generate-docs`. Project-organization checks the structure but defers full generation to the dedicated skill.
+
 ## Execution Protocol
 
 When organizing a project, follow this exact order:
@@ -217,7 +241,10 @@ When organizing a project, follow this exact order:
 - Run build, check nothing broke
 - Verify agent can find key files quickly
 
-### Step 8: Commit
+### Step 8: Check .claude/
+- Verify .claude/ structure follows standard format, suggest `/generate-docs` if not
+
+### Step 9: Commit
 - Commit to non-main branch
 - Verify in CI before merging
 
@@ -253,3 +280,4 @@ Before marking organization complete:
 - [ ] docs/learnings/ directory exists for future incident docs
 - [ ] Build passes after reorganization
 - [ ] No broken imports from file moves
+- [ ] .claude/ structure checked (standard format or /generate-docs suggested)

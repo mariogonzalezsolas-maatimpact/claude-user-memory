@@ -233,9 +233,9 @@ ls -la ~/.claude/CLAUDE.md.backup
 **Substrate Version**: v7.1.0
 
 **Total Managed Files**: 75
-- Agents: 25
-- Skills: 10
-- Commands: 22
+- Agents: 32
+- Skills: 22
+- Commands: 26
 - Hooks: 14
 - Validators: 2
 - Metrics: 1

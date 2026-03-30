@@ -2,7 +2,7 @@
 
 **Research-first development system for Claude Code CLI**
 
-> 28 agents. 22 commands. 16 auto-invoked skills. 18 lifecycle hooks. Pyramid orchestration. Auto error-learning. Zero API hallucinations. Research first, code second.
+> 32 agents. 26 commands. 22 auto-invoked skills. 18 lifecycle hooks. Pyramid orchestration. Auto error-learning. Zero API hallucinations. Research first, code second.
 
 [English](#english) | [Espanol](#espanol)
 
@@ -32,9 +32,9 @@ That's it. `/do` classifies your intent, shows a plan, waits for confirmation, a
 
 A drop-in enhancement for [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) that installs to `~/.claude/` and transforms it into a research-first development system with:
 
-- **28 specialized agents** across 5 tiers + pyramid coordinators (Orchestration, Core, Engineering, Infrastructure, Growth & Quality)
-- **16 auto-invoked skills** (research, planning, validation, pattern recognition, context management, architecture, API, testing, project organization, error learning, pyramid loop, UI/UX Pro MAX, frontend design, shadcn/ui, web accessibility, web design guidelines)
-- **22 slash commands** (`/do`, `/workflow`, `/research`, `/plan`, `/implement`, `/review`, `/mode`, `/context`, `/circuit-breaker`, `/security-audit`, `/seo-audit`, `/ux-review`, `/responsive-review`, `/theme-review`, `/i18n-review`, `/architecture`, `/database`, `/api-design`, `/test-strategy`, `/devops`, `/secdevops`, `/tech-debt`)
+- **32 specialized agents** across 5 tiers + pyramid coordinators (Orchestration, Core, Engineering, Infrastructure, Growth & Quality)
+- **22 auto-invoked skills** (research, planning, validation, pattern recognition, context management, architecture, API, testing, project organization, error learning, pyramid loop, UI/UX Pro MAX, frontend design, shadcn/ui, web accessibility, web design guidelines, generate-docs, auto-memory-capture)
+- **26 slash commands** (`/do`, `/workflow`, `/research`, `/plan`, `/implement`, `/review`, `/mode`, `/context`, `/circuit-breaker`, `/security-audit`, `/seo-audit`, `/ux-review`, `/responsive-review`, `/theme-review`, `/i18n-review`, `/architecture`, `/database`, `/api-design`, `/test-strategy`, `/devops`, `/secdevops`, `/tech-debt`, `/generate-docs`, `/save-session`, `/resume-session`, `/learn`)
 - **18 lifecycle hooks** (quality gates, auto-formatting, knowledge capture, session management, hawk oversight, auto error capture, file protection, desktop notifications, post-compaction reinject, dead rule detection)
 - **Quality gates** with scoring rubrics (Research >= 80, Plan >= 85, Tests pass)
 - **Circuit breaker** that stops infinite loops after 3 consecutive failures
@@ -45,23 +45,23 @@ A drop-in enhancement for [Claude Code CLI](https://docs.anthropic.com/en/docs/c
 
 ## Architecture
 
-### 28 Agents, 5 Tiers + Pyramid Coordinators, 3 Models
+### 32 Agents, 5 Tiers + Pyramid Coordinators, 3 Models
 
 | Tier | Agents | Model | Purpose |
 |------|--------|-------|---------|
 | **Pyramid Coordinators** | plan-coordinator, code-coordinator, review-coordinator | Opus + Sonnet | 3-tier pyramid orchestration (plan -> code -> review) |
 | **Orchestration** | chief-architect | Opus | Multi-domain coordination, agent selection |
 | **Core (BUILD+FIX)** | docs-researcher, implementation-planner, brahma-analyzer, code-implementer, brahma-investigator | Opus + Sonnet | Research, plan, analyze, implement, debug |
-| **Engineering** | software-architect, programmer, database-architect, api-designer, testing-engineer | Opus + Sonnet | Architecture, coding, databases, APIs, testing |
-| **Infrastructure** | devops-engineer, secdevops-engineer, brahma-deployer, brahma-monitor, brahma-optimizer | Sonnet | CI/CD, security pipelines, deploy, monitor, optimize |
-| **Growth & Quality** | seo-strategist, business-analyst, content-strategist, product-strategist, security-auditor, ux-accessibility-reviewer, responsive-reviewer, theme-reviewer, i18n-reviewer | Haiku + Sonnet | SEO, business, content, product, security, UX, responsive, themes, i18n |
+| **Engineering** | software-architect, programmer, database-architect, api-designer, testing-engineer, mcp-builder, data-engineer | Opus + Sonnet | Architecture, coding, databases, APIs, testing, MCP servers, data pipelines |
+| **Infrastructure** | devops-engineer, secdevops-engineer, brahma-deployer, brahma-monitor, brahma-optimizer, incident-commander | Sonnet | CI/CD, security pipelines, deploy, monitor, optimize, incident response |
+| **Growth & Quality** | seo-strategist, business-analyst, content-strategist, product-strategist, security-auditor, ux-accessibility-reviewer, responsive-reviewer, theme-reviewer, i18n-reviewer, technical-writer | Haiku + Sonnet | SEO, business, content, product, security, UX, responsive, themes, i18n, docs |
 
 ### Model Distribution
 
 | Model | Count | Rationale |
 |-------|-------|-----------|
-| **Opus 4.6** | 7 | Orchestration + deep reasoning + complex coding (chief-architect, code-implementer, brahma-investigator, software-architect, programmer, plan-coordinator, code-coordinator) |
-| **Sonnet 4.6** | 13 | Analysis + code generation + infrastructure (docs-researcher, implementation-planner, brahma-analyzer, brahma-deployer, brahma-monitor, brahma-optimizer, security-auditor, database-architect, api-designer, testing-engineer, devops-engineer, secdevops-engineer, review-coordinator) |
+| **Opus 4.6** | 8 | Orchestration + deep reasoning + complex coding (chief-architect, code-implementer, brahma-investigator, software-architect, programmer, plan-coordinator, code-coordinator, mcp-builder) |
+| **Sonnet 4.6** | 16 | Analysis + code generation + infrastructure (docs-researcher, implementation-planner, brahma-analyzer, brahma-deployer, brahma-monitor, brahma-optimizer, security-auditor, database-architect, api-designer, testing-engineer, devops-engineer, secdevops-engineer, review-coordinator, technical-writer, data-engineer, incident-commander) |
 | **Haiku 4.5** | 8 | Checklist + content + review tasks (seo-strategist, business-analyst, content-strategist, product-strategist, ux-accessibility-reviewer, responsive-reviewer, theme-reviewer, i18n-reviewer) |
 
 ### Core Workflow
@@ -229,16 +229,16 @@ powershell scripts/windows/verify-installation.ps1
 
 | Directory | Files | Contents |
 |-----------|-------|----------|
-| `agents/` | 28 | Agent definitions (5 tiers + pyramid coordinators) |
-| `commands/` | 22 | Slash command definitions |
-| `skills/` | 16 | Auto-invoked skills |
+| `agents/` | 32 | Agent definitions (5 tiers + pyramid coordinators) |
+| `commands/` | 23 | Slash command definitions |
+| `skills/` | 22 | Auto-invoked skills |
 | `hooks/` | 18 | Lifecycle hooks |
 | `templates/` | 18 | Shared templates and overviews |
 | `validators/` | 2 | API matcher + circuit breaker |
 | `metrics/` | 1 | Workflow metrics tracker |
 | `data/` | 1 | MCP config template |
 | `integrations/` | 4 | LangGraph templates |
-| `rules/` | 1 | Path-specific rules |
+| `rules/` | 11 | Global + language-specific rules (TS, Python, Go, Rust) |
 
 Existing data, customizations, and knowledge files are preserved on upgrades.
 
@@ -273,9 +273,9 @@ Tracks consecutive implementation failures. Opens after 3 failures to prevent in
 ```
 claude-user-memory/
 ├── .claude/                    # Core system (installed to ~/.claude/)
-│   ├── agents/                 # 28 agent definitions
-│   ├── commands/               # 22 slash commands
-│   ├── skills/                 # 16 auto-invoked skills
+│   ├── agents/                 # 32 agent definitions
+│   ├── commands/               # 26 slash commands
+│   ├── skills/                 # 22 auto-invoked skills
 │   ├── hooks/                  # 18 lifecycle hooks
 │   ├── templates/              # Shared templates + overviews
 │   ├── validators/             # Quality gate validators
@@ -342,9 +342,9 @@ Based on [Anthropic research](https://www.anthropic.com/research) (2024-2025):
 
 | Document | Description |
 |----------|-------------|
-| [Agents Overview](.claude/templates/agents-overview.md) | All 28 agents, tiers, models |
+| [Agents Overview](.claude/templates/agents-overview.md) | All 32 agents, tiers, models |
 | [Workflows Overview](.claude/templates/workflows-overview.md) | Routing table, workflow patterns |
-| [Skills Overview](.claude/templates/skills-overview.md) | 16 auto-invoked skills reference |
+| [Skills Overview](.claude/templates/skills-overview.md) | 22 auto-invoked skills reference |
 | [Quality Gates](.claude/templates/quality-gates.md) | Scoring rubrics, circuit breaker |
 | [Agent Teams](.claude/agent-teams.md) | Parallel collaboration guide |
 | [Changelog](docs/CHANGELOG.md) | Version history (v3.0 - v7.2) |
@@ -360,7 +360,7 @@ Based on [Anthropic research](https://www.anthropic.com/research) (2024-2025):
 
 | Version | Date | Highlights |
 |---------|------|------------|
-| **7.2** | 2026-03-25 | Pyramid orchestration (plan->code->review->fix loop), 3 pyramid coordinators (28 agents total), 5 frontend/design skills (16 total), project-architecture.md, full doc sync |
+| **7.2** | 2026-03-25 | Pyramid orchestration (plan->code->review->fix loop), 3 pyramid coordinators, 4 new specialist agents (32 agents total), 5 frontend/design skills + generate-docs (17 total), project-architecture.md, full doc sync |
 | **7.1** | 2026-03-10 | Auto error-learning feedback loop, Hawk oversight pattern, anti-reward-hacking rules, linked chunks, tech-debt command, scratchpad + learnings templates |
 | **7.0** | 2026-02-27 | 10 new agents (25 total), 5 tiers, 9 new commands (21 total), 4 new skills (9 total), Agent Report Protocol |
 | **6.0** | 2026-02-24 | Agent Teams default on, v6.0 across all references, Opus 4.6 optimization |
@@ -386,7 +386,7 @@ MIT License - See [LICENSE](LICENSE)
 
 **Sistema de desarrollo basado en investigacion para Claude Code CLI**
 
-> 28 agentes. 22 comandos. 16 habilidades auto-invocadas. 18 hooks de ciclo de vida. Orquestacion piramidal. Auto-aprendizaje de errores. Cero alucinaciones de APIs. Investigar primero, programar despues.
+> 32 agentes. 26 comandos. 22 habilidades auto-invocadas. 18 hooks de ciclo de vida. Orquestacion piramidal. Auto-aprendizaje de errores. Cero alucinaciones de APIs. Investigar primero, programar despues.
 
 ---
 
@@ -412,9 +412,9 @@ Eso es todo. `/do` clasifica tu intencion, muestra un plan, espera confirmacion 
 
 Una extension drop-in para [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) que se instala en `~/.claude/` y lo transforma en un sistema de desarrollo basado en investigacion con:
 
-- **28 agentes especializados** en 5 niveles + coordinadores piramidales (Orquestacion, Core, Ingenieria, Infraestructura, Crecimiento y Calidad)
-- **16 habilidades auto-invocadas** (investigacion, planificacion, validacion, reconocimiento de patrones, gestion de contexto, arquitectura, API, testing, organizacion de proyecto, aprendizaje de errores, pyramid loop, UI/UX Pro MAX, frontend design, shadcn/ui, web accessibility, web design guidelines)
-- **22 comandos slash** (`/do`, `/workflow`, `/research`, `/plan`, `/implement`, `/review`, `/mode`, `/context`, `/circuit-breaker`, `/security-audit`, `/seo-audit`, `/ux-review`, `/responsive-review`, `/theme-review`, `/i18n-review`, `/architecture`, `/database`, `/api-design`, `/test-strategy`, `/devops`, `/secdevops`, `/tech-debt`)
+- **32 agentes especializados** en 5 niveles + coordinadores piramidales (Orquestacion, Core, Ingenieria, Infraestructura, Crecimiento y Calidad)
+- **22 habilidades auto-invocadas** (investigacion, planificacion, validacion, reconocimiento de patrones, gestion de contexto, arquitectura, API, testing, organizacion de proyecto, aprendizaje de errores, pyramid loop, UI/UX Pro MAX, frontend design, shadcn/ui, web accessibility, web design guidelines, generate-docs, auto-memory-capture)
+- **26 comandos slash** (`/do`, `/workflow`, `/research`, `/plan`, `/implement`, `/review`, `/mode`, `/context`, `/circuit-breaker`, `/security-audit`, `/seo-audit`, `/ux-review`, `/responsive-review`, `/theme-review`, `/i18n-review`, `/architecture`, `/database`, `/api-design`, `/test-strategy`, `/devops`, `/secdevops`, `/tech-debt`, `/generate-docs`, `/save-session`, `/resume-session`, `/learn`)
 - **18 hooks de ciclo de vida** (puertas de calidad, auto-formato, captura de conocimiento, gestion de sesion, vigilancia hawk, captura automatica de errores, proteccion de archivos, notificaciones de escritorio, reinyeccion post-compactacion, deteccion de reglas muertas)
 - **Puertas de calidad** con rubricas de puntuacion (Investigacion >= 80, Plan >= 85, Tests pasan)
 - **Circuit breaker** que detiene bucles infinitos despues de 3 fallos consecutivos
@@ -425,16 +425,16 @@ Una extension drop-in para [Claude Code CLI](https://docs.anthropic.com/en/docs/
 
 ## Arquitectura
 
-### 28 Agentes, 5 Niveles + Coordinadores Piramidales, 3 Modelos
+### 32 Agentes, 5 Niveles + Coordinadores Piramidales, 3 Modelos
 
 | Nivel | Agentes | Modelo | Proposito |
 |-------|---------|--------|-----------|
 | **Coordinadores Piramidales** | plan-coordinator, code-coordinator, review-coordinator | Opus + Sonnet | Orquestacion piramidal (plan -> code -> review) |
 | **Orquestacion** | chief-architect | Opus | Coordinacion multi-dominio |
 | **Core (BUILD+FIX)** | docs-researcher, implementation-planner, brahma-analyzer, code-implementer, brahma-investigator | Opus + Sonnet | Investigar, planificar, analizar, implementar, depurar |
-| **Ingenieria** | software-architect, programmer, database-architect, api-designer, testing-engineer | Opus + Sonnet | Arquitectura, codigo, bases de datos, APIs, testing |
-| **Infraestructura** | devops-engineer, secdevops-engineer, brahma-deployer, brahma-monitor, brahma-optimizer | Sonnet | CI/CD, seguridad de pipelines, desplegar, monitorizar, optimizar |
-| **Crecimiento y Calidad** | seo-strategist, business-analyst, content-strategist, product-strategist, security-auditor, ux-accessibility-reviewer, responsive-reviewer, theme-reviewer, i18n-reviewer | Haiku + Sonnet | SEO, negocio, contenido, producto, seguridad, UX, responsive, temas, i18n |
+| **Ingenieria** | software-architect, programmer, database-architect, api-designer, testing-engineer, mcp-builder, data-engineer | Opus + Sonnet | Arquitectura, codigo, bases de datos, APIs, testing, servidores MCP, pipelines de datos |
+| **Infraestructura** | devops-engineer, secdevops-engineer, brahma-deployer, brahma-monitor, brahma-optimizer, incident-commander | Sonnet | CI/CD, seguridad de pipelines, desplegar, monitorizar, optimizar, respuesta a incidentes |
+| **Crecimiento y Calidad** | seo-strategist, business-analyst, content-strategist, product-strategist, security-auditor, ux-accessibility-reviewer, responsive-reviewer, theme-reviewer, i18n-reviewer, technical-writer | Haiku + Sonnet | SEO, negocio, contenido, producto, seguridad, UX, responsive, temas, i18n, documentacion |
 
 ### Flujo de Trabajo Core
 
@@ -603,9 +603,9 @@ powershell scripts/windows/verify-installation.ps1
 
 | Documento | Descripcion |
 |-----------|-------------|
-| [Agents Overview](.claude/templates/agents-overview.md) | 28 agentes, niveles, modelos |
+| [Agents Overview](.claude/templates/agents-overview.md) | 32 agentes, niveles, modelos |
 | [Workflows Overview](.claude/templates/workflows-overview.md) | Tabla de rutas, patrones |
-| [Skills Overview](.claude/templates/skills-overview.md) | 16 habilidades auto-invocadas |
+| [Skills Overview](.claude/templates/skills-overview.md) | 22 habilidades auto-invocadas |
 | [Quality Gates](.claude/templates/quality-gates.md) | Rubricas, circuit breaker |
 | [Agent Teams](.claude/agent-teams.md) | Guia de colaboracion paralela |
 | [Changelog](docs/CHANGELOG.md) | Historial de versiones (v3.0 - v7.2) |
@@ -617,7 +617,7 @@ powershell scripts/windows/verify-installation.ps1
 
 | Version | Fecha | Destacado |
 |---------|-------|-----------|
-| **7.2** | 2026-03-25 | Orquestacion piramidal (plan->code->review->fix loop), 3 coordinadores piramidales (28 agentes total), 5 skills de frontend/diseno (16 total), project-architecture.md, sincronizacion completa de docs |
+| **7.2** | 2026-03-25 | Orquestacion piramidal (plan->code->review->fix loop), 3 coordinadores piramidales, 4 nuevos agentes especialistas (32 agentes total), 5 skills de frontend/diseno, 3 skills de proceso/calidad (20 total), project-architecture.md, sincronizacion completa de docs |
 | **7.1** | 2026-03-10 | Auto-aprendizaje de errores, patron Hawk de supervision, reglas anti-reward-hacking, linked chunks, comando tech-debt, plantillas scratchpad + learnings |
 | **7.0** | 2026-02-27 | 10 nuevos agentes (25 total), 5 niveles, 9 nuevos comandos (21 total), 4 nuevas habilidades (9 total), Agent Report Protocol |
 | **6.0** | 2026-02-24 | Agent Teams por defecto, optimizacion Opus 4.6 |
@@ -634,4 +634,4 @@ MIT License - Ver [LICENSE](LICENSE)
 
 ---
 
-**Version:** 7.2.0 | **Fecha:** 2026-03-25 | **Agentes:** 28 (7 Opus + 13 Sonnet + 8 Haiku) | **Comandos:** 22 | **Skills:** 16 | **Hooks:** 18
+**Version:** 7.2.0 | **Fecha:** 2026-03-25 | **Agentes:** 32 (8 Opus + 16 Sonnet + 8 Haiku) | **Comandos:** 26 | **Skills:** 22 | **Hooks:** 18

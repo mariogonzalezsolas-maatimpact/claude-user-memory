@@ -1,6 +1,6 @@
 # Skills Overview
 
-16 skills that enhance agent capabilities:
+22 skills that enhance agent capabilities:
 
 ### Core Workflow Skills
 
@@ -13,6 +13,8 @@
 | pattern-recognition | After successful implementation | Captures patterns to knowledge-core.md |
 | context-engineering | Session start, every 50 msgs, task switch | Context rot prevention (39% improvement, 84% token reduction) |
 | error-learning | Mistake made, approach failed, user correction | Auto-captures errors, 6 categories, pattern escalation to rules |
+| **auto-memory-capture** | Significant decision, failed approach, non-obvious solution, compaction imminent | Captures decisions, failed approaches (FAIL format), user corrections to persistent memory |
+| **generate-docs** | User asks to generate AI docs, configure .claude, setup project for AI | Agentic interview + .claude/ structure generation/migration (Spanish) |
 
 ### Engineering Methodology Skills
 
@@ -21,7 +23,16 @@
 | architecture-methodology | Architecture decisions needed | C4 diagrams, ADRs, pattern evaluation, trade-off analysis |
 | api-methodology | API design decisions needed | Contract-first, OpenAPI, versioning, error design |
 | testing-methodology | Test strategy decisions needed | Test pyramid, coverage targets, mock strategy, anti-flaky |
-| project-organization | New project, onboarding, "organize" | 6-pillar codebase organization for agent navigation (<30s) |
+| project-organization | New project, onboarding, "organize" | 7-pillar codebase organization for agent navigation (<30s) |
+| **django-patterns** | Project uses Django (manage.py, settings.py, django in requirements) | Split settings, custom User, QuerySets, DRF serializers/viewsets, service layer, caching, signals, N+1 prevention, bulk ops, indexing |
+
+### Process & Quality Skills (NEW)
+
+| Skill | Triggers When | Key Function |
+|-------|--------------|--------------|
+| **brainstorming-gate** | `/do` routes to FEATURE or ORCHESTRATE | Mandatory design-approval: context, questions, proposals, spec doc, self-review |
+| **git-worktrees** | Workspace isolation requested, concurrent features | Git worktree creation with setup auto-detection, baseline tests, Windows-compatible |
+| **verification-before-completion** | About to claim completion, commit, or move to next task | Evidence-before-claims gate: identify-run-read-verify-claim, anti-hallucination |
 
 ### Frontend & Design Skills (NEW in v7.2)
 
@@ -39,6 +50,7 @@
 ```
 User: "/do Add Redis caching"
   1. pyramid-loop -> activates 3-tier orchestration
+  1.5. brainstorming-gate -> design approval (FEATURE/ORCHESTRATE only)
   2. @plan-coordinator: research-methodology + planning-methodology + quality-validation (85+)
   3. @code-coordinator: TDD implementation from plan
   4. @review-coordinator: code review + browser testing + quality-validation (80+)

@@ -50,6 +50,8 @@ Just say what you want -- `/do` classifies, plans, confirms, then executes using
 | ORCHESTRATE | `@chief-architect` + pyramid | Per-phase gates |
 | SIMPLE | Direct answer | None |
 
+**Note**: FEATURE and ORCHESTRATE routes include a **brainstorming gate** before the pyramid. See `brainstorming-gate` skill. Opt out with "skip design" or "no brainstorm".
+
 ### Mandatory Plan Mode
 
 Every `/do` invocation shows a plan and waits for confirmation before executing:
@@ -141,6 +143,17 @@ Available via opt-out keywords: "simple", "sequential", "directo", "no pyramid"
 **UX-Driven Dev**: `@ux-accessibility-reviewer` + `@responsive-reviewer` + `@theme-reviewer` -> `@implementation-planner` -> `@code-implementer` (20-30 min)
 
 **Full Growth Audit**: Run `@seo-strategist` + `@ux-accessibility-reviewer` + `@security-auditor` + `@business-analyst` in parallel, then synthesize with `@product-strategist` (25-40 min)
+
+---
+
+## Session & Documentation Commands (NEW)
+
+| Command | Purpose | When to Use |
+|---------|---------|-------------|
+| `/generate-docs` | Generate/migrate `.claude/` structure for any project (Spanish) | Starting a new project, onboarding AI to existing project |
+| `/save-session` | Save session state for later resumption | Before ending work, approaching context limits |
+| `/resume-session` | Load saved session and resume with full context | Starting new session to continue previous work |
+| `/learn` | Extract reusable patterns from current session | After solving non-trivial problems |
 
 ---
 

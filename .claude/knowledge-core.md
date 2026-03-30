@@ -53,10 +53,10 @@ Every change must be: **Surgical** (fewest files), **Reversible** (include rollb
 
 Never sacrifice quality for performance. Use systematic approach to achieve both. Real-world validation over synthetic benchmarks.
 
-### Principle 6: 28-Agent Architecture with Pyramid Orchestration
-**Established**: 2025-10-18 (Expanded: 9→15 in v5.2, 15→25 in v7.0, 25→28 in v7.2)
+### Principle 6: 32-Agent Architecture with Pyramid Orchestration
+**Established**: 2025-10-18 (Expanded: 9→15 in v5.2, 15→25 in v7.0, 25→28 in v7.2, 28→32 in v7.2.1)
 
-The complete agent system with 28 specialized agents organized in 5 tiers + pyramid coordinators:
+The complete agent system with 32 specialized agents organized in 5 tiers + pyramid coordinators:
 
 **Architecture (v7.2)**:
 ```
@@ -143,7 +143,7 @@ Extended thinking modes for progressively deeper reasoning:
 
 **Performance**: 54% improvement on complex tasks (Anthropic research)
 
-**Files**: `.claude/templates/think-protocol.md`, all 28 agents include Think Protocol section
+**Files**: `.claude/templates/think-protocol.md`, all 32 agents include Think Protocol section
 
 ---
 
@@ -385,5 +385,5 @@ Quality gates must use `exit 1` (not `exit 0` with warnings). Add `--force` over
 ---
 
 **Last updated**: 2026-03-25 by Agentic Substrate v7.2 upgrade
-**Major enhancement**: v7.2 - Pyramid Orchestration, 28 agents (7 Opus + 13 Sonnet + 8 Haiku), Review Gate, fix loop
+**Major enhancement**: v7.2 - Pyramid Orchestration, 32 agents (8 Opus + 16 Sonnet + 8 Haiku), Review Gate, fix loop
 **Next review**: Ongoing (review with each major version)

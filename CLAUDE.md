@@ -25,7 +25,7 @@ Review-coordinator triggers a **fix loop** back to plan-coordinator if issues fo
 - Circuit breaker opens after 3 failures: /circuit-breaker reset
 - **CRITICAL: Error Self-Tracking** -- When you make a mistake, log it to `memory/errors.md` immediately. The auto-error-capture hook logs subagent failures automatically. Read errors.md at session start (auto-loaded by session-start hook). Check for patterns: 3+ similar errors = create a prevention rule. Never repeat a documented error. This is your feedback loop for continuous improvement.
 
-## Commands (22)
+## Commands (26)
 - `/do [anything]` -- Universal router with pyramid orchestration (RECOMMENDED)
 - `/workflow [feature]` -- Full automation: research -> plan -> implement
 - `/research [topic]` -- Fetch version-accurate docs (<2 min)
@@ -48,18 +48,22 @@ Review-coordinator triggers a **fix loop** back to plan-coordinator if issues fo
 - `/devops [scope]` -- CI/CD, Docker, K8s, Terraform
 - `/secdevops [scope]` -- SAST/DAST, supply chain, pipeline security
 - `/tech-debt [scope]` -- Continuous tech debt reduction
+- `/generate-docs` -- Generate/migrate .claude/ structure for any project (Spanish)
+- `/save-session` -- Save current session state for later resumption
+- `/resume-session` -- Load saved session and resume with full context
+- `/learn` -- Extract reusable patterns from session into memory
 
-## 28 Agents (5 Tiers + Pyramid Coordinators, 3 Models)
+## 32 Agents (5 Tiers + Pyramid Coordinators, 3 Models)
 - **Pyramid Coordinators** (opus+sonnet): plan-coordinator (opus), code-coordinator (opus), review-coordinator (sonnet)
 - **Orchestrator** (opus): chief-architect
 - **Core** (opus+sonnet): docs-researcher, implementation-planner, brahma-analyzer, code-implementer, brahma-investigator
-- **Engineering** (opus+sonnet): software-architect, programmer, database-architect, api-designer, testing-engineer
-- **Infrastructure** (sonnet): devops-engineer, secdevops-engineer, brahma-deployer, brahma-monitor, brahma-optimizer
-- **Growth & Quality** (haiku+sonnet): seo-strategist, business-analyst, content-strategist, product-strategist, security-auditor, ux-accessibility-reviewer, responsive-reviewer, theme-reviewer, i18n-reviewer
+- **Engineering** (opus+sonnet): software-architect, programmer, database-architect, api-designer, testing-engineer, mcp-builder, data-engineer
+- **Infrastructure** (sonnet): devops-engineer, secdevops-engineer, brahma-deployer, brahma-monitor, brahma-optimizer, incident-commander
+- **Growth & Quality** (haiku+sonnet): seo-strategist, business-analyst, content-strategist, product-strategist, security-auditor, ux-accessibility-reviewer, responsive-reviewer, theme-reviewer, i18n-reviewer, technical-writer
 
 ### Model Distribution
-- **Opus** (7): chief-architect, code-implementer, brahma-investigator, software-architect, programmer, plan-coordinator, code-coordinator -- orchestration + deep reasoning + complex coding
-- **Sonnet** (13): docs-researcher, implementation-planner, brahma-analyzer, brahma-deployer, brahma-monitor, brahma-optimizer, security-auditor, database-architect, api-designer, testing-engineer, devops-engineer, secdevops-engineer, review-coordinator -- analysis + code + infrastructure + review
+- **Opus** (8): chief-architect, code-implementer, brahma-investigator, software-architect, programmer, plan-coordinator, code-coordinator, mcp-builder -- orchestration + deep reasoning + complex coding
+- **Sonnet** (16): docs-researcher, implementation-planner, brahma-analyzer, brahma-deployer, brahma-monitor, brahma-optimizer, security-auditor, database-architect, api-designer, testing-engineer, devops-engineer, secdevops-engineer, review-coordinator, technical-writer, data-engineer, incident-commander -- analysis + code + infrastructure + review + docs + data + incidents
 - **Haiku** (8): seo-strategist, business-analyst, content-strategist, product-strategist, ux-accessibility-reviewer, responsive-reviewer, theme-reviewer, i18n-reviewer -- checklist + content + review
 
 ## Quality Gates
@@ -97,9 +101,9 @@ This repository is the **source** for the Agentic Substrate. Key directories:
 
 | Directory | Contents |
 |-----------|----------|
-| `.claude/agents/` | 28 agent definitions |
-| `.claude/skills/` | 16 auto-invoked skills |
-| `.claude/commands/` | 22 slash commands |
+| `.claude/agents/` | 32 agent definitions |
+| `.claude/skills/` | 22 skills (20 auto-invoked, 2 manual) |
+| `.claude/commands/` | 26 slash commands |
 | `.claude/hooks/` | 18 lifecycle hooks |
 | `.claude/templates/` | Shared templates + overview docs |
 | `.claude/rules/` | Path-specific rules (glob patterns) |

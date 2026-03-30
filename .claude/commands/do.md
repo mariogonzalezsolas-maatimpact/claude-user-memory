@@ -71,7 +71,7 @@ Analyze the request and assign exactly one route:
 | DEPLOY | deploy, release, ship, push to production, rollout | `@brahma-deployer` |
 | OPTIMIZE | optimize, performance, slow, faster, scale | Pyramid (plan -> code -> review) |
 | MONITOR | monitor, observe, metrics, logs, alerts, dashboard | `@brahma-monitor` |
-| INCIDENT | production down, outage, emergency, users can't, P0/P1 | `@brahma-investigator` + `@brahma-monitor` |
+| INCIDENT | production down, outage, emergency, users can't, P0/P1 | `@incident-commander` + `@brahma-investigator` + `@brahma-monitor` |
 | REVIEW | review, code review, PR, pull request, audit code | `@review-coordinator` (review only) |
 | ROLLBACK | revert, undo, rollback, go back, restore previous | Direct (git revert + verification) |
 | SEO | seo, search engine, rankings, meta tags, schema | `@seo-strategist` |
@@ -93,6 +93,9 @@ Analyze the request and assign exactly one route:
 | PRODUCT | product, roadmap, market, competitive, gtm, pricing | `@product-strategist` |
 | CONTEXT | context, memory, tokens, too long, clean up | `/context analyze` |
 | ORCHESTRATE | complete, full, entire, end-to-end, multi-domain | Pyramid with `@chief-architect` pre-decomposition |
+| MCP | mcp server, model context protocol, mcp tool, mcp builder | `@mcp-builder` |
+| DATA | etl, elt, pipeline, data lake, streaming, kafka, airflow, dagster, dbt, data quality | `@data-engineer` |
+| DOCS | readme, documentation, api reference, changelog, tutorial, write docs, technical writing | `@technical-writer` |
 | SIMPLE | direct question, no action needed | Direct answer |
 
 ### Pyramid Routes (code-producing)
@@ -101,7 +104,7 @@ These routes ALWAYS use the pyramid: **FEATURE, REFACTOR, TEST, IMPLEMENT, DEBUG
 
 ### Direct Routes (no pyramid)
 
-These routes dispatch to a specialist directly: **RESEARCH, PLAN, DEPLOY, MONITOR, INCIDENT, REVIEW, ROLLBACK, SEO, SECURITY, UX, RESPONSIVE, THEME, I18N, ARCHITECTURE, API, TESTING, DEVOPS, SECDEVOPS, BUSINESS, CONTENT, PRODUCT, CONTEXT, SIMPLE**
+These routes dispatch to a specialist directly: **RESEARCH, PLAN, DEPLOY, MONITOR, INCIDENT, REVIEW, ROLLBACK, SEO, SECURITY, UX, RESPONSIVE, THEME, I18N, ARCHITECTURE, API, TESTING, DEVOPS, SECDEVOPS, BUSINESS, CONTENT, PRODUCT, MCP, DATA, DOCS, CONTEXT, SIMPLE**
 
 ### Disambiguation Priority
 
@@ -112,6 +115,29 @@ When keywords match multiple routes, use this priority:
 4. **MIGRATE** takes priority over FEATURE (data/schema/dependency changes, not new features)
 5. **ROLLBACK** takes priority over DEBUG (user wants to undo, not investigate)
 6. **"fix"** routes to DEBUG (not IMPLEMENT) unless preceded by "implement the fix"
+
+---
+
+## Step 1.5: BRAINSTORMING GATE (FEATURE + ORCHESTRATE only)
+
+For FEATURE and ORCHESTRATE routes, a mandatory design-approval phase runs BEFORE the plan:
+
+**Invokes**: `brainstorming-gate` skill
+
+```
+1. Context exploration (read relevant files, identify integration points)
+2. Clarifying questions (one at a time, max 3-4, multiple-choice preferred)
+3. Design proposals (2-3 approaches with tradeoffs + recommendation)
+4. User selects approach
+5. Full design presented for approval
+6. Spec document written to docs/specs/[feature].md
+7. Spec self-review (placeholders, consistency, scope, ambiguity)
+```
+
+**Opt-out keywords**: "skip design", "no brainstorm", "just code it", "sin diseno"
+**Skip conditions**: Spec already exists for this feature | Fix iteration > 1 | Bug fix or refactor
+
+After brainstorming completes, the spec is passed to plan-coordinator as additional context.
 
 ---
 
@@ -130,6 +156,7 @@ Coordinators:
   - @review-coordinator: Code review + browser testing
 Quality Gates: Plan (85+) -> Tests Pass -> Review (80+)
 Fix Loop: Up to 3 iterations if reviewer finds issues
+Spec: [docs/specs/feature.md if brainstorming gate ran, or "Skipped"]
 
 Plan Preview:
 1. Plan Coordinator: [what will be planned]

@@ -1,6 +1,6 @@
 # Contributing to Agentic Substrate
 
-Thank you for your interest in contributing! This repository provides the Agentic Substrate for Claude Code CLI: 25 specialized agents across 5 tiers, 22 commands, 10 skills, and 18 hooks.
+Thank you for your interest in contributing! This repository provides the Agentic Substrate for Claude Code CLI: 32 specialized agents across 5 tiers + pyramid coordinators, 26 commands, 22 skills, and 18 hooks.
 
 ## 🎯 Project Philosophy
 
@@ -32,13 +32,13 @@ git checkout -b feature/your-contribution
 ./install.sh --force
 
 # Verify installation
-./verify-installation.sh  # Should show 25 agents, 10 skills, 22 commands, 18 hooks
+./verify-installation.sh  # Should show 32 agents, 22 skills, 26 commands, 18 hooks
 ```
 
 ## 📋 Types of Contributions
 
 ### 1. Agent Enhancement
-Improving the 25 agents across 5 tiers:
+Improving the 32 agents across 5 tiers:
 - **Orchestration**: chief-architect
 - **Core (BUILD+FIX)**: docs-researcher, implementation-planner, brahma-analyzer, code-implementer, brahma-investigator
 - **Engineering**: software-architect, programmer, database-architect, api-designer, testing-engineer

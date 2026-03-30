@@ -1,6 +1,6 @@
 # Agents Overview
 
-**28 agents** across 5 tiers + pyramid coordinators. Models: Opus (7 critical) + Sonnet (13 analysis) + Haiku (8 checklist).
+**32 agents** across 5 tiers + pyramid coordinators. Models: Opus (8 critical) + Sonnet (16 analysis) + Haiku (8 checklist).
 
 ## Pyramid Coordinators (NEW in v7.2)
 
@@ -41,13 +41,17 @@ These 3 coordinators form the **default execution model** for all code-producing
 | 23 | responsive-reviewer | Quality | haiku | Breakpoints, mobile-first, touch targets, fluid layouts |
 | 24 | theme-reviewer | Quality | haiku | Dark/light mode, design tokens, contrast per theme |
 | 25 | i18n-reviewer | Quality | haiku | Translations, RTL, pluralization, locale handling |
+| 26 | technical-writer | Quality | sonnet | READMEs, API references, tutorials, changelogs, migration guides |
+| 27 | mcp-builder | Engineering | opus | MCP server design, tool interfaces, Zod/Pydantic validation |
+| 28 | data-engineer | Engineering | sonnet | ETL/ELT pipelines, data lakes, streaming, data quality |
+| 29 | incident-commander | Infrastructure | sonnet | Incident response, severity classification, post-mortems, runbooks |
 
 ## Model Distribution
 
 | Model | Count | Agents | Rationale |
 |-------|-------|--------|-----------|
-| Opus | 7 | chief-architect, code-implementer, brahma-investigator, software-architect, programmer, **plan-coordinator**, **code-coordinator** | Orchestration + deep reasoning + complex coding + pyramid planning/coding |
-| Sonnet | 13 | docs-researcher, implementation-planner, brahma-analyzer, brahma-deployer, brahma-monitor, brahma-optimizer, security-auditor, database-architect, api-designer, testing-engineer, devops-engineer, secdevops-engineer, **review-coordinator** | Analysis + code generation + infrastructure + pyramid review |
+| Opus | 8 | chief-architect, code-implementer, brahma-investigator, software-architect, programmer, **plan-coordinator**, **code-coordinator**, **mcp-builder** | Orchestration + deep reasoning + complex coding + pyramid planning/coding + MCP design |
+| Sonnet | 16 | docs-researcher, implementation-planner, brahma-analyzer, brahma-deployer, brahma-monitor, brahma-optimizer, security-auditor, database-architect, api-designer, testing-engineer, devops-engineer, secdevops-engineer, **review-coordinator**, **technical-writer**, **data-engineer**, **incident-commander** | Analysis + code generation + infrastructure + pyramid review + docs + data + incidents |
 | Haiku | 8 | seo-strategist, business-analyst, content-strategist, product-strategist, ux-accessibility-reviewer, responsive-reviewer, theme-reviewer, i18n-reviewer | Checklist + content + review tasks |
 
 ---
@@ -113,6 +117,12 @@ REST, GraphQL, gRPC API design. OpenAPI specs, versioning strategies, rate limit
 ### testing-engineer
 Test strategy, unit/integration/e2e test writing, mocking, coverage analysis, flaky test fixing, TDD coaching. Output: Testing Score 0-100. **Tools**: Read, Write, Edit, Bash, Grep, Glob, WebFetch, WebSearch.
 
+### mcp-builder
+MCP server specialist. Designs and builds Model Context Protocol tools with clean interfaces, structured error handling, and sub-500ms response times. Zod/Pydantic validation, tool description quality for agent selection. **Tools**: Read, Write, Edit, Bash, Grep, Glob, WebFetch, WebSearch.
+
+### data-engineer
+Data pipeline specialist. ETL/ELT pipelines, Medallion Architecture (Bronze/Silver/Gold), streaming (Kafka, Flink), data quality (Great Expectations, dbt tests), orchestration (Airflow, Dagster). **Tools**: Read, Write, Edit, Bash, Grep, Glob, WebFetch, WebSearch.
+
 ---
 
 ## Tier 4: Infrastructure (DevOps -> SecDevOps -> Deploy -> Monitor -> Optimize)
@@ -131,6 +141,9 @@ Three pillars: Metrics + Logs + Traces. SLI/SLO tracking, proactive incident det
 
 ### brahma-optimizer
 Performance profiling, scaling strategies, caching (Redis/CDN/app-level), DB query optimization. Profile first, optimize second. **Tools**: Bash, Read, Write, WebFetch, Grep.
+
+### incident-commander
+Incident response coordinator. Manages live incidents from detection through resolution and post-mortem. Severity classification (SEV1-SEV4), blameless post-mortems, runbook creation, SLO/SLI management. Complements @brahma-investigator (root cause) with human coordination. **Tools**: Read, Write, Edit, Bash, Grep, Glob, WebFetch, WebSearch.
 
 ---
 
@@ -162,6 +175,9 @@ Dark/light mode implementation, design token systems, CSS custom properties, col
 
 ### i18n-reviewer
 Hardcoded string detection, translation file structure, RTL support, ICU pluralization, Intl API formatting, locale routing, hreflang SEO. Output: i18n Readiness Score 0-100. **Tools**: Read, Write, Grep, Glob, WebFetch, WebSearch.
+
+### technical-writer
+Technical documentation specialist. READMEs (30-second orientation), API references, tutorials (time-to-first-success < 15 min), changelogs, migration guides, doc site frameworks (Mintlify, Docusaurus, VitePress). **Tools**: Read, Write, Edit, Grep, Glob, WebFetch, WebSearch.
 
 ---
 
@@ -201,4 +217,4 @@ Full gate definitions: @.claude/templates/quality-gates.md
 
 ---
 
-**Updated**: 2026-03-25 | **Version**: 7.2.0 | **Agents**: 28 (7 Opus + 13 Sonnet + 8 Haiku)
+**Updated**: 2026-03-30 | **Version**: 7.2.0 | **Agents**: 32 (8 Opus + 16 Sonnet + 8 Haiku)

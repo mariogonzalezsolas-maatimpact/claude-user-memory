@@ -13,7 +13,7 @@ All code-producing `/do` routes use 3-tier pyramid: orchestrator -> plan-coordin
 - Circuit breaker opens after 3 failures: /circuit-breaker reset
 - **CRITICAL: Error Self-Tracking** -- When you make a mistake, log it to `memory/errors.md` immediately. The auto-error-capture hook logs subagent failures automatically. Read errors.md at session start (auto-loaded by session-start hook). Check for patterns: 3+ similar errors = create a prevention rule. Never repeat a documented error. This is your feedback loop for continuous improvement.
 
-## Commands (22)
+## Commands (26)
 - `/do [anything]` -- Universal router with pyramid orchestration (RECOMMENDED)
 - `/workflow [feature]` -- Full automation: research -> plan -> implement
 - `/research [topic]` -- Fetch version-accurate docs (<2 min)
@@ -36,14 +36,18 @@ All code-producing `/do` routes use 3-tier pyramid: orchestrator -> plan-coordin
 - `/devops [scope]` -- CI/CD, Docker, K8s, Terraform
 - `/secdevops [scope]` -- SAST/DAST, supply chain, pipeline security
 - `/tech-debt [scope]` -- Continuous tech debt reduction
+- `/generate-docs` -- Generate/migrate .claude/ structure for any project (Spanish)
+- `/save-session` -- Save current session state for later resumption
+- `/resume-session` -- Load saved session and resume with full context
+- `/learn` -- Extract reusable patterns from session into memory
 
-## 28 Agents (5 Tiers + Pyramid, 3 Models)
+## 32 Agents (5 Tiers + Pyramid, 3 Models)
 - **Pyramid Coordinators** (opus+sonnet): plan-coordinator, code-coordinator, review-coordinator
 - **Orchestrator** (opus): chief-architect
 - **Core** (opus+sonnet): docs-researcher, implementation-planner, brahma-analyzer, code-implementer, brahma-investigator
-- **Engineering** (opus+sonnet): software-architect, programmer, database-architect, api-designer, testing-engineer
-- **Infrastructure** (sonnet): devops-engineer, secdevops-engineer, brahma-deployer, brahma-monitor, brahma-optimizer
-- **Growth & Quality** (haiku+sonnet): seo-strategist, business-analyst, content-strategist, product-strategist, security-auditor, ux-accessibility-reviewer, responsive-reviewer, theme-reviewer, i18n-reviewer
+- **Engineering** (opus+sonnet): software-architect, programmer, database-architect, api-designer, testing-engineer, mcp-builder, data-engineer
+- **Infrastructure** (sonnet): devops-engineer, secdevops-engineer, brahma-deployer, brahma-monitor, brahma-optimizer, incident-commander
+- **Growth & Quality** (haiku+sonnet): seo-strategist, business-analyst, content-strategist, product-strategist, security-auditor, ux-accessibility-reviewer, responsive-reviewer, theme-reviewer, i18n-reviewer, technical-writer
 
 ## Thinking Modes
 Add keyword: **think** (30-60s) | **think hard** (1-2min) | **think harder** (2-4min) | **ultrathink** (5-10min)

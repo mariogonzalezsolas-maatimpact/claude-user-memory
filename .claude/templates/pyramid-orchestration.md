@@ -83,12 +83,21 @@ The existing circuit breaker (3 consecutive failures) applies at the code-coordi
 
 When executing any route through the pyramid:
 
+### Step 4.0: Brainstorming Gate (FEATURE + ORCHESTRATE only)
+
+For FEATURE and ORCHESTRATE routes, run the brainstorming-gate skill first:
+- Context exploration + clarifying questions + design proposals
+- User approves design -> spec written to `docs/specs/`
+- Spec passed to plan-coordinator as additional context
+- **Skip if**: user opts out ("skip design"), spec already exists, or fix iteration > 1
+
 ### Step 4.1: Dispatch to Plan Coordinator
 
 ```
 Spawn @plan-coordinator with:
   TASK: [user's request]
   CONTEXT: [project type, relevant files, constraints]
+  SPEC: [path to docs/specs/feature.md if brainstorming ran, or "none"]
   ITERATION: 1
 ```
 
@@ -189,6 +198,9 @@ DEPLOY, OPTIMIZE, MONITOR, INCIDENT, DEVOPS, SECDEVOPS
 
 ### Routes that use REVIEW-ONLY:
 REVIEW, SECURITY, SEO, UX, RESPONSIVE, THEME, I18N, ARCHITECTURE, API, TESTING, BUSINESS, CONTENT, PRODUCT
+
+### Routes that use DIRECT specialist dispatch (no pyramid):
+MCP, DATA, DOCS
 
 ### Routes that SKIP pyramid:
 SIMPLE, CONTEXT, RESEARCH (just research, no code), PLAN (just plan, no code), ROLLBACK (direct git revert)
