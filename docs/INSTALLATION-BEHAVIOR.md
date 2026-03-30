@@ -232,15 +232,15 @@ ls -la ~/.claude/CLAUDE.md.backup
 
 **Substrate Version**: v7.3.0
 
-**Total Managed Files**: 124
+**Total Managed Files**: 127
 - Agents: 32
-- Skills: 22
+- Skills: 23
 - Commands: 26
 - Hooks: 19
 - Validators: 2
 - Metrics: 1
 - Templates: 11
-- Rules: 11
+- Rules: 13
 - Data: 1 (mcp-config-template.json)
 - Integrations: 4
 - Config: 2 (settings.json, agent-teams.md)

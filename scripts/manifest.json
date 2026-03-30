@@ -3,7 +3,7 @@
   "name": "agentic-substrate",
   "displayName": "Agentic Substrate - Claude Code Enhancement",
   "version": "7.2.0",
-  "description": "The foundational layer for Claude Code superintelligence. 32 specialized agents across 5 tiers + pyramid coordinators (Orchestration, Core, Engineering, Infrastructure, Growth & Quality), 26 commands, 22 skills, 19 hooks, 11 rules (incl. language-specific for TS/Python/Go/Rust), optimized for Opus 4.6. Adds Pyramid Orchestration (plan->code->review->fix loop), 5 frontend/design skills (UI-UX-Pro-MAX, frontend-design, shadcn-ui, web-accessibility, web-design-guidelines), Research→Plan→Implement workflow, auto error-learning feedback loop, Hawk oversight pattern, Engineering agents, Infrastructure agents, Quality reviewers, multi-agent coordination, context engineering, and think protocols.",
+  "description": "The foundational layer for Claude Code superintelligence. 32 specialized agents across 5 tiers + pyramid coordinators (Orchestration, Core, Engineering, Infrastructure, Growth & Quality), 26 commands, 23 skills, 19 hooks, 13 rules (incl. language-specific for TS/Python/Go/Rust), optimized for Opus 4.6. Adds Pyramid Orchestration (plan->code->review->fix loop), 5 frontend/design skills (UI-UX-Pro-MAX, frontend-design, shadcn-ui, web-accessibility, web-design-guidelines), Research→Plan→Implement workflow, auto error-learning feedback loop, Hawk oversight pattern, Engineering agents, Infrastructure agents, Quality reviewers, multi-agent coordination, context engineering, and think protocols.",
   "server": {
     "type": "static",
     "enabled": false
@@ -79,8 +79,8 @@
       "description": "32 specialized agents across 5 tiers + pyramid coordinators: Orchestration, Core Workflow, Engineering, Infrastructure, Growth & Quality"
     },
     "skills": {
-      "count": 22,
-      "names": ["research-methodology", "planning-methodology", "quality-validation", "pattern-recognition", "context-engineering", "api-methodology", "architecture-methodology", "testing-methodology", "project-organization", "error-learning", "pyramid-loop", "ui-ux-pro-max", "frontend-design", "shadcn-ui", "web-accessibility", "web-design-guidelines", "generate-docs", "brainstorming-gate", "git-worktrees", "verification-before-completion", "django-patterns", "auto-memory-capture"],
+      "count": 23,
+      "names": ["research-methodology", "planning-methodology", "quality-validation", "pattern-recognition", "context-engineering", "api-methodology", "architecture-methodology", "testing-methodology", "project-organization", "error-learning", "pyramid-loop", "ui-ux-pro-max", "frontend-design", "shadcn-ui", "web-accessibility", "web-design-guidelines", "generate-docs", "brainstorming-gate", "git-worktrees", "verification-before-completion", "django-patterns", "auto-memory-capture", "nextjs-firebase-gcp"],
       "description": "Auto-invoked capabilities that enhance agent performance"
     },
     "commands": {

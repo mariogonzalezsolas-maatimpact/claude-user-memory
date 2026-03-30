@@ -1,6 +1,6 @@
 # Skills Overview
 
-22 skills that enhance agent capabilities:
+23 skills that enhance agent capabilities:
 
 ### Core Workflow Skills
 
@@ -25,6 +25,7 @@
 | testing-methodology | Test strategy decisions needed | Test pyramid, coverage targets, mock strategy, anti-flaky |
 | project-organization | New project, onboarding, "organize" | 7-pillar codebase organization for agent navigation (<30s) |
 | **django-patterns** | Project uses Django (manage.py, settings.py, django in requirements) | Split settings, custom User, QuerySets, DRF serializers/viewsets, service layer, caching, signals, N+1 prevention, bulk ops, indexing |
+| **nextjs-firebase-gcp** | Project uses Next.js + PostgreSQL + Firebase + GCP | Server Components, Prisma ORM, Firebase Auth/Firestore, GCP Cloud Run deployment, integration patterns |
 
 ### Process & Quality Skills (NEW)
 

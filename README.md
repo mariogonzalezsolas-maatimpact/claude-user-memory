@@ -2,7 +2,7 @@
 
 **Research-first development system for Claude Code CLI**
 
-> 32 agents. 26 commands. 22 auto-invoked skills. 19 lifecycle hooks. Pyramid orchestration. Auto error-learning. Zero API hallucinations. Research first, code second.
+> 32 agents. 26 commands. 23 auto-invoked skills. 19 lifecycle hooks. Pyramid orchestration. Auto error-learning. Zero API hallucinations. Research first, code second.
 
 [English](#english) | [Espanol](#espanol)
 
@@ -33,7 +33,7 @@ That's it. `/do` classifies your intent, shows a plan, waits for confirmation, a
 A drop-in enhancement for [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) that installs to `~/.claude/` and transforms it into a research-first development system with:
 
 - **32 specialized agents** across 5 tiers + pyramid coordinators (Orchestration, Core, Engineering, Infrastructure, Growth & Quality)
-- **22 auto-invoked skills** (research, planning, validation, pattern recognition, context management, architecture, API, testing, project organization, error learning, pyramid loop, UI/UX Pro MAX, frontend design, shadcn/ui, web accessibility, web design guidelines, generate-docs, auto-memory-capture)
+- **23 auto-invoked skills** (research, planning, validation, pattern recognition, context management, architecture, API, testing, project organization, error learning, pyramid loop, UI/UX Pro MAX, frontend design, shadcn/ui, web accessibility, web design guidelines, generate-docs, auto-memory-capture, nextjs-firebase-gcp)
 - **26 slash commands** (`/do`, `/workflow`, `/research`, `/plan`, `/implement`, `/review`, `/mode`, `/context`, `/circuit-breaker`, `/security-audit`, `/seo-audit`, `/ux-review`, `/responsive-review`, `/theme-review`, `/i18n-review`, `/architecture`, `/database`, `/api-design`, `/test-strategy`, `/devops`, `/secdevops`, `/tech-debt`, `/generate-docs`, `/save-session`, `/resume-session`, `/learn`)
 - **19 lifecycle hooks** (quality gates, auto-formatting, knowledge capture, session management, hawk oversight, auto error capture, file protection, desktop notifications, post-compaction reinject, dead rule detection)
 - **Quality gates** with scoring rubrics (Research >= 80, Plan >= 85, Tests pass)
@@ -231,14 +231,14 @@ powershell scripts/windows/verify-installation.ps1
 |-----------|-------|----------|
 | `agents/` | 32 | Agent definitions (5 tiers + pyramid coordinators) |
 | `commands/` | 23 | Slash command definitions |
-| `skills/` | 22 | Auto-invoked skills |
+| `skills/` | 23 | Auto-invoked skills |
 | `hooks/` | 19 | Lifecycle hooks |
 | `templates/` | 18 | Shared templates and overviews |
 | `validators/` | 2 | API matcher + circuit breaker |
 | `metrics/` | 1 | Workflow metrics tracker |
 | `data/` | 1 | MCP config template |
 | `integrations/` | 4 | LangGraph templates |
-| `rules/` | 11 | Global + language-specific rules (TS, Python, Go, Rust) |
+| `rules/` | 13 | Global + language-specific rules (TS, Python, Go, Rust, Next.js, PostgreSQL) |
 
 Existing data, customizations, and knowledge files are preserved on upgrades.
 
@@ -275,7 +275,7 @@ claude-user-memory/
 ├── .claude/                    # Core system (installed to ~/.claude/)
 │   ├── agents/                 # 32 agent definitions
 │   ├── commands/               # 26 slash commands
-│   ├── skills/                 # 22 auto-invoked skills
+│   ├── skills/                 # 23 auto-invoked skills
 │   ├── hooks/                  # 19 lifecycle hooks
 │   ├── templates/              # Shared templates + overviews
 │   ├── validators/             # Quality gate validators
@@ -344,7 +344,7 @@ Based on [Anthropic research](https://www.anthropic.com/research) (2024-2025):
 |----------|-------------|
 | [Agents Overview](.claude/templates/agents-overview.md) | All 32 agents, tiers, models |
 | [Workflows Overview](.claude/templates/workflows-overview.md) | Routing table, workflow patterns |
-| [Skills Overview](.claude/templates/skills-overview.md) | 22 auto-invoked skills reference |
+| [Skills Overview](.claude/templates/skills-overview.md) | 23 auto-invoked skills reference |
 | [Quality Gates](.claude/templates/quality-gates.md) | Scoring rubrics, circuit breaker |
 | [Agent Teams](.claude/agent-teams.md) | Parallel collaboration guide |
 | [Changelog](docs/CHANGELOG.md) | Version history (v3.0 - v7.2) |
@@ -386,7 +386,7 @@ MIT License - See [LICENSE](LICENSE)
 
 **Sistema de desarrollo basado en investigacion para Claude Code CLI**
 
-> 32 agentes. 26 comandos. 22 habilidades auto-invocadas. 19 hooks de ciclo de vida. Orquestacion piramidal. Auto-aprendizaje de errores. Cero alucinaciones de APIs. Investigar primero, programar despues.
+> 32 agentes. 26 comandos. 23 habilidades auto-invocadas. 19 hooks de ciclo de vida. Orquestacion piramidal. Auto-aprendizaje de errores. Cero alucinaciones de APIs. Investigar primero, programar despues.
 
 ---
 
@@ -413,7 +413,7 @@ Eso es todo. `/do` clasifica tu intencion, muestra un plan, espera confirmacion 
 Una extension drop-in para [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) que se instala en `~/.claude/` y lo transforma en un sistema de desarrollo basado en investigacion con:
 
 - **32 agentes especializados** en 5 niveles + coordinadores piramidales (Orquestacion, Core, Ingenieria, Infraestructura, Crecimiento y Calidad)
-- **22 habilidades auto-invocadas** (investigacion, planificacion, validacion, reconocimiento de patrones, gestion de contexto, arquitectura, API, testing, organizacion de proyecto, aprendizaje de errores, pyramid loop, UI/UX Pro MAX, frontend design, shadcn/ui, web accessibility, web design guidelines, generate-docs, auto-memory-capture)
+- **23 habilidades auto-invocadas** (investigacion, planificacion, validacion, reconocimiento de patrones, gestion de contexto, arquitectura, API, testing, organizacion de proyecto, aprendizaje de errores, pyramid loop, UI/UX Pro MAX, frontend design, shadcn/ui, web accessibility, web design guidelines, generate-docs, auto-memory-capture, nextjs-firebase-gcp)
 - **26 comandos slash** (`/do`, `/workflow`, `/research`, `/plan`, `/implement`, `/review`, `/mode`, `/context`, `/circuit-breaker`, `/security-audit`, `/seo-audit`, `/ux-review`, `/responsive-review`, `/theme-review`, `/i18n-review`, `/architecture`, `/database`, `/api-design`, `/test-strategy`, `/devops`, `/secdevops`, `/tech-debt`, `/generate-docs`, `/save-session`, `/resume-session`, `/learn`)
 - **19 hooks de ciclo de vida** (puertas de calidad, auto-formato, captura de conocimiento, gestion de sesion, vigilancia hawk, captura automatica de errores, proteccion de archivos, notificaciones de escritorio, reinyeccion post-compactacion, deteccion de reglas muertas)
 - **Puertas de calidad** con rubricas de puntuacion (Investigacion >= 80, Plan >= 85, Tests pasan)
@@ -605,7 +605,7 @@ powershell scripts/windows/verify-installation.ps1
 |-----------|-------------|
 | [Agents Overview](.claude/templates/agents-overview.md) | 32 agentes, niveles, modelos |
 | [Workflows Overview](.claude/templates/workflows-overview.md) | Tabla de rutas, patrones |
-| [Skills Overview](.claude/templates/skills-overview.md) | 22 habilidades auto-invocadas |
+| [Skills Overview](.claude/templates/skills-overview.md) | 23 habilidades auto-invocadas |
 | [Quality Gates](.claude/templates/quality-gates.md) | Rubricas, circuit breaker |
 | [Agent Teams](.claude/agent-teams.md) | Guia de colaboracion paralela |
 | [Changelog](docs/CHANGELOG.md) | Historial de versiones (v3.0 - v7.2) |
@@ -634,4 +634,4 @@ MIT License - Ver [LICENSE](LICENSE)
 
 ---
 
-**Version:** 7.2.0 | **Fecha:** 2026-03-25 | **Agentes:** 32 (8 Opus + 16 Sonnet + 8 Haiku) | **Comandos:** 26 | **Skills:** 22 | **Hooks:** 18
+**Version:** 7.2.0 | **Fecha:** 2026-03-25 | **Agentes:** 32 (8 Opus + 16 Sonnet + 8 Haiku) | **Comandos:** 26 | **Skills:** 23 | **Hooks:** 18

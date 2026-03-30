@@ -609,7 +609,7 @@ function Show-Summary {
     Write-Host "  Location: $CLAUDE_TARGET"
     Write-Host "  Version: $VERSION"
     Write-Host "  Platform: Windows (PowerShell)"
-    Write-Host "  Agents: 32 | Skills: 22 | Commands: 26 | Pyramid: plan->code->review"
+    Write-Host "  Agents: 32 | Skills: 23 | Commands: 26 | Pyramid: plan->code->review"
     Write-Host ""
 
     if ($BACKUP_LOCATION) {
