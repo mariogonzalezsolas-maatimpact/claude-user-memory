@@ -966,7 +966,7 @@ display_summary() {
     echo "  Location: $CLAUDE_TARGET"
     echo "  Version: $VERSION"
     echo "  Platform: $OS_TYPE"
-    echo "  Agents: 32 | Skills: 23 | Commands: 26 | Pyramid: plan->code->review"
+    echo "  Agents: 32 | Skills: 23 | Commands: 27 | Hooks: 21 | Pyramid: plan->code->review"
     echo ""
 
     if [ -n "$BACKUP_LOCATION" ]; then

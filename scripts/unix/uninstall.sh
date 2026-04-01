@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Agentic Substrate v6.0 - Safe Uninstallation (Robust Cross-Platform)
+# Agentic Substrate v7.2.1 - Safe Uninstallation (Robust Cross-Platform)
 # Removes installed files while preserving user data and customizations
 
-VERSION="6.0.0"
+VERSION="7.2.1"
 
 # DO NOT use set -e - we want explicit error handling
 # set -e causes immediate exit on any error, preventing cleanup

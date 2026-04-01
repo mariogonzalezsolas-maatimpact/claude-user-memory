@@ -2,7 +2,7 @@
 
 **Research-first development system for Claude Code CLI**
 
-> 32 agents. 26 commands. 23 auto-invoked skills. 19 lifecycle hooks. Pyramid orchestration. Auto error-learning. Zero API hallucinations. Research first, code second.
+> 32 agents. 27 commands. 23 auto-invoked skills. 21 lifecycle hooks. Pyramid orchestration. Auto error-learning. Zero API hallucinations. Research first, code second.
 
 [English](#english) | [Espanol](#espanol)
 
@@ -13,8 +13,8 @@
 ## Quick Start
 
 ```bash
-git clone https://github.com/mariogonzalezsolas-maatimpact/claude-user-memory.git
-cd claude-user-memory
+git clone https://github.com/mariogonzalezsolas-maatimpact/agentic-substrate.git
+cd agentic-substrate
 python setup.py
 ```
 
@@ -34,8 +34,8 @@ A drop-in enhancement for [Claude Code CLI](https://docs.anthropic.com/en/docs/c
 
 - **32 specialized agents** across 5 tiers + pyramid coordinators (Orchestration, Core, Engineering, Infrastructure, Growth & Quality)
 - **23 auto-invoked skills** (research, planning, validation, pattern recognition, context management, architecture, API, testing, project organization, error learning, pyramid loop, UI/UX Pro MAX, frontend design, shadcn/ui, web accessibility, web design guidelines, generate-docs, auto-memory-capture, nextjs-firebase-gcp)
-- **26 slash commands** (`/do`, `/workflow`, `/research`, `/plan`, `/implement`, `/review`, `/mode`, `/context`, `/circuit-breaker`, `/security-audit`, `/seo-audit`, `/ux-review`, `/responsive-review`, `/theme-review`, `/i18n-review`, `/architecture`, `/database`, `/api-design`, `/test-strategy`, `/devops`, `/secdevops`, `/tech-debt`, `/generate-docs`, `/save-session`, `/resume-session`, `/learn`)
-- **19 lifecycle hooks** (quality gates, auto-formatting, knowledge capture, session management, hawk oversight, auto error capture, file protection, desktop notifications, post-compaction reinject, dead rule detection)
+- **27 slash commands** (`/do`, `/workflow`, `/research`, `/plan`, `/implement`, `/review`, `/mode`, `/context`, `/circuit-breaker`, `/security-audit`, `/seo-audit`, `/ux-review`, `/responsive-review`, `/theme-review`, `/i18n-review`, `/architecture`, `/database`, `/api-design`, `/test-strategy`, `/devops`, `/secdevops`, `/tech-debt`, `/generate-docs`, `/save-session`, `/resume-session`, `/learn`, `/retro`)
+- **21 lifecycle hooks** (quality gates, auto-formatting, knowledge capture, session management, hawk oversight, auto error capture, file protection, desktop notifications, post-compaction reinject, dead rule detection, implementation validation)
 - **Quality gates** with scoring rubrics (Research >= 80, Plan >= 85, Tests pass)
 - **Circuit breaker** that stops infinite loops after 3 consecutive failures
 - **Persistent memory** via knowledge-core.md across sessions
@@ -183,8 +183,8 @@ macOS, Linux, WSL, Windows (Git Bash, MSYS2, PowerShell)
 ### Install
 
 ```bash
-git clone https://github.com/mariogonzalezsolas-maatimpact/claude-user-memory.git
-cd claude-user-memory
+git clone https://github.com/mariogonzalezsolas-maatimpact/agentic-substrate.git
+cd agentic-substrate
 python setup.py
 ```
 
@@ -225,15 +225,15 @@ powershell scripts/windows/verify-installation.ps1
 
 ### What Gets Installed
 
-~92 managed files into `~/.claude/`:
+~138 managed files into `~/.claude/`:
 
 | Directory | Files | Contents |
 |-----------|-------|----------|
 | `agents/` | 32 | Agent definitions (5 tiers + pyramid coordinators) |
-| `commands/` | 23 | Slash command definitions |
+| `commands/` | 27 | Slash command definitions |
 | `skills/` | 23 | Auto-invoked skills |
-| `hooks/` | 19 | Lifecycle hooks |
-| `templates/` | 18 | Shared templates and overviews |
+| `hooks/` | 21 | Lifecycle hooks |
+| `templates/` | 16 | Shared templates and overviews |
 | `validators/` | 2 | API matcher + circuit breaker |
 | `metrics/` | 1 | Workflow metrics tracker |
 | `data/` | 1 | MCP config template |
@@ -271,12 +271,12 @@ Tracks consecutive implementation failures. Opens after 3 failures to prevent in
 ## Repository Structure
 
 ```
-claude-user-memory/
+agentic-substrate/
 ├── .claude/                    # Core system (installed to ~/.claude/)
 │   ├── agents/                 # 32 agent definitions
-│   ├── commands/               # 26 slash commands
+│   ├── commands/               # 27 slash commands
 │   ├── skills/                 # 23 auto-invoked skills
-│   ├── hooks/                  # 19 lifecycle hooks
+│   ├── hooks/                  # 21 lifecycle hooks
 │   ├── templates/              # Shared templates + overviews
 │   ├── validators/             # Quality gate validators
 │   ├── metrics/                # Workflow metrics tracker
@@ -386,15 +386,15 @@ MIT License - See [LICENSE](LICENSE)
 
 **Sistema de desarrollo basado en investigacion para Claude Code CLI**
 
-> 32 agentes. 26 comandos. 23 habilidades auto-invocadas. 19 hooks de ciclo de vida. Orquestacion piramidal. Auto-aprendizaje de errores. Cero alucinaciones de APIs. Investigar primero, programar despues.
+> 32 agentes. 27 comandos. 23 habilidades auto-invocadas. 21 hooks de ciclo de vida. Orquestacion piramidal. Auto-aprendizaje de errores. Cero alucinaciones de APIs. Investigar primero, programar despues.
 
 ---
 
 ## Inicio Rapido
 
 ```bash
-git clone https://github.com/mariogonzalezsolas-maatimpact/claude-user-memory.git
-cd claude-user-memory
+git clone https://github.com/mariogonzalezsolas-maatimpact/agentic-substrate.git
+cd agentic-substrate
 python setup.py
 ```
 
@@ -414,8 +414,8 @@ Una extension drop-in para [Claude Code CLI](https://docs.anthropic.com/en/docs/
 
 - **32 agentes especializados** en 5 niveles + coordinadores piramidales (Orquestacion, Core, Ingenieria, Infraestructura, Crecimiento y Calidad)
 - **23 habilidades auto-invocadas** (investigacion, planificacion, validacion, reconocimiento de patrones, gestion de contexto, arquitectura, API, testing, organizacion de proyecto, aprendizaje de errores, pyramid loop, UI/UX Pro MAX, frontend design, shadcn/ui, web accessibility, web design guidelines, generate-docs, auto-memory-capture, nextjs-firebase-gcp)
-- **26 comandos slash** (`/do`, `/workflow`, `/research`, `/plan`, `/implement`, `/review`, `/mode`, `/context`, `/circuit-breaker`, `/security-audit`, `/seo-audit`, `/ux-review`, `/responsive-review`, `/theme-review`, `/i18n-review`, `/architecture`, `/database`, `/api-design`, `/test-strategy`, `/devops`, `/secdevops`, `/tech-debt`, `/generate-docs`, `/save-session`, `/resume-session`, `/learn`)
-- **19 hooks de ciclo de vida** (puertas de calidad, auto-formato, captura de conocimiento, gestion de sesion, vigilancia hawk, captura automatica de errores, proteccion de archivos, notificaciones de escritorio, reinyeccion post-compactacion, deteccion de reglas muertas)
+- **27 comandos slash** (`/do`, `/workflow`, `/research`, `/plan`, `/implement`, `/review`, `/mode`, `/context`, `/circuit-breaker`, `/security-audit`, `/seo-audit`, `/ux-review`, `/responsive-review`, `/theme-review`, `/i18n-review`, `/architecture`, `/database`, `/api-design`, `/test-strategy`, `/devops`, `/secdevops`, `/tech-debt`, `/generate-docs`, `/save-session`, `/resume-session`, `/learn`, `/retro`)
+- **21 hooks de ciclo de vida** (puertas de calidad, auto-formato, captura de conocimiento, gestion de sesion, vigilancia hawk, captura automatica de errores, proteccion de archivos, notificaciones de escritorio, reinyeccion post-compactacion, deteccion de reglas muertas, validacion de implementacion)
 - **Puertas de calidad** con rubricas de puntuacion (Investigacion >= 80, Plan >= 85, Tests pasan)
 - **Circuit breaker** que detiene bucles infinitos despues de 3 fallos consecutivos
 - **Memoria persistente** via knowledge-core.md entre sesiones
@@ -536,8 +536,8 @@ Agrega una palabra clave para razonamiento extendido:
 macOS, Linux, WSL, Windows (Git Bash, MSYS2, PowerShell)
 
 ```bash
-git clone https://github.com/mariogonzalezsolas-maatimpact/claude-user-memory.git
-cd claude-user-memory
+git clone https://github.com/mariogonzalezsolas-maatimpact/agentic-substrate.git
+cd agentic-substrate
 python setup.py
 ```
 
@@ -634,4 +634,4 @@ MIT License - Ver [LICENSE](LICENSE)
 
 ---
 
-**Version:** 7.2.1 | **Fecha:** 2026-03-25 | **Agentes:** 32 (8 Opus + 16 Sonnet + 8 Haiku) | **Comandos:** 26 | **Skills:** 23 | **Hooks:** 18
+**Version:** 7.2.1 | **Fecha:** 2026-03-25 | **Agentes:** 32 (8 Opus + 16 Sonnet + 8 Haiku) | **Comandos:** 27 | **Skills:** 23 | **Hooks:** 21

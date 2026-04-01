@@ -30,7 +30,7 @@ Priority 3-5 (on-demand): software-architect, database-architect, api-designer, 
 | `.claude/agents/` | 32 agent definitions (priority 1-5 frontmatter) |
 | `.claude/skills/` | 23 skills (21 auto-invoked, 2 manual) |
 | `.claude/commands/` | 27 slash commands |
-| `.claude/hooks/` | 20 lifecycle hooks |
+| `.claude/hooks/` | 21 lifecycle hooks |
 | `.claude/templates/` | Shared templates, overview docs, agent.tmpl |
 | `.claude/agent-configs/` | YAML configs for agent generator |
 | `.claude/rules/` | Path-specific rules |
