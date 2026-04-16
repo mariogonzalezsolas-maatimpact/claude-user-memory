@@ -2,7 +2,7 @@
 
 **Research-first development system for Claude Code CLI**
 
-> 32 agents. 27 commands. 41 skills (22 auto-invoked + 19 manual). 21 lifecycle hooks. Pyramid orchestration. Auto error-learning. Zero API hallucinations. Research first, code second.
+> 32 agents. 27 commands. 42 skills (23 auto-invoked + 19 manual). 21 lifecycle hooks. Pyramid orchestration. Auto error-learning. Zero API hallucinations. Research first, code second.
 
 [English](#english) | [Espanol](#espanol)
 
@@ -387,7 +387,7 @@ MIT License - See [LICENSE](LICENSE)
 
 **Sistema de desarrollo basado en investigacion para Claude Code CLI**
 
-> 32 agentes. 27 comandos. 41 habilidades (22 auto-invocadas + 19 manuales). 21 hooks de ciclo de vida. Orquestacion piramidal. Auto-aprendizaje de errores. Cero alucinaciones de APIs. Investigar primero, programar despues.
+> 32 agentes. 27 comandos. 42 habilidades (23 auto-invocadas + 19 manuales). 21 hooks de ciclo de vida. Orquestacion piramidal. Auto-aprendizaje de errores. Cero alucinaciones de APIs. Investigar primero, programar despues.
 
 ---
 

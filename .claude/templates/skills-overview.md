@@ -1,6 +1,6 @@
 # Skills Overview
 
-41 skills that enhance agent capabilities:
+42 skills that enhance agent capabilities:
 
 ### Core Workflow Skills
 
@@ -105,6 +105,7 @@ User: "Organize this codebase for AI agents"
 | **cloud-security** | Cloud infrastructure audit | AWS/Azure/GCP IAM, storage exposure, CIS benchmarks |
 | **container-security** | Docker/K8s security review | Image scanning, RBAC audit, pod security, Falco, network policies |
 | **api-security** | API penetration testing | OWASP API Top 10 (2023), BOLA/IDOR, GraphQL security |
+| **wstg** | OWASP WSTG v4.2 structured audits | 104 test cases, 12 categories, ENS/SOC2/ISO27001 compliance mapping |
 
 ### SaaS & Integration Skills (NEW in v7.3)
 
